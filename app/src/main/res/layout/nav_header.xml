@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:layout_marginBottom="0dp">
+
+    <ImageView
+        android:id="@+id/circle"
+        android:layout_width="600dp"
+        android:layout_height="600dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="-50dp"
+        android:layout_marginTop="-60dp"
+        android:layout_marginRight="-50dp"
+        android:src="@drawable/circle" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/circle_bg"
+        android:padding="2dp"
+        android:src="@drawable/ic_launcher_foreground"
+        android:layout_centerVertical="true"
+        android:id="@+id/imgAVT"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvHoTenNa_Header"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/imgAVT"
+        android:layout_centerVertical="true"
+        android:text="username"
+        android:textSize="17sp"
+        android:textColor="#fff"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnHeaderLogin"
+        android:layout_width="100dp"
+        android:layout_height="24dp"
+        android:layout_below="@+id/tvHoTenNa_Header"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/imgAVT"
+        android:text="Đăng nhập"
+        android:textColor="@color/black"
+        android:background="@drawable/btn_dn_bg"
+        android:textSize="9dp"
+        />
+</RelativeLayout>

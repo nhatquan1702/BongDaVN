@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:title="Home"
+            android:icon="@drawable/right"
+            android:id="@+id/H"
+            />
+        <item
+            android:title="Chia sẻ"
+            android:icon="@drawable/right"
+            android:id="@+id/CS"
+            />
+        <item
+            android:title="Góp ý"
+            android:icon="@drawable/right"
+            android:id="@+id/GY"
+            />
+        <item
+            android:title="Đánh giá ứng dụng"
+            android:icon="@drawable/right"
+            android:id="@+id/DGUD"
+            />
+        <item
+            android:title="Hỗ trợ"
+            android:icon="@drawable/right"
+            android:id="@+id/HT"
+            />
+    </group>
+    <item android:title=""
+        >
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:title="Điều khoản sử dụng"
+                    android:icon="@drawable/right"
+                    android:id="@+id/DKSD"
+                    />
+                <item
+                    android:title="Cài đặt"
+                    android:icon="@drawable/right"
+                    android:id="@+id/CD"
+                    />
+            </group>
+        </menu>
+    </item>
+</menu>
