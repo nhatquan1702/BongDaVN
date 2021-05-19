@@ -2,6 +2,9 @@ package com.example.apptinthethao_java.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.apptinthethao_java.R;
+import com.example.apptinthethao_java.adapter.MenuItemRecyclerViewAdapter;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
@@ -85,7 +89,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        RecyclerView recyclerViewMenu = findViewById(R.id.recyclerViewMenu);
+        ArrayList<String> arrayListMenuRecyclerview = new ArrayList<>();
+        arrayListMenuRecyclerview.add("Tin mới");
+        arrayListMenuRecyclerview.add("Bảng xếp hạng");
+        arrayListMenuRecyclerview.add("Lịch thi đấu");
+        arrayListMenuRecyclerview.add("Giải đấu");
+        arrayListMenuRecyclerview.add("Câu lạc bộ");
+        MenuItemRecyclerViewAdapter menuItemRecyclerViewAdapter = new MenuItemRecyclerViewAdapter(arrayListMenuRecyclerview, getApplicationContext());
+        recyclerViewMenu.setAdapter(menuItemRecyclerViewAdapter);
+        recyclerViewMenu.setLayoutManager(new GridLayoutManager(getApplicationContext(),1,GridLayoutManager.HORIZONTAL,false));
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
