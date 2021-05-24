@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">AppTinTheThao_Java</string>
-    <string name="DKSD"><![CDATA[some test line 1 <br />some test line 2]]></string>
+    <string name="DKSD">haha<br/>haha</string>
 </resources>
