@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppTinTheThao_Java">
-        <activity android:name=".activity.DangKyActivity"></activity>
+        <activity android:name=".activity.CauLacBoActivity"></activity>
+        <activity android:name=".activity.LichThiDauActivity" />
+        <activity android:name=".activity.DangKyActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>

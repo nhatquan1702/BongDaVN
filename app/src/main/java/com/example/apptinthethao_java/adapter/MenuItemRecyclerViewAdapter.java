@@ -4,9 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -19,7 +17,10 @@ import java.util.ArrayList;
 public class MenuItemRecyclerViewAdapter extends RecyclerView.Adapter<MenuItemRecyclerViewAdapter.ViewHolder> {
     private Context context;
     private ArrayList<String> arrayList;
-
+    private ItemClickInterface itemClickInterface;
+    public void setOnClickItemRecyclerView(ItemClickInterface itemRecyclerView){
+        itemClickInterface = itemRecyclerView;
+    }
     public MenuItemRecyclerViewAdapter( ArrayList<String> arrayList, Context mContext) {
         this.arrayList = arrayList;
         this.context = mContext;
@@ -35,13 +36,7 @@ public class MenuItemRecyclerViewAdapter extends RecyclerView.Adapter<MenuItemRe
 
     @Override
     public void onBindViewHolder(@NonNull MenuItemRecyclerViewAdapter.ViewHolder holder, int position) {
-        holder.textViewBtn.setText(arrayList.get(position));
-        holder.cardViewBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, holder.textViewBtn.getText().toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        holder.bind();
     }
 
     @Override
@@ -57,5 +52,19 @@ public class MenuItemRecyclerViewAdapter extends RecyclerView.Adapter<MenuItemRe
             textViewBtn = itemView.findViewById(R.id.tvItemMenuRecyclerView);
             cardViewBtn = itemView.findViewById(R.id.cvMenuRecyclerView);
         }
+        public void bind(){
+            textViewBtn.setText(arrayList.get(getAdapterPosition()));
+            cardViewBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemClickInterface.onClick(v, getAdapterPosition());
+                }
+            });
+        }
+
     }
+
 }
+
+
+

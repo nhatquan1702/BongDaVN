@@ -3,7 +3,6 @@ package com.example.apptinthethao_java.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -18,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.apptinthethao_java.R;
+import com.example.apptinthethao_java.adapter.ItemClickInterface;
 import com.example.apptinthethao_java.adapter.MenuItemRecyclerViewAdapter;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -25,8 +25,9 @@ import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     TabLayout tabLayout;
+    public ItemClickInterface itemClickInterface;
     SearchView searchView;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -88,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
                 drawerlayout.toggleMenu();
             }
         });
-
         RecyclerView recyclerViewMenu = findViewById(R.id.recyclerViewMenu);
         ArrayList<String> arrayListMenuRecyclerview = new ArrayList<>();
         arrayListMenuRecyclerview.add("Tin mới");
@@ -98,7 +98,25 @@ public class MainActivity extends AppCompatActivity {
         arrayListMenuRecyclerview.add("Câu lạc bộ");
         MenuItemRecyclerViewAdapter menuItemRecyclerViewAdapter = new MenuItemRecyclerViewAdapter(arrayListMenuRecyclerview, getApplicationContext());
         recyclerViewMenu.setAdapter(menuItemRecyclerViewAdapter);
+        menuItemRecyclerViewAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
+            @Override
+            public void onClick(View view, int position) {
+                Intent intent;
+                switch (position){
+                    case 0:
+                        intent = new Intent(MainActivity.this, LichThiDauActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 4:
+                        intent = new Intent(MainActivity.this, CauLacBoActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+            }
+        });
+
         recyclerViewMenu.setLayoutManager(new GridLayoutManager(getApplicationContext(),1,GridLayoutManager.HORIZONTAL,false));
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -143,4 +161,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
