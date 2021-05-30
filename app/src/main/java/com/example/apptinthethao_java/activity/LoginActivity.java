@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.apptinthethao_java.R;
+import com.example.apptinthethao_java.connectDB;
 
 public class LoginActivity extends AppCompatActivity {
 

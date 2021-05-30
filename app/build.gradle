@@ -54,4 +54,5 @@ dependencies {
         maven { url 'https://jitpack.io' }
     }
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'org.postgresql:postgresql:42.2.10'
 }
