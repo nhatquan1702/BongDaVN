@@ -28,7 +28,7 @@ public class MenuItemRecyclerViewAdapter extends RecyclerView.Adapter<MenuItemRe
     @NonNull
     @Override
     public MenuItemRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View heroView = inflater.inflate(R.layout.item_menu_recyclerview, parent, false);
         ViewHolder viewHolder = new ViewHolder(heroView);
         return viewHolder;
