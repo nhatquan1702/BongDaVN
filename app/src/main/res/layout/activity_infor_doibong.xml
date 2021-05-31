@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:padding="40dp"
-                app:srcCompat="@drawable/menu" />
+                app:srcCompat="@drawable/deappool" />
 
             <TextView
                 android:id="@+id/tvTenCLB"
@@ -51,10 +51,10 @@
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/chart"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+<!--            <com.github.mikephil.charting.charts.PieChart-->
+<!--                android:id="@+id/chart"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent" />-->
         </LinearLayout>
 
     </ScrollView>
