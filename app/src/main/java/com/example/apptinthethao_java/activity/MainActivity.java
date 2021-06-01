@@ -21,12 +21,17 @@ import com.example.apptinthethao_java.R;
 import com.example.apptinthethao_java.adapter.ItemClickInterface;
 import com.example.apptinthethao_java.adapter.MenuItemRecyclerViewAdapter;
 import com.example.apptinthethao_java.adapter.ViewPagerAdapter;
-import com.example.apptinthethao_java.model.CauLacBo;
+import com.example.apptinthethao_java.model.Post;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
@@ -71,6 +76,8 @@ public class MainActivity extends AppCompatActivity{
 
         //Xử lý thanh search
         //Search();
+
+
     }
 
     private void LoadMenuReCyclerView() {
@@ -213,4 +220,5 @@ public class MainActivity extends AppCompatActivity{
             });
         }
     }
+
 }
