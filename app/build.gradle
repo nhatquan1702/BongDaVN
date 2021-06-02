@@ -8,8 +8,9 @@ android {
 
     defaultConfig {
         applicationId "com.example.apptinthethao_java"
-        minSdkVersion 19
+        minSdkVersion 26
         targetSdkVersion 30
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
 
@@ -54,5 +55,6 @@ dependencies {
         maven { url 'https://jitpack.io' }
     }
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-    implementation 'org.postgresql:postgresql:42.2.10'
+    implementation 'org.postgresql:postgresql:42.2.20'
+    implementation 'com.android.support:multidex:1.0.3'
 }
