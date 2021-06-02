@@ -1,46 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:padding="5dp"
     android:background="@drawable/item_listview_bg"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvimgCLB"
+        android:id="@+id/cvImgSoAoDoiHinh"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="1dp"
-        android:scaleType="centerCrop"
+        android:layout_marginStart="10dp"
         app:cardCornerRadius="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <ImageView
-            android:id="@+id/imgCLB"
+            android:layout_width="match_parent"
+            android:background="@drawable/dark_bg"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/tvSoAo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/img_bg"
-            android:scaleType="centerCrop"
-            tools:srcCompat="@drawable/deappool" />
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 
+
+
     <TextView
-        android:id="@+id/tvTenCLB"
-        android:layout_width="0dp"
+        android:id="@+id/tvTenCCauThu"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginEnd="10dp"
         android:padding="2dp"
         android:text="Deadpool"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cvimgCLB"
+        app:layout_constraintStart_toEndOf="@+id/cvImgSoAoDoiHinh"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvViTri"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:text="GK"
+        android:textSize="30dp"
+        android:textColor="@color/purple_700"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
