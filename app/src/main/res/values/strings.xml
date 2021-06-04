@@ -1,6 +1,19 @@
 <resources>
     <string name="app_name">AppTinTheThao_Java</string>
-    <string name="DKSD">haha<br />haha</string>
+    <string name="DKSD">
+        <br>
+        Tại Google, chúng tôi theo đuổi những ý tưởng và sản phẩm vượt khỏi các giới hạn công nghệ hiện có. Với tư cách là một công ty hành động có trách nhiệm, chúng tôi nỗ lực làm việc để đảm bảo rằng mọi sự đổi mới đều cân bằng với mức riêng tư và bảo mật thích hợp dành cho người dùng. Các Nguyên tắc về quyền riêng tư của chúng tôi giúp định hướng các quyết định mà chúng tôi thực hiện tại mọi cấp trong công ty, vì vậy, chúng tôi có thể giúp bảo vệ cũng như trao quyền cho người dùng trong khi vẫn hoàn thành sứ mệnh hiện nay của mình là sắp xếp thông tin của thế giới.
+        </br>
+        <br/>
+        <br>
+        Khi sử dụng dịch vụ của chúng tôi, bạn tin tưởng cung cấp thông tin của bạn cho chúng tôi. Chúng tôi hiểu rằng đây là một trách nhiệm lớn và chúng tôi nỗ lực bảo vệ thông tin của bạn cũng như để bạn nắm quyền kiểm soát.
+       </br>
+        <br/>
+        <br>
+        Chính sách bảo mật này nhằm mục đích giúp bạn hiểu rõ những thông tin chúng tôi thu thập, lý do chúng tôi thu thập và cách bạn có thể cập nhật, quản lý, xuất và xóa thông tin của mình.
+        </br>
+</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

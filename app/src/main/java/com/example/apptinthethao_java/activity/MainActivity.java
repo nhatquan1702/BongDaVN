@@ -161,6 +161,8 @@ public class MainActivity extends AppCompatActivity{
                     }
                     case R.id.DKSD : {
                         Toast.makeText(getApplicationContext(), "Điều khoản sử dụng!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, DieuKhoanActivity.class);
+                        startActivity(intent);
                         return true;
 
                     }
