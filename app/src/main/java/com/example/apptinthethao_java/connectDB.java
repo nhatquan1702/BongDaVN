@@ -31,7 +31,7 @@ public class connectDB {
             System.out.println("Creating statement...");
             st = conn.createStatement();
             String sql;
-            sql = "select * from CLB";
+            sql = "select * from Account";
             ResultSet rs = st.executeQuery(sql);
 
             //STEP 5: Extract data from result set
@@ -41,7 +41,7 @@ public class connectDB {
                 String last = rs.getString(2);
 
                 //Display values
-                System.out.print(", name: " + first);
+                System.out.print("name: " + first);
                 System.out.println(", pass: " + last);
             }
             //STEP 6: Clean-up environment

@@ -1,9 +1,8 @@
 package com.example.apptinthethao_java.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -14,15 +13,22 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import com.example.apptinthethao_java.R;
-import com.example.apptinthethao_java.connectDB;
+import com.example.apptinthethao_java.doQueryDBTask;
 
 public class LoginActivity extends AppCompatActivity {
+    doQueryDBTask mDoQueryDBTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        // kết nối db
+
+
         RelativeLayout rLayoutDN = findViewById(R.id.rLayoutDN);
         RelativeLayout rLayoutAdd = findViewById(R.id.rLayoutAdd);
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.uptodowndiagonal);
@@ -40,6 +46,13 @@ public class LoginActivity extends AppCompatActivity {
         checkShowPass.setAnimation(animationx);
         Animation animationy = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.tranlation_y);
         rLayoutAdd.setAnimation(animationy);
+        CardView cvDNLogin = findViewById(R.id.cvDNLogin);
+        ImageView imgbtnDKTK = findViewById(R.id.imgbtnDKTK);
+
+        mDoQueryDBTask = new doQueryDBTask(LoginActivity.this);
+        //Gọi hàm execute để kích hoạt tiến trình
+         mDoQueryDBTask.execute("select * from Account");
+
         checkShowPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
 //                }
             }
         });
-        CardView cvDNLogin = findViewById(R.id.cvDNLogin);
+
         cvDNLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,12 +80,9 @@ public class LoginActivity extends AppCompatActivity {
                     edtPassLogin.requestFocus();
 
                 }
-//                        val sharedPreferences: SharedPreferences = getSharedPreferences(
-//                                "dataLogin",
-//                                Context.MODE_PRIVATE
-//                        )
-//                        var editor = sharedPreferences.edit()
-//                        if (!response.body()?.getAccessToken().equals(null)) {
+                SharedPreferences sharedPreferences = getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
+                 SharedPreferences.Editor editor = sharedPreferences.edit();
+//                        if (!response.body().getAccessToken().equals(null)) {
 //                            editor.apply {
 //                                putString("email", email)
 //                                putString("token", response.body()?.getAccessToken())
@@ -95,12 +105,11 @@ public class LoginActivity extends AppCompatActivity {
 //                                    Toast.LENGTH_SHORT
 //                            ).show()
 //                        }
-//                    }
-//
+                    }
+
 //                })
-            }
+//            }
         });
-        ImageView imgbtnDKTK = findViewById(R.id.imgbtnDKTK);
         imgbtnDKTK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
