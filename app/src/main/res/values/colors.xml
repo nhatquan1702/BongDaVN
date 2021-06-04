@@ -15,4 +15,8 @@
     <color name="colorPurpleT">#64983cff</color>
     <color name="colorBlue">#2FB4FF</color>
     <color name="colorBlueT">#642fb4ff</color>
+
+    <color name="colorLost">#FF5252</color>
+    <color name="colorTie">#40C4FF</color>
+    <color name="colorWin">#69F0AE</color>
 </resources>

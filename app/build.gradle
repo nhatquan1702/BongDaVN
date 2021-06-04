@@ -12,6 +12,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -61,4 +62,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.6.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation 'org.postgresql:postgresql:42.2.10'
+    // chart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    // multidex request
+    implementation 'com.android.support:multidex:1.0.3'
 }

@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.apptinthethao_java.R;
-import com.example.apptinthethao_java.adapter.CauLacBoAdapter;
 import com.example.apptinthethao_java.adapter.ChiTietCLBAdapter;
 import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.CauThu_DoiHinh;
