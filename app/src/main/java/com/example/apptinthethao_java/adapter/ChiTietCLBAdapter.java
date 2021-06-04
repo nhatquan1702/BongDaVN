@@ -5,26 +5,26 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.apptinthethao_java.R;
-import com.example.apptinthethao_java.model.CauLacBo;
+import com.example.apptinthethao_java.model.CauThu_DoiHinh;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class CauLacBoAdapter extends BaseAdapter {
-    private ArrayList<CauLacBo> cauLacBoArrayList;
-    public CauLacBoAdapter(ArrayList<CauLacBo> arrayList){
-        this.cauLacBoArrayList = arrayList;
+public class ChiTietCLBAdapter extends BaseAdapter {
+    private ArrayList<CauThu_DoiHinh> cauThuDoiHinhsArrayList;
+    public ChiTietCLBAdapter(ArrayList<CauThu_DoiHinh> arrayList){
+        this.cauThuDoiHinhsArrayList = arrayList;
     }
+
     @Override
     public int getCount() {
-        return cauLacBoArrayList.size();
+        return cauThuDoiHinhsArrayList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return cauLacBoArrayList.get(position);
+        return cauThuDoiHinhsArrayList.get(position);
     }
 
     @Override
@@ -36,17 +36,18 @@ public class CauLacBoAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
         if (convertView == null) {
-            view = View.inflate(parent.getContext(), R.layout.item_ds_clb, null);
+            view = View.inflate(parent.getContext(), R.layout.item_cau_thu, null);
         } else view = convertView;
-        ((TextView)view.findViewById(R.id.tvTenCLB)).setText(cauLacBoArrayList.get(position).getTenCLB());
+        ((TextView)view.findViewById(R.id.tvTenCauThu)).setText(cauThuDoiHinhsArrayList.get(position).getTenCauThu());
         ImageView imageView = (ImageView)view.findViewById(R.id.imgCLB);
         Picasso.get()
-                .load(cauLacBoArrayList.get(position).getLink())
+                .load(cauThuDoiHinhsArrayList.get(position).getImgCauThu())
                 .resize(50, 50)
                 .centerCrop()
                 .placeholder(R.drawable.gallery)
                 .error(R.drawable.gallery)
                 .into(imageView);
+        ((TextView)view.findViewById(R.id.tvSoAo)).setText(cauThuDoiHinhsArrayList.get(position).getSoAo());
         return view;
     }
 }
