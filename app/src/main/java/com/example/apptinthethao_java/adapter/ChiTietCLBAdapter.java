@@ -38,8 +38,7 @@ public class ChiTietCLBAdapter extends BaseAdapter {
         if (convertView == null) {
             view = View.inflate(parent.getContext(), R.layout.item_cau_thu, null);
         } else view = convertView;
-        ((TextView)view.findViewById(R.id.tvTenCauThu)).setText(cauThuDoiHinhsArrayList.get(position).getTenCauThu());
-        ImageView imageView = (ImageView)view.findViewById(R.id.imgCLB);
+        ImageView imageView = (ImageView)view.findViewById(R.id.imgCauThu);
         Picasso.get()
                 .load(cauThuDoiHinhsArrayList.get(position).getImgCauThu())
                 .resize(50, 50)
@@ -47,7 +46,8 @@ public class ChiTietCLBAdapter extends BaseAdapter {
                 .placeholder(R.drawable.gallery)
                 .error(R.drawable.gallery)
                 .into(imageView);
-        ((TextView)view.findViewById(R.id.tvSoAo)).setText(cauThuDoiHinhsArrayList.get(position).getSoAo());
+        ((TextView)view.findViewById(R.id.tvTenCauThu)).setText(cauThuDoiHinhsArrayList.get(position).getTenCauThu());
+        ((TextView)view.findViewById(R.id.tvSoAoCauThu)).setText(String.valueOf(cauThuDoiHinhsArrayList.get(position).getSoAo()));
         return view;
     }
 }

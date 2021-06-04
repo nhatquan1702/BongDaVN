@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.apptinthethao_java.R;
@@ -25,6 +26,7 @@ import retrofit2.Response;
 public class ChiTietCLBActivity extends AppCompatActivity {
     private ArrayList<CauThu_DoiHinh> cauThu_doiHinhArrayList;
     private ChiTietCLBAdapter chiTietCLBAdapter;
+    private TextView tvTenCLB;
     ListView listViewDSCauThu;
     private SimpleAPI simpleAPI;
     @Override
@@ -32,9 +34,11 @@ public class ChiTietCLBActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chi_tiet_c_l_b);
         listViewDSCauThu = findViewById(R.id.listViewDSCauThu);
+        tvTenCLB = findViewById(R.id.tvTenCLB);
         cauThu_doiHinhArrayList = new ArrayList<>();
         Intent intent = getIntent();
         String id_clb = intent.getStringExtra("clb_id");
+        tvTenCLB.setText(id_clb);
         LoadDSCauThu(id_clb);
     }
 

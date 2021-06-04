@@ -45,7 +45,7 @@ public class CauLacBoActivity extends AppCompatActivity {
                 listViewCLB.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(CauLacBoActivity.this, DetailPostActivity.class);
+                        Intent intent = new Intent(CauLacBoActivity.this, ChiTietCLBActivity.class);
                         intent.putExtra("clb_id", String.valueOf(cauLacBoArrayList.get(position).getTenCLB()));
                         startActivity(intent);
                     }
