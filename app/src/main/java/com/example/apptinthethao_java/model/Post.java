@@ -1,7 +1,21 @@
 package com.example.apptinthethao_java.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Post {
+    @SerializedName("post_id")
+    @Expose
     private int post_id = 0;
+    @SerializedName("post_title")
+    @Expose
+    private String post_title = "";
+    @SerializedName("post_img")
+    @Expose
+    private String post_img = "";
+    @SerializedName("post_create_time")
+    @Expose
+    private String post_create_time = "";
 
     public Post(int post_id, String post_title, String post_img, String post_create_time) {
         this.post_id = post_id;
@@ -9,11 +23,6 @@ public class Post {
         this.post_img = post_img;
         this.post_create_time = post_create_time;
     }
-
-    private String post_title = "";
-    private String post_img = "";
-    private String post_create_time = "";
-
 
     public int getPost_id() {
         return post_id;

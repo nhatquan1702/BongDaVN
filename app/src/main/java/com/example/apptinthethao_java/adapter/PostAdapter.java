@@ -49,6 +49,8 @@ public class PostAdapter extends BaseAdapter {
         ImageView imageView = (ImageView)viewitem.findViewById(R.id.img);
         Picasso.get()
                 .load(post.getPost_img())
+                .placeholder(R.drawable.gallery)
+                .error(R.drawable.gallery)
                 .into(imageView);
         return viewitem;
     }

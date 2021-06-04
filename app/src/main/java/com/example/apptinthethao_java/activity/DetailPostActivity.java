@@ -1,8 +1,10 @@
-package com.example.apptinthethao_java;
+package com.example.apptinthethao_java.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.apptinthethao_java.R;
 
 public class DetailPostActivity extends AppCompatActivity {
 

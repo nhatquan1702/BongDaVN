@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.apptinthethao_java">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppTinTheThao_Java">
-        <activity android:name=".DienBienActivity"></activity>
-        <activity android:name=".DetailPostActivity" />
+        <activity android:name=".activity.DienBienActivity"></activity>
+        <activity android:name=".activity.DetailPostActivity" />
         <activity android:name=".activity.DieuKhoanActivity" />
         <activity android:name=".activity.DangKyActivity" />
         <activity android:name=".activity.LichThiDauActivity" />

@@ -1,5 +1,6 @@
 package com.example.apptinthethao_java.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,8 +14,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.apptinthethao_java.R;
+import com.example.apptinthethao_java.activity.DetailPostActivity;
+import com.example.apptinthethao_java.activity.LichThiDauActivity;
+import com.example.apptinthethao_java.activity.MainActivity;
 import com.example.apptinthethao_java.adapter.PostAdapter;
+import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.Post;
+import com.example.apptinthethao_java.util.Constants;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,93 +30,61 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class TinMoiFragment extends Fragment {
     private ArrayList<Post> postArrayList;
     private ListView listViewTinMoi;
+    private PostAdapter postAdapter;
+    private SimpleAPI simpleAPI;
+    private View view;
+    private ShimmerFrameLayout shimmerFrameFB;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tin_moi, container, false);
+        view = inflater.inflate(R.layout.fragment_tin_moi, container, false);
         listViewTinMoi = view.findViewById(R.id.listViewTinMoi);
-
+        shimmerFrameFB = view.findViewById(R.id.shimmerFrame);
         LoadDataTinMoi();
 
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameFB.startShimmer();
+    }
+
     private void LoadDataTinMoi() {
-        Connection conn = null;
-        Statement st = null;
-
-        postArrayList = new ArrayList<>();
-
-        try{
-            //STEP 2: Register JDBC driver
-            Class.forName("org.postgresql.Driver");
-
-            //STEP 3: Open a connection
-            //System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection("jdbc:postgresql://ec2-52-71-231-37.compute-1.amazonaws.com:5432/d3pbrmjh5hgsb9",
-                    "cuefzkwkvdoncc", "3b5a03ed19cb22bbb695c2b1763d6a7035e2beb9e97221330a9e209500e1c3b8");
-            Log.d("quan", "fsdfsdf");
-            //STEP 4: Execute a query
-            System.out.println("Creating statement...");
-            st = conn.createStatement();
-            String query = "select post.post_id, post.post_title, post.post_img, post.post_create_time, post.post_view \n" +
-                    "from post\n" +
-                    "order by post.post_create_time desc";
-
-            ResultSet rs = st.executeQuery(query);
-
-            //STEP 5: Extract data from result set
-            while(rs.next()){
-                //Retrieve by column name
-                int id = rs.getInt(1);
-
-
-                String title = rs.getString(2);
-                String img = rs.getString(3);
-                String create_time = rs.getString(4);
-                Toast.makeText(getContext(), img, Toast.LENGTH_SHORT).show();
-
-                Post post = new Post(id, title, img, create_time);
-                postArrayList.add(post);
-                PostAdapter postAdapter = new PostAdapter(getContext(), postArrayList);
+        simpleAPI = Constants.instance();
+        simpleAPI.getListTinMoi().enqueue(new Callback<ArrayList<Post>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Post>> call, Response<ArrayList<Post>> response) {
+                postArrayList = response.body();
+                postAdapter = new PostAdapter(getContext(), postArrayList);
                 listViewTinMoi.setAdapter(postAdapter);
                 listViewTinMoi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(getContext(), String.valueOf(post.getPost_id()), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getContext(), DetailPostActivity.class);
+                        intent.putExtra("post_id", String.valueOf(postArrayList.get(position).getPost_id()));
+                        startActivity(intent);
                     }
                 });
+                shimmerFrameFB.stopShimmer();
+                shimmerFrameFB.setVisibility(view.GONE);
             }
-            //STEP 6: Clean-up environment
-            rs.close();
-            st.close();
-            conn.close();
-        }catch(SQLException se){
-            //Handle errors for JDBC
-            se.printStackTrace();
-        }catch(Exception e){
-            //Handle errors for Class.forName
-            e.printStackTrace();
-        }
-        finally
-        {
-            //finally block used to close resources
-            try{
-                if(st!=null)
-                    st.close();
-            }catch(SQLException se2){
-            }// nothing we can do
-            try{
-                if(conn!=null)
-                    conn.close();
+
+            @Override
+            public void onFailure(Call<ArrayList<Post>> call, Throwable t) {
+                Toast.makeText(getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
             }
-            catch(SQLException se){
-                se.printStackTrace();
-            }//end finally try
-        }
+        });
     }
 }
