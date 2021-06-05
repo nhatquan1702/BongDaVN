@@ -43,8 +43,8 @@ public class ChiTietCLBAdapter extends BaseAdapter {
                 .load(cauThuDoiHinhsArrayList.get(position).getImgCauThu())
                 .resize(50, 50)
                 .centerCrop()
-                .placeholder(R.drawable.gallery)
-                .error(R.drawable.gallery)
+                .placeholder(R.drawable.galleryoo)
+                .error(R.drawable.galleryoo)
                 .into(imageView);
         ((TextView)view.findViewById(R.id.tvTenCauThu)).setText(cauThuDoiHinhsArrayList.get(position).getTenCauThu());
         ((TextView)view.findViewById(R.id.tvSoAoCauThu)).setText(String.valueOf(cauThuDoiHinhsArrayList.get(position).getSoAo()));

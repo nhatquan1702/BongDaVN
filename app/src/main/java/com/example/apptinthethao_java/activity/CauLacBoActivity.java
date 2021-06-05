@@ -1,6 +1,7 @@
 package com.example.apptinthethao_java.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,8 +25,9 @@ import retrofit2.Response;
 public class CauLacBoActivity extends AppCompatActivity {
     private ArrayList<CauLacBo> cauLacBoArrayList;
     private CauLacBoAdapter cauLacBoAdapter;
-    ListView listViewCLB;
+    private ListView listViewCLB;
     private SimpleAPI simpleAPI;
+    private String id_CLB = "Binh Dinh FC";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,7 @@ public class CauLacBoActivity extends AppCompatActivity {
         listViewCLB = findViewById(R.id.listViewDSCLB);
         cauLacBoArrayList = new ArrayList<>();
         LoadCLB();
+
     }
     private void LoadCLB(){
         simpleAPI = Constants.instance();
@@ -45,6 +48,7 @@ public class CauLacBoActivity extends AppCompatActivity {
                 listViewCLB.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        id_CLB = String.valueOf(cauLacBoArrayList.get(position).getTenCLB());
                         Intent intent = new Intent(CauLacBoActivity.this, ChiTietCLBActivity.class);
                         intent.putExtra("clb_id", String.valueOf(cauLacBoArrayList.get(position).getTenCLB()));
                         startActivity(intent);
@@ -58,5 +62,8 @@ public class CauLacBoActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+    }
+    public String getId_CLB() {
+        return id_CLB;
     }
 }

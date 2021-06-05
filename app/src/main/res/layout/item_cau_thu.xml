@@ -10,8 +10,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvImgCauThu"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="1dp"
         android:scaleType="centerCrop"
@@ -38,32 +38,32 @@
         android:padding="2dp"
         android:text="Deadpool"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cvImgCauThu"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvImgSoAo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="10dp"
-        android:scaleType="centerCrop"
         app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <ImageView
             android:layout_width="match_parent"
-            android:background="@color/colorBlueT"
+            android:background="@drawable/ao"
+            android:scaleType="centerCrop"
             android:layout_height="match_parent"/>
         <TextView
             android:id="@+id/tvSoAoCauThu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="1"
-            android:textSize="30sp"
+            android:text="28"
+            android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@color/black" />
     </androidx.cardview.widget.CardView>

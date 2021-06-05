@@ -44,8 +44,8 @@ public class CauLacBoAdapter extends BaseAdapter {
                 .load(cauLacBoArrayList.get(position).getLink())
                 .resize(50, 50)
                 .centerCrop()
-                .placeholder(R.drawable.gallery)
-                .error(R.drawable.gallery)
+                .placeholder(R.drawable.galleryoo)
+                .error(R.drawable.galleryoo)
                 .into(imageView);
         return view;
     }

@@ -1,68 +1,52 @@
 package com.example.apptinthethao_java.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.apptinthethao_java.R;
-import com.example.apptinthethao_java.adapter.CauLacBoAdapter;
-import com.example.apptinthethao_java.adapter.ChiTietCLBAdapter;
-import com.example.apptinthethao_java.api.SimpleAPI;
-import com.example.apptinthethao_java.model.CauThu_DoiHinh;
-import com.example.apptinthethao_java.util.Constants;
-
-import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.example.apptinthethao_java.adapter.ViewPagerAdapter;
+import com.example.apptinthethao_java.adapter.ViewPagerChiTietCLBAdapter;
+import com.example.apptinthethao_java.fragment.ListCauThuFragment;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class ChiTietCLBActivity extends AppCompatActivity {
-    private ArrayList<CauThu_DoiHinh> cauThu_doiHinhArrayList;
-    private ChiTietCLBAdapter chiTietCLBAdapter;
-    private TextView tvTenCLB;
-    ListView listViewDSCauThu;
-    private SimpleAPI simpleAPI;
+    private TabLayout tabLayoutCTCLB;
+    private ViewPager2 viewPager2CTCLB;
+    private TextView tvTenCLBCTCLB;
+
+    public String getId_clb() {
+        return id_clb;
+    }
+
+    private String id_clb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chi_tiet_c_l_b);
-        listViewDSCauThu = findViewById(R.id.listViewDSCauThu);
-        tvTenCLB = findViewById(R.id.tvTenCLB);
-        cauThu_doiHinhArrayList = new ArrayList<>();
+        setContentView(R.layout.activity_chi_tiet_clb);
+        tvTenCLBCTCLB = findViewById(R.id.tvTenCLB);
         Intent intent = getIntent();
-        String id_clb = intent.getStringExtra("clb_id");
-        tvTenCLB.setText(id_clb);
-        LoadDSCauThu(id_clb);
+        id_clb = intent.getStringExtra("clb_id");
+        tvTenCLBCTCLB.setText(id_clb);
+        tabLayoutCTCLB = findViewById(R.id.tabLayoutChiTietCLB);
+        viewPager2CTCLB = findViewById(R.id.viewPagerChiTietCLB);
+        LoadTablayoutAndViewPager();
     }
 
-    private void LoadDSCauThu(String id) {
-        simpleAPI = Constants.instance();
-        simpleAPI.getListCauThu(id).enqueue(new Callback<ArrayList<CauThu_DoiHinh>>() {
+    private void LoadTablayoutAndViewPager() {
+        ViewPagerChiTietCLBAdapter viewPagerAdapter = new ViewPagerChiTietCLBAdapter(this);
+        viewPager2CTCLB.setAdapter(viewPagerAdapter);
+        String[] titleTab = {"Cầu thủ", "Tổng quan"};
+        new TabLayoutMediator(tabLayoutCTCLB, viewPager2CTCLB, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
-            public void onResponse(Call<ArrayList<CauThu_DoiHinh>> call, Response<ArrayList<CauThu_DoiHinh>> response) {
-                cauThu_doiHinhArrayList = response.body();
-                chiTietCLBAdapter = new ChiTietCLBAdapter(cauThu_doiHinhArrayList);
-                listViewDSCauThu.setAdapter(chiTietCLBAdapter);
-                listViewDSCauThu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(ChiTietCLBActivity.this, cauThu_doiHinhArrayList.get(position).getIdCauThu(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                tab.setText(titleTab[position]);
             }
-
-            @Override
-            public void onFailure(Call<ArrayList<CauThu_DoiHinh>> call, Throwable t) {
-                Toast.makeText(ChiTietCLBActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
-                t.printStackTrace();
-            }
-        });
+        }).attach();
     }
 }

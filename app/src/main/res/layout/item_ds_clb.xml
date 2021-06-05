@@ -10,9 +10,9 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvimgCLB"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="1dp"
         android:scaleType="centerCrop"
         app:cardCornerRadius="90dp"
