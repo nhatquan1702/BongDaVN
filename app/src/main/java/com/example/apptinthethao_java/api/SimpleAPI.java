@@ -52,4 +52,11 @@ public interface SimpleAPI {
 
     @GET("quan/trandau_guess_sub/{match_id}")
     Call<ArrayList<CauThu_DoiHinh>> getDoiHinhDuBiDoiKhach(@Path("match_id") String id);
+
+    @GET("nhan/match_result/{clb_id}")
+    Call<ArrayList<TranDau>> getMatchResult(@Path("clb_id") String id);
+
+    @GET("quan/chitietclb/{clb_id}")
+    Call<ArrayList<CauLacBo>> getCLB(@Path("clb_id") String id);
+
 }

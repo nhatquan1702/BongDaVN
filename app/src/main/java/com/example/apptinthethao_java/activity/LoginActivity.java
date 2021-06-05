@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -49,18 +51,16 @@ public class LoginActivity extends AppCompatActivity {
         CardView cvDNLogin = findViewById(R.id.cvDNLogin);
         ImageView imgbtnDKTK = findViewById(R.id.imgbtnDKTK);
 
-        mDoQueryDBTask = new doQueryDBTask(LoginActivity.this);
-        //Gọi hàm execute để kích hoạt tiến trình
-         mDoQueryDBTask.execute("select * from Account");
 
         checkShowPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if(checkShowPass.isChecked())    {
-//                    edtPassLogin.transformationMethod = HideReturnsTransformationMethod.getInstance();
-//                } else {
-//                    edtPassLogin.transformationMethod = PasswordTransformationMethod.getInstance();
-//                }
+                if(checkShowPass.isChecked())    {
+                    edtPassLogin.setInputType(InputType.TYPE_CLASS_TEXT);
+                } else {
+                    edtPassLogin.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+                edtPassLogin.setSelection(edtPassLogin.getText().length());
             }
         });
 
@@ -69,17 +69,22 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = edtEmailLogin.getText().toString().trim();
                 String pass = edtPassLogin.getText().toString().trim();
-
+                boolean isValid = true;
                 if(email.isEmpty()){
                     edtEmailLogin.setError("Vui lòng kiểm tra lại tài khoản!");
                     edtEmailLogin.requestFocus();
-
+                    isValid = false;
                 }
                 if(pass.isEmpty()){
                     edtPassLogin.setError("Vui lòng kiểm tra lại mật khẩu!");
                     edtPassLogin.requestFocus();
-
+                    isValid = false;
                 }
+
+                if(isValid){
+                    Toast.makeText(LoginActivity.this, "Đăng nhập", Toast.LENGTH_SHORT).show();
+                }
+
                 SharedPreferences sharedPreferences = getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
                  SharedPreferences.Editor editor = sharedPreferences.edit();
 //                        if (!response.body().getAccessToken().equals(null)) {
