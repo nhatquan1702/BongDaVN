@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppTinTheThao_Java">
-        <activity android:name=".activity.ChiTietCLBActivity"></activity>
+        <activity android:name=".activity.ThongTinCLBActivity"></activity>
+        <activity android:name=".activity.ChiTietCLBActivity" />
         <activity android:name=".activity.DienBienActivity" />
         <activity android:name=".activity.DetailPostActivity" />
         <activity android:name=".activity.DieuKhoanActivity" />
