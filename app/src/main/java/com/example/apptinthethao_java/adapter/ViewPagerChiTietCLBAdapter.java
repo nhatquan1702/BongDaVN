@@ -18,11 +18,11 @@ public class ViewPagerChiTietCLBAdapter extends FragmentStateAdapter {
         Fragment fragment = null;
         if (position == 0)
         {
-            fragment = new ListCauThuFragment();
+            fragment = new TongQuanCLBFragment();
         }
         else if (position == 1)
         {
-            fragment = new TongQuanCLBFragment();
+            fragment = new ListCauThuFragment();
         }
         return fragment;
     }

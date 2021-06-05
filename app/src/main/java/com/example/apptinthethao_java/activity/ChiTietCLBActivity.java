@@ -41,7 +41,7 @@ public class ChiTietCLBActivity extends AppCompatActivity {
     private void LoadTablayoutAndViewPager() {
         ViewPagerChiTietCLBAdapter viewPagerAdapter = new ViewPagerChiTietCLBAdapter(this);
         viewPager2CTCLB.setAdapter(viewPagerAdapter);
-        String[] titleTab = {"Cầu thủ", "Tổng quan"};
+        String[] titleTab = {"Tổng quan", "Cầu thủ"};
         new TabLayoutMediator(tabLayoutCTCLB, viewPager2CTCLB, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
