@@ -66,4 +66,8 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     // multidex request
     implementation 'com.android.support:multidex:1.0.3'
+    // chart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    // multidex request
+    implementation 'com.android.support:multidex:1.0.3'
 }

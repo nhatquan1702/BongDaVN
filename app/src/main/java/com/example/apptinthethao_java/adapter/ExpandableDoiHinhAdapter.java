@@ -71,18 +71,18 @@ public class ExpandableDoiHinhAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        final CauThu_DoiHinh expandleListChiTietDoiHinh = (CauThu_DoiHinh) getChild(groupPosition, childPosition);
+        final CauThu_DoiHinh expandleListText = (CauThu_DoiHinh) getChild(groupPosition, childPosition);
         if(convertView == null){
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView=layoutInflater.inflate(R.layout.item_doi_hinh, null);
         }
         TextView tvSoAo, tvTenCauThu, tvViTri;
-        tvSoAo = (TextView) convertView.findViewById(R.id.tvSoAo);
+        tvSoAo = (TextView) convertView.findViewById(R.id.tvSoAoDoiHinh);
         tvTenCauThu = (TextView) convertView.findViewById(R.id.tvTenCCauThu);
         tvViTri = (TextView) convertView.findViewById(R.id.tvViTri);
-        tvSoAo.setText(expandleListChiTietDoiHinh.getSoAo());
-        tvTenCauThu.setText(String.valueOf(expandleListChiTietDoiHinh.getTenCauThu()));
-        tvViTri.setText(String.valueOf(expandleListChiTietDoiHinh.getViTri()));
+        tvSoAo.setText(String.valueOf(expandleListText.getSoAo()));
+        tvTenCauThu.setText(String.valueOf(expandleListText.getTenCauThu()));
+        tvViTri.setText(String.valueOf(expandleListText.getViTri()));
         return convertView;
     }
 

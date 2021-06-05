@@ -14,6 +14,7 @@ import com.example.apptinthethao_java.adapter.CauLacBoAdapter;
 import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.CauLacBo;
 import com.example.apptinthethao_java.util.Constants;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 
@@ -24,16 +25,25 @@ import retrofit2.Response;
 public class CauLacBoActivity extends AppCompatActivity {
     private ArrayList<CauLacBo> cauLacBoArrayList;
     private CauLacBoAdapter cauLacBoAdapter;
-    ListView listViewCLB;
+    private ListView listViewCLB;
     private SimpleAPI simpleAPI;
+    private ShimmerFrameLayout shimmerFrameLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cau_lac_bo);
         listViewCLB = findViewById(R.id.listViewDSCLB);
+        shimmerFrameLayout = findViewById(R.id.shimmerFrame);
         cauLacBoArrayList = new ArrayList<>();
         LoadCLB();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        shimmerFrameLayout.startShimmer();
+    }
+
     private void LoadCLB(){
         simpleAPI = Constants.instance();
         simpleAPI.getListCLB().enqueue(new Callback<ArrayList<CauLacBo>>() {
@@ -50,6 +60,8 @@ public class CauLacBoActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
+                shimmerFrameLayout.stopShimmer();
+                shimmerFrameLayout.setVisibility(View.GONE);
             }
 
             @Override

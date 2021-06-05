@@ -52,11 +52,11 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="0dp"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
-                android:background="@drawable/item_listview_bg"
+                android:background="@drawable/tab_bg_new"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
