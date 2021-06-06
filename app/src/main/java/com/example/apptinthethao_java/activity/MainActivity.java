@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity{
                 Intent intent;
                 switch (position){
                     case 0:
-                        intent = new Intent(MainActivity.this, LichThiDauActivity.class);
+                        intent = new Intent(MainActivity.this, BangXepHangActivity.class);
                         startActivity(intent);
                         break;
                     case 1:
