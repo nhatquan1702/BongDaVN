@@ -1,11 +1,9 @@
 package com.example.apptinthethao_java.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,7 +12,6 @@ import com.example.apptinthethao_java.R;
 import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.DetailPost;
 import com.example.apptinthethao_java.util.Constants;
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -27,9 +24,7 @@ public class DetailPostActivity extends AppCompatActivity {
     private ArrayList<DetailPost> detailPosts;
     private SimpleAPI simpleAPI;
     private ImageView imgDetailPost;
-    private ShimmerFrameLayout shimmerFrameFB;
     private TextView tvTieuDeDeTail, tvNgayTao, tvNoiDung, tvNguoiTao, tvLuotView;
-    private ConstraintLayout constraintLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,19 +35,10 @@ public class DetailPostActivity extends AppCompatActivity {
         tvNoiDung = findViewById(R.id.tvNoiDung);
         tvNguoiTao = findViewById(R.id.tvNguoiTao);
         tvLuotView = findViewById(R.id.tvLuotView);
-        shimmerFrameFB = findViewById(R.id.shimmerFrame);
-        constraintLayout = findViewById(R.id.constraintLayoutDetailPost);
 
         Intent intent = getIntent();
         String id = intent.getStringExtra("post_id");
         LoadDetailPost(id);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        constraintLayout.setVisibility(View.GONE);
-        shimmerFrameFB.startShimmer();
     }
 
     private void LoadDetailPost(String post_id){
@@ -71,9 +57,6 @@ public class DetailPostActivity extends AppCompatActivity {
                 tvNoiDung.setText(detailPosts.get(0).getPost_content());
                 tvNguoiTao.setText(detailPosts.get(0).getPost_create_by());
                 tvLuotView.setText(String.valueOf(detailPosts.get(0).getPost_view())+" lượt xem");
-                shimmerFrameFB.stopShimmer();
-                shimmerFrameFB.setVisibility(View.GONE);
-                constraintLayout.setVisibility(View.VISIBLE);
             }
 
             @Override

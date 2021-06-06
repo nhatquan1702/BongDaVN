@@ -4,25 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.apptinthethao_java.R;
-import com.example.apptinthethao_java.adapter.DienBienSuKienAdapter;
 import com.example.apptinthethao_java.adapter.ExpandableDoiHinhAdapter;
 import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.CauLacBo;
 import com.example.apptinthethao_java.model.CauThu_DoiHinh;
 import com.example.apptinthethao_java.model.DienBienTranDau;
-import com.example.apptinthethao_java.model.DoiHinh;
-import com.example.apptinthethao_java.model.SuKienTrongTran;
 import com.example.apptinthethao_java.util.Constants;
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,10 +37,10 @@ public class DienBienActivity extends AppCompatActivity {
     private ExpandableListAdapter expandableListAdapter;
     private ArrayList<String> arrayListTitleDoiHinh;
     private HashMap<String, ArrayList<CauThu_DoiHinh>> hashMapChiTietDoiHinh;
-    private ArrayList<DoiHinh> arrayListDoiHinh;
-    private ListView listViewSuKien;
-    private ArrayList<SuKienTrongTran> suKienTrongTranArrayList;
-    private ShimmerFrameLayout shimmerFrameFB;
+    private ArrayList<CauThu_DoiHinh> arrayListHomeMain;
+    private ArrayList<CauThu_DoiHinh> arrayListHomeSub;
+    private ArrayList<CauThu_DoiHinh> arrayListGuessMain;
+    private ArrayList<CauThu_DoiHinh> arrayListGuessSub;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,71 +54,97 @@ public class DienBienActivity extends AppCompatActivity {
         tvTiSo = findViewById(R.id.tvTiSo);
         tvNgayThiDau = findViewById(R.id.tvNgayThiDau);
         expandableListView = findViewById(R.id.expandableDoiHinh);
-        listViewSuKien = findViewById(R.id.listViewSuKien);
-        shimmerFrameFB = findViewById(R.id.shimmerFrame);
 
         Intent intent = getIntent();
         match_id = intent.getStringExtra("match_id");
         dienBienTranDauArrayList = new ArrayList<>();
-        suKienTrongTranArrayList = new ArrayList<>();
 
-        LoadKetQuaTranDau(match_id);
-        LoadDoiHinhTranDau(match_id);
         LoadDienBienTranDau(match_id);
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        shimmerFrameFB.startShimmer();
-    }
-    private void LoadDienBienTranDau(String match_id) {
-        simpleAPI = Constants.instance();
-        simpleAPI.getSuKienTrongTran(match_id).enqueue(new Callback<ArrayList<SuKienTrongTran>>() {
-            @Override
-            public void onResponse(Call<ArrayList<SuKienTrongTran>> call, Response<ArrayList<SuKienTrongTran>> response) {
-                suKienTrongTranArrayList = response.body();
-                DienBienSuKienAdapter dienBienSuKienAdapter = new DienBienSuKienAdapter(DienBienActivity.this, suKienTrongTranArrayList);
-                listViewSuKien.setAdapter(dienBienSuKienAdapter);
-                shimmerFrameFB.stopShimmer();
-                shimmerFrameFB.setVisibility(View.GONE);
-            }
+        LoadDoiHinhTranDau(match_id);
+//        GetDoiHinhChinhDoiNha(match_id);
+//        GetDoiHinhDuBiDoiNha(match_id);
+//        GetDoiHinhChinhDoiKhach(match_id);
+//        GetDoiHinhDuBiDoiKhach(match_id);
+//        for(int i=0; i<arrayListHomeMain.size(); i++){
+//            Toast.makeText(DienBienActivity.this,arrayListHomeMain.get(i).getTenCauThu(), Toast.LENGTH_SHORT).show();
+//        }
 
-            @Override
-            public void onFailure(Call<ArrayList<SuKienTrongTran>> call, Throwable t) {
-                Toast.makeText(DienBienActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
-                t.printStackTrace();
-            }
-        });
     }
-
     private void LoadDoiHinhTranDau(String match_id){
         hashMapChiTietDoiHinh= new HashMap<>();
+        arrayListHomeMain = new ArrayList<>();
+        arrayListHomeSub = new ArrayList<>();
+        arrayListGuessMain = new ArrayList<>();
+        arrayListGuessSub = new ArrayList<>();
         arrayListTitleDoiHinh = new ArrayList<>();
-        arrayListDoiHinh = new ArrayList<>();
         simpleAPI = Constants.instance();
-        simpleAPI.getDoiHinh(match_id).enqueue(new Callback<ArrayList<DoiHinh>>() {
+        simpleAPI.getDoiHinhChinhDoiNha(match_id).enqueue(new Callback<ArrayList<CauThu_DoiHinh>>() {
             @Override
-            public void onResponse(Call<ArrayList<DoiHinh>> call, Response<ArrayList<DoiHinh>> response) {
-                arrayListDoiHinh = response.body();
-                hashMapChiTietDoiHinh.put("Đội hình chính đội nhà", arrayListDoiHinh.get(0).getArrayListHomeMain());
-                hashMapChiTietDoiHinh.put("Đội hình dự bị đội nhà", arrayListDoiHinh.get(1).getArrayListHomeSub());
-                hashMapChiTietDoiHinh.put("Đội hình chính đội khách", arrayListDoiHinh.get(2).getArrayListGuessMain());
-                hashMapChiTietDoiHinh.put("Đội hình dự bị đội khách", arrayListDoiHinh.get(3).getArrayListGuessSub());
-                arrayListTitleDoiHinh = new ArrayList<>(hashMapChiTietDoiHinh.keySet());
+            public void onResponse(Call<ArrayList<CauThu_DoiHinh>> call, Response<ArrayList<CauThu_DoiHinh>> response) {
+                arrayListHomeMain = response.body();
+                hashMapChiTietDoiHinh.put("Đội hình chính Đội nhà", arrayListHomeMain);
+                arrayListTitleDoiHinh = new ArrayList<String>(hashMapChiTietDoiHinh.keySet());
                 expandableListAdapter = new ExpandableDoiHinhAdapter(DienBienActivity.this, arrayListTitleDoiHinh, hashMapChiTietDoiHinh);
                 expandableListView.setAdapter(expandableListAdapter);
+                //arrayListTitleDoiHinh.add("Đội hình chính (Đội nhà)");
             }
 
             @Override
-            public void onFailure(Call<ArrayList<DoiHinh>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<CauThu_DoiHinh>> call, Throwable t) {
                 Toast.makeText(DienBienActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
             }
         });
+        simpleAPI.getDoiHinhDuBiDoiNha(match_id).enqueue(new Callback<ArrayList<CauThu_DoiHinh>>() {
+            @Override
+            public void onResponse(Call<ArrayList<CauThu_DoiHinh>> call, Response<ArrayList<CauThu_DoiHinh>> response) {
+                arrayListHomeSub = response.body();
+                hashMapChiTietDoiHinh.put("Đội hình dự bị Đội nhà", arrayListHomeSub);
+
+                //arrayListTitleDoiHinh.add("Đội hình dự bị (Đội nhà)");
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<CauThu_DoiHinh>> call, Throwable t) {
+                Toast.makeText(DienBienActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
+            }
+        });
+        simpleAPI.getDoiHinhChinhDoiKhach(match_id).enqueue(new Callback<ArrayList<CauThu_DoiHinh>>() {
+            @Override
+            public void onResponse(Call<ArrayList<CauThu_DoiHinh>> call, Response<ArrayList<CauThu_DoiHinh>> response) {
+                arrayListGuessMain = response.body();
+                hashMapChiTietDoiHinh.put("Đội hình chính Đội khách", arrayListGuessMain);
+                //arrayListTitleDoiHinh.add("Đội hình chính (Đội khách)");
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<CauThu_DoiHinh>> call, Throwable t) {
+                Toast.makeText(DienBienActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
+            }
+        });
+        simpleAPI.getDoiHinhDuBiDoiKhach(match_id).enqueue(new Callback<ArrayList<CauThu_DoiHinh>>() {
+            @Override
+            public void onResponse(Call<ArrayList<CauThu_DoiHinh>> call, Response<ArrayList<CauThu_DoiHinh>> response) {
+                arrayListGuessSub = response.body();
+                hashMapChiTietDoiHinh.put("Đội hình dự bị Đội khách", arrayListGuessSub);
+                //arrayListTitleDoiHinh.add("Đội hình dự bị (Đội khách)");
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<CauThu_DoiHinh>> call, Throwable t) {
+                Toast.makeText(DienBienActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
+            }
+        });
+        for(int i=0; i<arrayListGuessSub.size(); i++){
+            Toast.makeText(DienBienActivity.this,arrayListGuessSub.get(i).getTenCauThu(), Toast.LENGTH_SHORT).show();
+        }
 
     }
 
-    private void LoadKetQuaTranDau(String match_id) {
+    private void LoadDienBienTranDau(String match_id) {
         simpleAPI = Constants.instance();
         simpleAPI.getTranDau(match_id).enqueue(new Callback<ArrayList<DienBienTranDau>>() {
             @Override
