@@ -41,10 +41,10 @@ public interface SimpleAPI {
     @GET("quan/chitietclb/{clb_id}")
     Call<ArrayList<CauLacBo>> getChiTietCLB(@Path("clb_id") String id);
 
-//    @GET("khoa/get_ketqua_nam/{year}")
-//    Call<ArrayList<KetQua_TranDau>> getListKetQuaTranDau(@Path("year") String year);
-    @GET("khoa/get_ketqua_nam/2021")
-    Call<ArrayList<KetQua_TranDau>> getListKetQuaTranDau();
+    @GET("khoa/get_ketqua_nam/{year}")
+    Call<ArrayList<KetQua_TranDau>> getListKetQuaTranDau(@Path("year") String year);
+//    @GET("khoa/get_ketqua_nam/2021")
+//    Call<ArrayList<KetQua_TranDau>> getListKetQuaTranDau();
 
     @GET("quan/trandau/{match_id}")
     Call<ArrayList<DienBienTranDau>> getTranDau(@Path("match_id") String id);

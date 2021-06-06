@@ -152,7 +152,7 @@ public class DienBienActivity extends AppCompatActivity {
 
     private void GetChiTietCLBDoiNha(String id_clb){
         simpleAPI = Constants.instance();
-        simpleAPI.getChiTietCLB(id_clb).enqueue(new Callback<ArrayList<CauLacBo>>() {
+        simpleAPI.getCLB(id_clb).enqueue(new Callback<ArrayList<CauLacBo>>() {
             @Override
             public void onResponse(Call<ArrayList<CauLacBo>> call, Response<ArrayList<CauLacBo>> response) {
                 cauLacBoArrayList = response.body();
@@ -173,7 +173,7 @@ public class DienBienActivity extends AppCompatActivity {
     }
     private void GetChiTietCLBDoiKhach(String id_clb){
         simpleAPI = Constants.instance();
-        simpleAPI.getChiTietCLB(id_clb).enqueue(new Callback<ArrayList<CauLacBo>>() {
+        simpleAPI.getCLB(id_clb).enqueue(new Callback<ArrayList<CauLacBo>>() {
             @Override
             public void onResponse(Call<ArrayList<CauLacBo>> call, Response<ArrayList<CauLacBo>> response) {
                 cauLacBoArrayList = response.body();

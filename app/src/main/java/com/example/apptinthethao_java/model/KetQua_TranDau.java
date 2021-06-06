@@ -6,41 +6,36 @@ import com.google.gson.annotations.SerializedName;
 public class KetQua_TranDau {
     @SerializedName("match_id")
     @Expose
-    private String matchID = "";
-
-    @SerializedName("match_happen_time")
-    @Expose
-    private String matchHappenTime = "";
+    private String matchID ;
 
     @SerializedName("clb_home_name")
     @Expose
-    private String clbHome = "";
+    private String clbHome;
 
     @SerializedName("clb_guess_name")
     @Expose
-    private String clbGuess = "";
-
-    @SerializedName("post_create_time")
-    @Expose
-    private String post_create_time = "";
+    private String clbGuess;
 
     @SerializedName("h")
     @Expose
-    private int tiSoHome = 0;
+    private int tiSoHome;
 
     @SerializedName("g")
     @Expose
-    private int tiSoGuess = 0;
+    private int tiSoGuess;
 
     public KetQua_TranDau() {
+        this.matchID = "";
+        this.clbHome = "";
+        this.clbGuess = "";
+        this.tiSoHome = 0;
+        this.tiSoGuess = 0;
     }
 
-    public KetQua_TranDau(String matchID, String matchHappenTime, String clbHome, String clbGuess, String post_create_time, int tiSoHome, int tiSoGuess) {
+    public KetQua_TranDau(String matchID, String clbHome, String clbGuess, int tiSoHome, int tiSoGuess) {
         this.matchID = matchID;
-        this.matchHappenTime = matchHappenTime;
         this.clbHome = clbHome;
         this.clbGuess = clbGuess;
-        this.post_create_time = post_create_time;
         this.tiSoHome = tiSoHome;
         this.tiSoGuess = tiSoGuess;
     }
@@ -51,14 +46,6 @@ public class KetQua_TranDau {
 
     public void setMatchID(String matchID) {
         this.matchID = matchID;
-    }
-
-    public String getMatchHappenTime() {
-        return matchHappenTime;
-    }
-
-    public void setMatchHappenTime(String matchHappenTime) {
-        this.matchHappenTime = matchHappenTime;
     }
 
     public String getClbHome() {
@@ -75,14 +62,6 @@ public class KetQua_TranDau {
 
     public void setClbGuess(String clbGuess) {
         this.clbGuess = clbGuess;
-    }
-
-    public String getPost_create_time() {
-        return post_create_time;
-    }
-
-    public void setPost_create_time(String post_create_time) {
-        this.post_create_time = post_create_time;
     }
 
     public int getTiSoHome() {

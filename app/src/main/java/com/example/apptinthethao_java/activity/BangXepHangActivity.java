@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.apptinthethao_java.R;
 import com.example.apptinthethao_java.adapter.BangXepHangAdapter;
@@ -15,6 +16,8 @@ import com.example.apptinthethao_java.model.CauLacBo;
 import com.example.apptinthethao_java.model.KetQua_TranDau;
 import com.example.apptinthethao_java.util.Constants;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -23,29 +26,32 @@ import retrofit2.Response;
 
 public class BangXepHangActivity extends AppCompatActivity {
 
-    private RecyclerView rcvBXH;
+    private RecyclerView rcvlBXH;
     private BangXepHangAdapter adapter;
     private SimpleAPI simpleAPI;
-    private ArrayList<KetQua_TranDau> kqTranDau;
+    private ArrayList<KetQua_TranDau> kqTranDau=new ArrayList<>();
     private ArrayList<BXH_DoiBong> bxhDoiBong = new ArrayList<>();
-    private ArrayList<CauLacBo> cauLacBoArrayList;
+    private ArrayList<CauLacBo> cauLacBoArrayList=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bang_xep_hang);
-        rcvBXH.findViewById(R.id.rcvBXH);
+        rcvlBXH=(RecyclerView)findViewById(R.id.rcvBXH);
         setRecyclerView();
     }
 
     private void setRecyclerView() {
-        rcvBXH.setHasFixedSize(true);
-        rcvBXH.setLayoutManager(new LinearLayoutManager(this));
+        rcvlBXH.setHasFixedSize(true);
+        rcvlBXH.setLayoutManager(new LinearLayoutManager(this));
         adapter = new BangXepHangAdapter(this,getList());
-        rcvBXH.setAdapter(adapter);
+        rcvlBXH.setAdapter(adapter);
     }
 
-    private ArrayList<BXH_DoiBong> getList() {
+        @NotNull
+        private ArrayList<BXH_DoiBong> getList() {
         ArrayList<BXH_DoiBong> BXH = new ArrayList<>();
+        getListKQ();
+        getListCLB();
         for (int i = 0; i <cauLacBoArrayList.size() ; i++) {
             BXH_DoiBong doibong = new BXH_DoiBong(cauLacBoArrayList.get(i).getTenCLB());
             BXH.add(doibong);
@@ -82,10 +88,14 @@ public class BangXepHangActivity extends AppCompatActivity {
     }
     private void getListKQ() {
         simpleAPI = Constants.instance();
-        simpleAPI.getListKetQuaTranDau().enqueue(new Callback<ArrayList<KetQua_TranDau>>() {
+        simpleAPI.getListKetQuaTranDau("2021").enqueue(new Callback<ArrayList<KetQua_TranDau>>() {
             @Override
             public void onResponse(Call<ArrayList<KetQua_TranDau>> call, Response<ArrayList<KetQua_TranDau>> response) {
                 kqTranDau=response.body();
+                Log.d("ketqua", String.valueOf(response.body()));
+                for (int i = 0; i <kqTranDau.size() ; i++) {
+                    Log.d("ketqua", kqTranDau.get(i).getMatchID()+kqTranDau.get(i).getClbHome()+kqTranDau.get(i).getClbGuess());
+                }
             }
 
             @Override
@@ -98,7 +108,10 @@ public class BangXepHangActivity extends AppCompatActivity {
         simpleAPI.getListCLB().enqueue(new Callback<ArrayList<CauLacBo>>() {
             @Override
             public void onResponse(Call<ArrayList<CauLacBo>> call, Response<ArrayList<CauLacBo>> response) {
-                cauLacBoArrayList = response.body();
+                cauLacBoArrayList=response.body();
+//                for (int i = 0; i <cauLacBoArrayList.size() ; i++) {
+//                    Log.d("ketqua",cauLacBoArrayList.get(i).getTenCLB() );
+//                }
             }
 
             @Override
