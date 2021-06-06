@@ -29,6 +29,7 @@ public class BangXepHangActivity extends AppCompatActivity {
     private RecyclerView rcvlBXH;
     private BangXepHangAdapter adapter;
     private SimpleAPI simpleAPI;
+    private SimpleAPI simpleAPIkq;
     private ArrayList<KetQua_TranDau> kqTranDau=new ArrayList<>();
     private ArrayList<BXH_DoiBong> bxhDoiBong = new ArrayList<>();
     private ArrayList<CauLacBo> cauLacBoArrayList=new ArrayList<>();
@@ -52,6 +53,7 @@ public class BangXepHangActivity extends AppCompatActivity {
         ArrayList<BXH_DoiBong> BXH = new ArrayList<>();
         getListKQ();
         getListCLB();
+        Log.d("kq", String.valueOf(cauLacBoArrayList.size()));
         for (int i = 0; i <cauLacBoArrayList.size() ; i++) {
             BXH_DoiBong doibong = new BXH_DoiBong(cauLacBoArrayList.get(i).getTenCLB());
             BXH.add(doibong);
@@ -87,39 +89,46 @@ public class BangXepHangActivity extends AppCompatActivity {
         return BXH;
     }
     private void getListKQ() {
-        simpleAPI = Constants.instance();
-        simpleAPI.getListKetQuaTranDau("2021").enqueue(new Callback<ArrayList<KetQua_TranDau>>() {
+        Log.d("ketqua", "hihi1");
+        simpleAPIkq = Constants.instance();
+        Log.d("ketqua", "hihi2");
+        simpleAPIkq.getListKetQuaTranDau("2021").enqueue(new Callback<ArrayList<KetQua_TranDau>>() {
             @Override
             public void onResponse(Call<ArrayList<KetQua_TranDau>> call, Response<ArrayList<KetQua_TranDau>> response) {
-                kqTranDau=response.body();
+//                kqTranDau=response.body();
+                Log.d("ketqua", "hihi3");
                 Log.d("ketqua", String.valueOf(response.body()));
-                for (int i = 0; i <kqTranDau.size() ; i++) {
-                    Log.d("ketqua", kqTranDau.get(i).getMatchID()+kqTranDau.get(i).getClbHome()+kqTranDau.get(i).getClbGuess());
-                }
             }
 
             @Override
             public void onFailure(Call<ArrayList<KetQua_TranDau>> call, Throwable t) {
+                Log.d("kq", "NhanCHiKQ");
             }
         });
     }
     private void getListCLB() {
+        Log.d("qq", "1");
         simpleAPI = Constants.instance();
+        Log.d("qq", "2");
         simpleAPI.getListCLB().enqueue(new Callback<ArrayList<CauLacBo>>() {
             @Override
             public void onResponse(Call<ArrayList<CauLacBo>> call, Response<ArrayList<CauLacBo>> response) {
-                cauLacBoArrayList=response.body();
-//                for (int i = 0; i <cauLacBoArrayList.size() ; i++) {
-//                    Log.d("ketqua",cauLacBoArrayList.get(i).getTenCLB() );
-//                }
+                Log.d("qq", "3");
+                ArrayList<CauLacBo> CLB_getAPI = new ArrayList<>();
+                CLB_getAPI=response.body();
+                for (int i = 0; i <CLB_getAPI.size() ; i++) {
+                    CauLacBo clb = new CauLacBo();
+                    clb.setTenCLB(CLB_getAPI.get(i).getTenCLB());
+                    cauLacBoArrayList.add(clb);
+                }
+                Log.d("kq", String.valueOf(cauLacBoArrayList.size()));
             }
 
             @Override
             public void onFailure(Call<ArrayList<CauLacBo>> call, Throwable t) {
-
+                Log.d("kq", "NhanCHiCLB");
             }
         });
-
     }
     private int SearchDoiBong(ArrayList<BXH_DoiBong> arr, String tenDB) {
         for (int i = 0; i < arr.size(); i++) {

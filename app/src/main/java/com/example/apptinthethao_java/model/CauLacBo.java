@@ -31,4 +31,7 @@ public class CauLacBo {
         this.link = link;
         this.tenCLB = tenCLB;
     }
+
+    public CauLacBo() {
+    }
 }
