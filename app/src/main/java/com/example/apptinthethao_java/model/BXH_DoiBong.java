@@ -17,11 +17,12 @@ public class BXH_DoiBong {
     private int hieuso=0;
     private int diem=0;
 
-    public BXH_DoiBong() {
+    public BXH_DoiBong(String tenDoiBong) {
+        this.TenDoiBong = tenDoiBong;
     }
 
     public BXH_DoiBong(String tenDoiBong, int sotran, int thang, int tongBanThang, int hoa, int thua, int tongBanThua) {
-        TenDoiBong = tenDoiBong;
+        this.TenDoiBong = tenDoiBong;
         this.sotran = sotran;
         this.thang = thang;
         this.tongBanThang = tongBanThang;
