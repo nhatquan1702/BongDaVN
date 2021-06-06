@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity{
             });
         }
         if(check.equals("-1")){//chưa đăng nhập
-            navUsername.setText("username");
+            navUsername.setVisibility(View.GONE);
             btnLoginHeader.setText("Đăng nhập");
             imgAVTHeader.setImageResource(R.drawable.ic_launcher_foreground);
             btnLoginHeader.setOnClickListener(new View.OnClickListener() {

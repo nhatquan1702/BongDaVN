@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -11,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.apptinthethao_java.R;
 
@@ -48,13 +50,15 @@ public class DangKyActivity extends AppCompatActivity {
         checkShowPassDK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if(checkShowPassDK.isChecked())    {
-//                    edtNhapPass1.transformationMethod = HideReturnsTransformationMethod.getInstance()
-//                    edtNhapPass2.transformationMethod = HideReturnsTransformationMethod.getInstance()
-//                } else {
-//                    edtNhapPass1.transformationMethod = PasswordTransformationMethod.getInstance()
-//                    edtNhapPass2.transformationMethod = PasswordTransformationMethod.getInstance()
-//                }
+                if(checkShowPassDK.isChecked())    {
+                    edtNhapPass1.setInputType(InputType.TYPE_CLASS_TEXT);
+                    edtNhapPass2.setInputType(InputType.TYPE_CLASS_TEXT);
+                } else {
+                    edtNhapPass1.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    edtNhapPass2.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+                edtNhapPass1.setSelection(edtNhapPass1.getText().length());
+                edtNhapPass2.setSelection(edtNhapPass2.getText().length());
             }
         });
         CardView cvDKTK = findViewById(R.id.cvDKTK);
@@ -65,31 +69,37 @@ public class DangKyActivity extends AppCompatActivity {
                 String email = edtNhapEmailDK.getText().toString().trim();
                 String pass1 = edtNhapPass1.getText().toString().trim();
                 String pass2 = edtNhapPass2.getText().toString().trim();
-
+                boolean isValid = true;
                 if(username.isEmpty()){
                     edtNhapUsernameDK.setError("Vui lòng kiểm tra lại tên người dùng!");
                     edtNhapUsernameDK.requestFocus();
-
+                    isValid = false;
                 }
                 if(email.isEmpty()){
                     edtNhapEmailDK.setError("Vui lòng kiểm tra lại email!");
                     edtNhapEmailDK.requestFocus();
-
+                    isValid = false;
                 }
 
                 if(pass1.isEmpty()){
                     edtNhapPass1.setError("Vui lòng kiểm tra lại mật khẩu!");
                     edtNhapPass1.requestFocus();
-
+                    isValid = false;
                 }
 
                 if(pass2.isEmpty()){
                     edtNhapPass2.setError("Vui lòng kiểm tra lại mật khẩu!");
                     edtNhapPass2.requestFocus();
+                    isValid = false;
                 }
-                if(!pass1.equals(pass2) || !pass2.equals(pass1))
+                if(!pass1.equals(pass2) || !pass2.equals(pass1)){
                     edtNhapPass2.setError("Mật khẩu chưa trùng khớp!");
-                //else dangKyTaiKhoan(username, email, pass1)
+                    isValid = false;
+                }
+                if(isValid){
+                    Toast.makeText(DangKyActivity.this, "Đăng kí tài khoản", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }

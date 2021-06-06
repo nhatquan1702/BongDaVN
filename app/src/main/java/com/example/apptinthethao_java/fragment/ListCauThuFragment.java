@@ -18,6 +18,7 @@ import com.example.apptinthethao_java.adapter.ChiTietCLBAdapter;
 import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.CauThu_DoiHinh;
 import com.example.apptinthethao_java.util.Constants;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,7 @@ public class ListCauThuFragment extends Fragment {
     private ListView listViewDSCauThu;
     private SimpleAPI simpleAPI;
     private View view;
+    private ShimmerFrameLayout shimmerFrameFB;
     private CauLacBoActivity cauLacBoActivity;
 
     @Override
@@ -39,11 +41,18 @@ public class ListCauThuFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_list_cau_thu, container, false);
         listViewDSCauThu = view.findViewById(R.id.listViewDSCauThu);
+        shimmerFrameFB = view.findViewById(R.id.shimmerFrame);
         cauThu_doiHinhArrayList = new ArrayList<>();
         ChiTietCLBActivity chiTietCLBActivity = (ChiTietCLBActivity) getActivity();
         String id_clb = chiTietCLBActivity.getId_clb();
         LoadDSCauThu(id_clb);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shimmerFrameFB.startShimmer();
     }
 
     private void LoadDSCauThu(String id_clb) {
@@ -60,6 +69,8 @@ public class ListCauThuFragment extends Fragment {
                         Toast.makeText(getContext(), cauThu_doiHinhArrayList.get(position).getIdCauThu(), Toast.LENGTH_SHORT).show();
                     }
                 });
+                shimmerFrameFB.stopShimmer();
+                shimmerFrameFB.setVisibility(view.GONE);
             }
 
             @Override
