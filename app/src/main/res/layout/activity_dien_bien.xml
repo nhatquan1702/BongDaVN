@@ -5,9 +5,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="#E8E8E8"
     xmlns:android="http://schemas.android.com/apk/res/android">
-        <TextView
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:orientation="vertical"
+        android:id="@+id/shimmerFrame">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--4 dong include thể hiện cho 4 item trong RecyclerView đang được load data-->
+            <include layout="@layout/abc" />
+
+            <include layout="@layout/abcd" />
+
+            <include layout="@layout/abcd" />
+
+            <include layout="@layout/abcd" />
+
+            <include layout="@layout/abcd" />
+
+            <include layout="@layout/abcd" />
+
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+    <TextView
             android:text="KẾT QUẢ TRẬN ĐẤU"
             android:background="@drawable/ti_so_bg"
             android:gravity="center"
@@ -117,6 +145,7 @@
             android:background="@drawable/ti_so_bg"
             android:gravity="center"
             android:padding="5dp"
+            android:layout_marginTop="10dp"
             android:textSize="20dp"
             android:textColor="#651FFF"
             android:layout_width="match_parent"
@@ -125,8 +154,29 @@
         <ExpandableListView
             android:id="@+id/expandableDoiHinh"
             android:layout_width="match_parent"
+            android:divider="@android:color/transparent"
             android:layout_height="wrap_content"
+            android:childDivider="@android:color/transparent"
             android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
-            android:dividerHeight="0.5dp"/>
+            android:dividerHeight="5dp"/>
+        <TextView
+            android:text="SỰ KIỆN"
+            android:background="@drawable/ti_so_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:textColor="#651FFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <ListView
+            android:id="@+id/listViewSuKien"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="10dp"/>
 
 </LinearLayout>
