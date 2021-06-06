@@ -47,20 +47,20 @@ public class BangXepHangAdapter extends RecyclerView.Adapter<BangXepHangAdapter.
 
         return new ViewHolder(view);
     }
-
+    int i=1;
     @Override
-    public void onBindViewHolder(@NonNull BangXepHangAdapter.ViewHolder holder, int position) {
-        int i=1;
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (BXH!=null && BXH.size()>0){
             BXH_DoiBong doibong = BXH.get(position);
-            holder.STT.setText(i);
-            holder.TenDoiBong.setText(doibong.getTenDoiBong());
-            holder.SoTran.setText(doibong.getSotran());
-            holder.Thang.setText(doibong.getThang());
-            holder.Hoa.setText(doibong.getHoa());
-            holder.Bai.setText(doibong.getThua());
-            holder.HieuSo.setText(doibong.getHieuso());
-            holder.Diem.setText(doibong.getDiem());
+            holder.STT.setText(String.valueOf(i));
+            holder.TenDoiBong.setText(String.valueOf(doibong.getTenDoiBong()));
+            holder.SoTran.setText(String.valueOf(doibong.getSotran()));
+            holder.Thang.setText(String.valueOf(doibong.getThang()));
+            holder.Hoa.setText(String.valueOf(doibong.getHoa()));
+            holder.Bai.setText(String.valueOf(doibong.getThua()));
+            holder.HieuSo.setText(String.valueOf(doibong.getHieuso()));
+            holder.Diem.setText(String.valueOf(doibong.getDiem()));
+            i++;
         }else{
             return;
         }
@@ -76,14 +76,14 @@ public class BangXepHangAdapter extends RecyclerView.Adapter<BangXepHangAdapter.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            STT=itemView.findViewById(R.id.STT);
-            TenDoiBong=itemView.findViewById(R.id.TenCLB);
-            SoTran=itemView.findViewById(R.id.SoTran);
-            Thang=itemView.findViewById(R.id.Thang);
-            Hoa=itemView.findViewById(R.id.Hoa);
-            Bai=itemView.findViewById(R.id.Bai);
-            HieuSo=itemView.findViewById(R.id.HieuSo);
-            Diem=itemView.findViewById(R.id.Diem);
+            STT=(TextView)itemView.findViewById(R.id.STT);
+            TenDoiBong=(TextView)itemView.findViewById(R.id.TenCLB);
+            SoTran=(TextView)itemView.findViewById(R.id.SoTran);
+            Thang=(TextView)itemView.findViewById(R.id.Thang);
+            Hoa=(TextView)itemView.findViewById(R.id.Hoa);
+            Bai=(TextView)itemView.findViewById(R.id.Bai);
+            HieuSo=(TextView)itemView.findViewById(R.id.HieuSo);
+            Diem=(TextView)itemView.findViewById(R.id.Diem);
         }
     }
 }

@@ -8,17 +8,25 @@ public class BXH_DoiBong {
     @Expose
     private String TenDoiBong = "";
 
-    private int sotran=0;
-    private int thang =0;
-    private int tongBanThang=0;
-    private int hoa=0;
-    private int thua=0;
-    private int tongBanThua=0;
-    private int hieuso=0;
-    private int diem=0;
+    private int sotran;
+    private int thang;
+    private int tongBanThang;
+    private int hoa;
+    private int thua;
+    private int tongBanThua;
+    private int hieuso;
+    private int diem;
 
     public BXH_DoiBong(String tenDoiBong) {
         this.TenDoiBong = tenDoiBong;
+        this.sotran = 0;
+        this.thang = 0;
+        this.tongBanThang = 0;
+        this.hoa = 0;
+        this.thua = 0;
+        this.tongBanThua = 0;
+        this.hieuso = 0;
+        this.diem = 0;
     }
 
     public BXH_DoiBong(String tenDoiBong, int sotran, int thang, int tongBanThang, int hoa, int thua, int tongBanThua) {
@@ -54,7 +62,7 @@ public class BXH_DoiBong {
     }
 
     public void setThang(int thang) {
-        this.thang += thang;
+        this.thang = thang;
         this.diem=(this.thang*3)+this.hoa;
     }
 
@@ -71,7 +79,7 @@ public class BXH_DoiBong {
     }
 
     public void setHoa(int hoa) {
-        this.hoa += hoa;
+        this.hoa = hoa;
         this.diem=(this.thang*3)+this.hoa;
     }
 
@@ -80,7 +88,7 @@ public class BXH_DoiBong {
     }
 
     public void setThua(int thua) {
-        this.thua += thua;
+        this.thua = thua;
     }
 
     public int getTongBanThua() {

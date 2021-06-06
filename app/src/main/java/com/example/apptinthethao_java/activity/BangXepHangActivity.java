@@ -23,28 +23,37 @@ import retrofit2.Response;
 
 public class BangXepHangActivity extends AppCompatActivity {
 
-    private RecyclerView rcvBXH;
+    private RecyclerView rcvlBXH;
     private BangXepHangAdapter adapter;
     private SimpleAPI simpleAPI;
-    private ArrayList<KetQua_TranDau> kqTranDau;
+    private ArrayList<KetQua_TranDau> kqTranDau=new ArrayList<>();
     private ArrayList<BXH_DoiBong> bxhDoiBong = new ArrayList<>();
-    private ArrayList<CauLacBo> cauLacBoArrayList;
+    private ArrayList<CauLacBo> cauLacBoArrayList=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bang_xep_hang);
-        rcvBXH.findViewById(R.id.rcvBXH);
+        rcvlBXH=(RecyclerView)findViewById(R.id.rcvBXH);
         setRecyclerView();
     }
 
     private void setRecyclerView() {
-        rcvBXH.setHasFixedSize(true);
-        rcvBXH.setLayoutManager(new LinearLayoutManager(this));
+        rcvlBXH.setHasFixedSize(true);
+        rcvlBXH.setLayoutManager(new LinearLayoutManager(this));
         adapter = new BangXepHangAdapter(this,getList());
-        rcvBXH.setAdapter(adapter);
+        rcvlBXH.setAdapter(adapter);
     }
 
-    private ArrayList<BXH_DoiBong> getList() {
+//    private ArrayList<BXH_DoiBong> getList() {
+//        ArrayList<BXH_DoiBong> BXH = new ArrayList<>();
+//        BXH.add(new BXH_DoiBong("KHOA"));
+//        BXH.add(new BXH_DoiBong("KHOA2"));
+//        BXH.add(new BXH_DoiBong("KHOA3"));
+//        BXH.add(new BXH_DoiBong("KHOA4"));
+//        return BXH;
+//    }
+
+        private ArrayList<BXH_DoiBong> getList() {
         ArrayList<BXH_DoiBong> BXH = new ArrayList<>();
         for (int i = 0; i <cauLacBoArrayList.size() ; i++) {
             BXH_DoiBong doibong = new BXH_DoiBong(cauLacBoArrayList.get(i).getTenCLB());
