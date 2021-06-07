@@ -6,9 +6,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -44,8 +47,6 @@ public class MainActivity extends AppCompatActivity{
     ImageView imgAVTHeader ;
     TextView iconToolbarMenu;
     FlowingDrawer drawerlayout;
-    public ItemClickInterface itemClickInterface;
-    SearchView searchView;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     @Override
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity{
         viewPager2 = findViewById(R.id.viewPager);
         LoadTabLayoutAndViewpager2();
 
+
         //xử lý đăng nhập
         navigationView = findViewById(R.id.nav_view);
         headerView = navigationView.getHeaderView(0);
@@ -65,11 +67,12 @@ public class MainActivity extends AppCompatActivity{
         btnLoginHeader = headerView.findViewById(R.id.btnHeaderLogin);
         imgAVTHeader = headerView.findViewById(R.id.imgAVT);
         DangNhap();
-
+        Log.d("tncnhan", "Load login done!");
         //Load menu navigation khi vuốt cạnh trái hoặc click icon tool bar
         iconToolbarMenu = findViewById(R.id.iconToolbarMenu);
         drawerlayout = (FlowingDrawer) findViewById(R.id.drawerlayout);
         LoadNavigation();
+
 
         //Load menu recyclerView bên dưới
         LoadMenuReCyclerView();
@@ -125,46 +128,50 @@ public class MainActivity extends AppCompatActivity{
                 drawerlayout.toggleMenu();
             }
         });
+
+        sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
+        String check = sharedPreferences.getString("role", "0");
+        Menu menu = navigationView.getMenu();
+        MenuItem adminItem = menu.findItem(R.id.ADMIN);
+        adminItem.setVisible(check == "1");
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.H: {
-                        Toast.makeText(getApplicationContext(), "Home!", Toast.LENGTH_SHORT).show();
+                    case R.id.ADMIN: {
+                        Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+                        startActivity(intent);
                         return true;
-
+                    }
+                    case R.id.H: {
+                        Toast.makeText(getApplicationContext(), "Quản lí bài viết!", Toast.LENGTH_SHORT).show();
+                        return true;
                     }
                     case R.id.CS : {
                         Toast.makeText(getApplicationContext(), "Chia sẻ!", Toast.LENGTH_SHORT).show();
                         return true;
-
                     }
                     case R.id.GY : {
                         Toast.makeText(getApplicationContext(), "Góp ý!", Toast.LENGTH_SHORT).show();
                         return true;
-
                     }
                     case R.id.CD : {
                         Toast.makeText(getApplicationContext(), "Cài đặt!", Toast.LENGTH_SHORT).show();
                         return true;
-
                     }
                     case R.id.HT : {
                         Toast.makeText(getApplicationContext(), "Hỗ trợ!", Toast.LENGTH_SHORT).show();
                         return true;
-
                     }
                     case R.id.DGUD : {
                         Toast.makeText(getApplicationContext(), "Đánh giá ứng dụng!", Toast.LENGTH_SHORT).show();
                         return true;
-
                     }
                     case R.id.DKSD : {
                         Toast.makeText(getApplicationContext(), "Điều khoản sử dụng!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, DieuKhoanActivity.class);
                         startActivity(intent);
                         return true;
-
                     }
                 }
                 return false;
@@ -184,12 +191,17 @@ public class MainActivity extends AppCompatActivity{
         }).attach();
 
     }
+    // lưu ref các thông tin
+    // email
+    // password
+    // role
     private void DangNhap(){
-        sharedPreferences = getSharedPreferences("dataLogin",MODE_PRIVATE);
-        String check = sharedPreferences.getString("token", "-1");
-        if(!check.equals("-1")){//đã đăng nhập
+        sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
+        String check = sharedPreferences.getString("role", "0");
+
+        if(check.equals("1")){//đã đăng nhập admin
             //onBackPressed()
-            navUsername.setText(sharedPreferences.getString("username", "username"));
+            navUsername.setText(sharedPreferences.getString("email", "username"));
             btnLoginHeader.setText("Đăng xuất");
             imgAVTHeader.setImageResource(R.drawable.deappool);
             btnLoginHeader.setOnClickListener(new View.OnClickListener() {
@@ -200,16 +212,15 @@ public class MainActivity extends AppCompatActivity{
                     editor = sharedPreferences.edit();
 
                     editor.remove("email");
-                    editor.remove("pass");
-                    editor.remove("token");
-                    editor.remove("username");
+                    editor.remove("password");
+                    editor.remove("role");
 
                     editor.commit();
                     Toast.makeText(getApplicationContext(), "Đăng xuất thành công!", Toast.LENGTH_SHORT).show();
                 }
             });
         }
-        if(check.equals("-1")){//chưa đăng nhập
+        if(check.equals("0")){//chưa đăng nhập
             navUsername.setVisibility(View.GONE);
             btnLoginHeader.setText("Đăng nhập");
             imgAVTHeader.setImageResource(R.drawable.ic_launcher_foreground);

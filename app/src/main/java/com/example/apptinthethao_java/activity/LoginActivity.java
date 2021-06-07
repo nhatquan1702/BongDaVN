@@ -8,6 +8,7 @@ import android.text.InputType;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,18 +20,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.apptinthethao_java.R;
+import com.example.apptinthethao_java.adapter.CauLacBoAdapter;
+import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.doQueryDBTask;
+import com.example.apptinthethao_java.model.CauLacBo;
+import com.example.apptinthethao_java.model.User;
+import com.example.apptinthethao_java.util.Constants;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    doQueryDBTask mDoQueryDBTask;
+    private SimpleAPI simpleAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_login);
         // kết nối db
-
-
         RelativeLayout rLayoutDN = findViewById(R.id.rLayoutDN);
         RelativeLayout rLayoutAdd = findViewById(R.id.rLayoutAdd);
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.uptodowndiagonal);
@@ -82,38 +94,38 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 if(isValid){
-                    Toast.makeText(LoginActivity.this, "Đăng nhập", Toast.LENGTH_SHORT).show();
+                    SharedPreferences sharedPreferences = getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                    simpleAPI = Constants.instance();
+                    simpleAPI.getLoginResult(email, pass).enqueue(new Callback<ArrayList<User>>() {
+                        @Override
+                        public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
+                            ArrayList<User> result = response.body();
+                            if(result.size() < 1){
+                                Toast.makeText(LoginActivity.this, "Sai tên đăng nhập hoặc mật khẩu!", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Intent intent;
+                                editor.putString("email", email);
+                                editor.putString("pass", pass);
+                                editor.putString("role", String.valueOf(result.get(0).getRole()));
+                                editor.commit();
+                                Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                                intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ArrayList<User>> call, Throwable t) {
+                            Toast.makeText(LoginActivity.this, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
+            }
 
-                SharedPreferences sharedPreferences = getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
-                 SharedPreferences.Editor editor = sharedPreferences.edit();
-//                        if (!response.body().getAccessToken().equals(null)) {
-//                            editor.apply {
-//                                putString("email", email)
-//                                putString("token", response.body()?.getAccessToken())
-//                                putString("pass", pass)
-//                                putString("username", response.body()?.getUserName())
-//                            }.apply()
-//                            editor.commit()
-//                            Toast.makeText(
-//                                    applicationContext,
-//                                    "Đăng nhập thành công!",
-//                                    Toast.LENGTH_SHORT
-//                            ).show()
-//                            val intent = Intent(applicationContext, MainActivity::class.java)
-//                            startActivity(intent)
-//                            onBackPressed()
-//                        } else {
-//                            Toast.makeText(
-//                                    applicationContext,
-//                                    "Đăng nhập thất bại!",
-//                                    Toast.LENGTH_SHORT
-//                            ).show()
-//                        }
-                    }
-
-//                })
-//            }
         });
         imgbtnDKTK.setOnClickListener(new View.OnClickListener() {
             @Override

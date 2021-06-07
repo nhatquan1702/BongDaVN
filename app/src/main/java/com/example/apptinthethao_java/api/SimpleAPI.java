@@ -9,6 +9,7 @@ import com.example.apptinthethao_java.model.KetQua_TranDau;
 import com.example.apptinthethao_java.model.Post;
 import com.example.apptinthethao_java.model.SuKienTrongTran;
 import com.example.apptinthethao_java.model.TranDau;
+import com.example.apptinthethao_java.model.User;
 
 import java.util.ArrayList;
 
@@ -60,5 +61,10 @@ public interface SimpleAPI {
 
     @GET("nhan/match_result/{clb_id}")
     Call<ArrayList<TranDau>> getMatchResult(@Path("clb_id") String id);
+
+    @GET("nhan/user/{email}/{password}")
+    Call<ArrayList<User>> getLoginResult(@Path("email") String email, @Path("password") String password);
+
+
 
 }

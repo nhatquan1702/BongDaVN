@@ -13,6 +13,8 @@
         android:theme="@style/Theme.AppTinTheThao_Java">
         <activity android:name=".activity.ListCLBActivity"></activity>
         <activity android:name=".activity.BangXepHangActivity" />
+        <activity android:name=".activity.AdminActivity"></activity>
+        <activity android:name=".activity.BangXepHangActivity" />
         <activity android:name=".activity.ChiTietCLBActivity" />
         <activity android:name=".activity.DienBienActivity" />
         <activity android:name=".activity.DetailPostActivity" />
