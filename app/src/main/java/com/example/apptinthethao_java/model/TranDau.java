@@ -1,8 +1,11 @@
 package com.example.apptinthethao_java.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
-public class TranDau {
+public class TranDau implements Parcelable {
     private String idTranDau;
     private Date thoiDiem;
     private int thoiGian;
@@ -22,6 +25,26 @@ public class TranDau {
         this.ketQua = ketQua;
         this.moTa = moTa;
     }
+
+    protected TranDau(Parcel in) {
+        idTranDau = in.readString();
+        thoiGian = in.readInt();
+        diaDiem = in.readString();
+        ketQua = in.readString();
+        moTa = in.readString();
+    }
+
+    public static final Creator<TranDau> CREATOR = new Creator<TranDau>() {
+        @Override
+        public TranDau createFromParcel(Parcel in) {
+            return new TranDau(in);
+        }
+
+        @Override
+        public TranDau[] newArray(int size) {
+            return new TranDau[size];
+        }
+    };
 
     public String getIdTranDau() {
         return idTranDau;
@@ -85,5 +108,20 @@ public class TranDau {
 
     public void setMoTa(String moTa) {
         this.moTa = moTa;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(thoiDiem);
+        dest.writeValue(doiNha);
+        dest.writeValue(doiKhach);
+        dest.writeInt(thoiGian);
+        dest.writeString(ketQua);
+
     }
 }

@@ -31,18 +31,18 @@ public class connectDB {
             System.out.println("Creating statement...");
             st = conn.createStatement();
             String sql;
-            sql = "select * from Account";
+            sql = "SELECT * From Match WhERE DATE(match_happen_time) = '2021-05-07' ORDER BY match_happen_time ASC";
             ResultSet rs = st.executeQuery(sql);
 
             //STEP 5: Extract data from result set
             while(rs.next()){
                 //Retrieve by column name
                 String first = rs.getString(1);
-                String last = rs.getString(2);
+//                String last = rs.getString(2);
 
                 //Display values
-                System.out.print("name: " + first);
-                System.out.println(", pass: " + last);
+                System.out.println("result: " + first);
+//                System.out.println(", pass: " + last);
             }
             //STEP 6: Clean-up environment
             rs.close();

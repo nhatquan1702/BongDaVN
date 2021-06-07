@@ -26,9 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        // kết nối db
-
-
         RelativeLayout rLayoutDN = findViewById(R.id.rLayoutDN);
         RelativeLayout rLayoutAdd = findViewById(R.id.rLayoutAdd);
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.uptodowndiagonal);
@@ -49,9 +46,9 @@ public class LoginActivity extends AppCompatActivity {
         CardView cvDNLogin = findViewById(R.id.cvDNLogin);
         ImageView imgbtnDKTK = findViewById(R.id.imgbtnDKTK);
 
-        mDoQueryDBTask = new doQueryDBTask(LoginActivity.this);
-        //Gọi hàm execute để kích hoạt tiến trình
-         mDoQueryDBTask.execute("select * from Account");
+//        mDoQueryDBTask = new doQueryDBTask(LoginActivity.this);
+//        //Gọi hàm execute để kích hoạt tiến trình
+//         mDoQueryDBTask.execute("select * from Account");
 
         checkShowPass.setOnClickListener(new View.OnClickListener() {
             @Override

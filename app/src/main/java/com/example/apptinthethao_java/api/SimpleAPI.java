@@ -4,10 +4,12 @@ import com.example.apptinthethao_java.model.CauLacBo;
 import com.example.apptinthethao_java.model.CauThu_DoiHinh;
 import com.example.apptinthethao_java.model.DetailPost;
 import com.example.apptinthethao_java.model.DienBienTranDau;
+import com.example.apptinthethao_java.model.NgayThiDau;
 import com.example.apptinthethao_java.model.Post;
 import com.example.apptinthethao_java.model.TranDau;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -52,4 +54,13 @@ public interface SimpleAPI {
 
     @GET("quan/trandau_guess_sub/{match_id}")
     Call<ArrayList<CauThu_DoiHinh>> getDoiHinhDuBiDoiKhach(@Path("match_id") String id);
+
+    @GET("khai/getNgaySapDau/{date}")
+    Call<ArrayList<String>> getNgaySapDau(@Path("date") Date date);
+
+    @GET("khai/getNgayDaDau/{date}")
+    Call<ArrayList<String>> getNgayDaDau(@Path("date") String date);
+
+    @GET("khai/getTranDau/{date}")
+    Call<ArrayList<TranDau>> getTranDau(@Path("date") Date date);
 }
