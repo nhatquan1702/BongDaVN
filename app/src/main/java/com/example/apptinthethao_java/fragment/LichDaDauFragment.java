@@ -1,33 +1,37 @@
 package com.example.apptinthethao_java.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
 import com.example.apptinthethao_java.R;
-import com.example.apptinthethao_java.adapter.TranDauAdapter;
+import com.example.apptinthethao_java.adapter.LichDauAdapter;
 import com.example.apptinthethao_java.api.SimpleAPI;
-import com.example.apptinthethao_java.model.NgayThiDau;
+import com.example.apptinthethao_java.model.CauLacBo;
 import com.example.apptinthethao_java.model.TranDau;
+import com.example.apptinthethao_java.util.AsyncResponse;
 import com.example.apptinthethao_java.util.Constants;
+import com.example.apptinthethao_java.util.LoadLichDauTask;
 import com.example.apptinthethao_java.view.LastView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,9 +42,12 @@ public class LichDaDauFragment extends Fragment implements LastView {
     private SwipeRefreshLayout mSwipeRefresh;
     private ProgressBar mProgressBar;
     private SimpleAPI simpleAPI;
-    private ArrayList<NgayThiDau> ngayThiDauArrayList;
-    private ArrayList<Date> ngayDauArrayList;
-    private ArrayList<TranDau> tranDauArrayList;
+    private ArrayList<Object> mData;
+    private ArrayList<String> ngayDauStringArrayList;
+    private ArrayList<CauLacBo> CLB;
+    public String strDate;
+    LichDauAdapter adapter;
+    RecyclerView mRecyclerView;
 
     public LichDaDauFragment() {
         // Required empty public constructor
@@ -62,47 +69,141 @@ public class LichDaDauFragment extends Fragment implements LastView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_lich_sap_dau, container, false);
-        RecyclerView mRecyclerView = rootView.findViewById(R.id.rv_next_match);
+        View rootView = inflater.inflate(R.layout.fragment_lich_da_dau, container, false);
+        mRecyclerView = rootView.findViewById(R.id.rv_last_match);
         mSwipeRefresh = rootView.findViewById(R.id.swipe_refresh);
         mProgressBar = rootView.findViewById(R.id.progress_bar);
-
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        mData = new ArrayList<>();
+        ngayDauStringArrayList = new ArrayList<>();
         LoadDataLichDau();
-//        if(ngayThiDauArrayList.size() != 0)
-//        {
-//            Log.d("listngay", String.valueOf(ngayThiDauArrayList.size()));
-//            TranDauAdapter adapter = new TranDauAdapter(ngayThiDauArrayList);
-//            mRecyclerView.setAdapter(adapter);
-//
-//        }
+        HideLoading();
         return rootView;
     }
 
     private void LoadDataLichDau(){
-        //set date current
+
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String strDate = "'" + formatter.format(date) + "'";
+        strDate = "'" + formatter.format(date) + "'";
+
         simpleAPI = Constants.instance();
-        simpleAPI.getNgayDaDau(strDate).enqueue(new Callback<ArrayList<String>>() {
+        simpleAPI.getNgayDaDau(strDate).enqueue(new Callback<ArrayList<Object>>() {
             @Override
-            public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
-                ArrayList<String> listdata = new ArrayList<String>();
-                listdata = response.body();
-//                ngayDauArrayList = response.body();
-                Log.d("ngaydau",listdata.toString());
+            public void onResponse(Call<ArrayList<Object>> call, Response<ArrayList<Object>> response) {
+                JSONArray jsonArray = null;
+                try {
+                    jsonArray = new JSONArray(response.body().toArray());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                for(int i = 0; i< Objects.requireNonNull(jsonArray).length(); i++) {
+
+                    try {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        ngayDauStringArrayList.add(jsonObject.get("date_match").toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Log.d("ngayDau",ngayDauStringArrayList.toString());
+                int temp = 0;
+                for(int i = 0;i<ngayDauStringArrayList.size();i++)
+                {
+                    Log.d("match_date",ngayDauStringArrayList.get(i));
+                    strDate = "'" + ngayDauStringArrayList.get(i) + "'";
+                    simpleAPI = Constants.instance();
+//                    mData.add(ngayDauStringArrayList.get(i));
+                    temp = i;
+                    int finalTemp = temp;
+                    simpleAPI.getLichTranDau(strDate).enqueue(new Callback<ArrayList<Object>>() {
+                        @Override
+                        public void onResponse(Call<ArrayList<Object>> call, Response<ArrayList<Object>> response) {
+
+                            JSONArray jsonArray = null;
+                            try {
+                                jsonArray = new JSONArray(response.body().toArray());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            for(int i = 0; i< Objects.requireNonNull(jsonArray).length(); i++) {
+
+                                try {
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                    // chuyển chuỗi về đúng dạng ngày
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                    Date parsedDate = sdf.parse(jsonObject.get("match_happen_time").toString());
+                                    SimpleDateFormat print = new SimpleDateFormat("HH:mm");
+                                    TranDau tranDau = new TranDau();
+
+                                    tranDau.setThoiGian(print.format(parsedDate));
+                                    tranDau.setDoiNha(jsonObject.get("clb_home_name").toString());
+                                    tranDau.setDoiKhach(jsonObject.get("clb_guess_name").toString());
+                                    tranDau.setKetQua(jsonObject.get("match_result").toString());
+
+                                    Log.d("match_parse", tranDau.getKetQua());
+                                    // lấy logo đội nhà
+                                    simpleAPI = Constants.instance();
+                                    simpleAPI.getChiTietCLB(jsonObject.get("clb_home_name").toString()).enqueue(new Callback<ArrayList<CauLacBo>>() {
+                                        @Override
+                                        public void onResponse(Call<ArrayList<CauLacBo>> call, Response<ArrayList<CauLacBo>> response) {
+                                            CLB = new ArrayList<>();
+                                            CLB = response.body();
+                                            tranDau.setLogoDoiNha(CLB.get(0).getLink());
+                                            Log.d("home_logo",tranDau.getDoiNha() + " " + tranDau.getLogoDoiNha());
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<ArrayList<CauLacBo>> call, Throwable t) {
+                                            Log.d("failCall","lich tran dau: " + t.toString());
+                                            t.printStackTrace();
+                                        }
+                                    });
+                                    simpleAPI.getChiTietCLB(jsonObject.get("clb_guess_name").toString()).enqueue(new Callback<ArrayList<CauLacBo>>() {
+                                        @Override
+                                        public void onResponse(Call<ArrayList<CauLacBo>> call, Response<ArrayList<CauLacBo>> response) {
+                                            CLB = new ArrayList<>();
+                                            CLB = response.body();
+                                            tranDau.setLogoDoiKhach(CLB.get(0).getLink());
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<ArrayList<CauLacBo>> call, Throwable t) {
+                                            Log.d("failCall","lich tran dau: " + t.toString());
+                                            t.printStackTrace();
+                                        }
+                                    });
+                                    mData.add(tranDau);
+                                } catch (JSONException | ParseException e) {
+                                    e.printStackTrace();
+                                    Log.d("fail", e.toString());
+                                }
+                            }
+                            mData.add(ngayDauStringArrayList.get(finalTemp));
+                            adapter = new LichDauAdapter(getContext(),mData);
+                            mRecyclerView.setAdapter(adapter);
+                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<ArrayList<Object>> call, Throwable t) {
+                            Log.d("failCall","lich tran dau: " + t.toString());
+                            t.printStackTrace();
+                        }
+                    });
+
+                }
+//                adapter = new LichDauAdapter(getContext(),mData);
+//                mRecyclerView.setAdapter(adapter);
+//                mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             }
 
             @Override
-            public void onFailure(Call<ArrayList<String>> call, Throwable t) {
-                Toast.makeText(getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<ArrayList<Object>> call, Throwable t) {
                 Log.d("failCall",t.toString());
                 t.printStackTrace();
             }
         });
-        //lay list tran dau cua ngay do
-
     }
 
     @Override

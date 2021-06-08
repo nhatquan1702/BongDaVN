@@ -4,7 +4,6 @@ import com.example.apptinthethao_java.model.CauLacBo;
 import com.example.apptinthethao_java.model.CauThu_DoiHinh;
 import com.example.apptinthethao_java.model.DetailPost;
 import com.example.apptinthethao_java.model.DienBienTranDau;
-import com.example.apptinthethao_java.model.NgayThiDau;
 import com.example.apptinthethao_java.model.Post;
 import com.example.apptinthethao_java.model.TranDau;
 
@@ -56,11 +55,11 @@ public interface SimpleAPI {
     Call<ArrayList<CauThu_DoiHinh>> getDoiHinhDuBiDoiKhach(@Path("match_id") String id);
 
     @GET("khai/getNgaySapDau/{date}")
-    Call<ArrayList<String>> getNgaySapDau(@Path("date") Date date);
+    Call<ArrayList<Object>> getNgaySapDau(@Path("date") String date);
 
     @GET("khai/getNgayDaDau/{date}")
-    Call<ArrayList<String>> getNgayDaDau(@Path("date") String date);
+    Call<ArrayList<Object>> getNgayDaDau(@Path("date") String date);
 
     @GET("khai/getTranDau/{date}")
-    Call<ArrayList<TranDau>> getTranDau(@Path("date") Date date);
+    Call<ArrayList<Object>> getLichTranDau(@Path("date") String date);
 }

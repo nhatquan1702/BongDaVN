@@ -19,10 +19,10 @@ public class ViewPagerLichDau  extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         Fragment fragment = null;
         if(position == 0) {
-            fragment = new LichDaDauFragment();
+            fragment = new LichSapDauFragment();
         }
         else if(position == 1) {
-            fragment = new LichSapDauFragment();
+            fragment = new LichDaDauFragment();
         }
         return fragment;
     }

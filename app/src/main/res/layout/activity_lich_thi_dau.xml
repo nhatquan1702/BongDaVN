@@ -11,12 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/tab_bg_new"
         app:tabBackground="@drawable/tab_selected_bg"
         app:tabIndicatorColor="#E8E8E8"
-        app:tabMode="scrollable"
+        app:tabMode="fixed"
         app:tabRippleColor="@color/white">
     </com.google.android.material.tabs.TabLayout>
 

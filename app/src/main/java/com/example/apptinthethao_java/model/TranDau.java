@@ -1,50 +1,41 @@
 package com.example.apptinthethao_java.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class TranDau implements Parcelable {
+public class TranDau {
+
     private String idTranDau;
     private Date thoiDiem;
-    private int thoiGian;
+    private String thoiGian;
     private String diaDiem;
-    private CLB_DoiBong doiNha;
-    private CLB_DoiBong doiKhach;
+    private String doiNha;
+    private String logoDoiNha;
+    private String doiKhach;
+    private String logoDoiKhach;
     private String ketQua;
     private String moTa;
+    public  TranDau(){
 
-    public TranDau(String idTranDau, Date thoiDiem, int thoiGian, String diaDiem, CLB_DoiBong doiNha, CLB_DoiBong doiKhach, String ketQua, String moTa) {
+    }
+
+    public TranDau(String idTranDau, Date thoiDiem, String thoiGian, String diaDiem, String doiNha,
+                   String logoDoiNha, String doiKhach, String logoDoiKhach, String ketQua, String moTa) {
         this.idTranDau = idTranDau;
         this.thoiDiem = thoiDiem;
         this.thoiGian = thoiGian;
         this.diaDiem = diaDiem;
         this.doiNha = doiNha;
+        this.logoDoiNha = logoDoiNha;
         this.doiKhach = doiKhach;
+        this.logoDoiKhach = logoDoiKhach;
         this.ketQua = ketQua;
         this.moTa = moTa;
     }
-
-    protected TranDau(Parcel in) {
-        idTranDau = in.readString();
-        thoiGian = in.readInt();
-        diaDiem = in.readString();
-        ketQua = in.readString();
-        moTa = in.readString();
-    }
-
-    public static final Creator<TranDau> CREATOR = new Creator<TranDau>() {
-        @Override
-        public TranDau createFromParcel(Parcel in) {
-            return new TranDau(in);
-        }
-
-        @Override
-        public TranDau[] newArray(int size) {
-            return new TranDau[size];
-        }
-    };
 
     public String getIdTranDau() {
         return idTranDau;
@@ -62,11 +53,11 @@ public class TranDau implements Parcelable {
         this.thoiDiem = thoiDiem;
     }
 
-    public int getThoiGian() {
+    public String getThoiGian() {
         return thoiGian;
     }
 
-    public void setThoiGian(int thoiGian) {
+    public void setThoiGian(String thoiGian){
         this.thoiGian = thoiGian;
     }
 
@@ -78,19 +69,19 @@ public class TranDau implements Parcelable {
         this.diaDiem = diaDiem;
     }
 
-    public CLB_DoiBong getDoiNha() {
+    public String getDoiNha() {
         return doiNha;
     }
 
-    public void setDoiNha(CLB_DoiBong doiNha) {
+    public void setDoiNha(String doiNha) {
         this.doiNha = doiNha;
     }
 
-    public CLB_DoiBong getDoiKhach() {
+    public String getDoiKhach() {
         return doiKhach;
     }
 
-    public void setDoiKhach(CLB_DoiBong doiKhach) {
+    public void setDoiKhach(String doiKhach) {
         this.doiKhach = doiKhach;
     }
 
@@ -110,18 +101,19 @@ public class TranDau implements Parcelable {
         this.moTa = moTa;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getLogoDoiNha() {
+        return logoDoiNha;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(thoiDiem);
-        dest.writeValue(doiNha);
-        dest.writeValue(doiKhach);
-        dest.writeInt(thoiGian);
-        dest.writeString(ketQua);
+    public void setLogoDoiNha(String logoDoiNha) {
+        this.logoDoiNha = logoDoiNha;
+    }
 
+    public String getLogoDoiKhach() {
+        return logoDoiKhach;
+    }
+
+    public void setLogoDoiKhach(String logoDoiKhach) {
+        this.logoDoiKhach = logoDoiKhach;
     }
 }
