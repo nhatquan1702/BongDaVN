@@ -40,7 +40,7 @@ public class NgayThiDauAdapter extends BaseAdapter {
         if (convertView == null) {
             view = View.inflate(parent.getContext(), R.layout.item_ngaydau, null);
         } else view = convertView;
-        ((TextView)view.findViewById(R.id.tv_ngaydau)).setText(ngayThiDauArrayList.get(position).getThoiDiem().toString());
+        ((TextView)view.findViewById(R.id.tv_ngaydau)).setText(ngayThiDauArrayList.get(position).getMatch_happen_time().toString());
         return view;
     }
 }

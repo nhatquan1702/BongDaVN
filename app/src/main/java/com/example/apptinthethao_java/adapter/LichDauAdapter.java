@@ -61,21 +61,21 @@ public class LichDauAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             case TRAN_DAU:
                 TranDau tranDau = (TranDau) mObjects.get(position);
                 TranDauViewHolder tranDauViewHolder = (TranDauViewHolder) holder;
-                tranDauViewHolder.leftTeam.setText(tranDau.getDoiNha());
-                tranDauViewHolder.rightTeam.setText(tranDau.getDoiKhach());
-                if(tranDau.getKetQua().equals("-:-"))
-                    tranDauViewHolder.matchTime.setText(tranDau.getThoiGian());
+                tranDauViewHolder.leftTeam.setText(tranDau.getClb_home_name());
+                tranDauViewHolder.rightTeam.setText(tranDau.getClb_guess_name());
+                if(tranDau.getMatch_result().equals("-:-"))
+                    tranDauViewHolder.matchTime.setText(tranDau.getMatch_time());
                 else
-                    tranDauViewHolder.matchTime.setText(tranDau.getKetQua());
+                    tranDauViewHolder.matchTime.setText(tranDau.getMatch_result());
                 Picasso.get()
-                        .load(tranDau.getLogoDoiNha())
+                        .load(tranDau.getLogo_home_url())
                         .resize(50, 50)
                         .centerCrop()
                         .placeholder(R.drawable.galleryoo)
                         .error(R.drawable.galleryoo)
                         .into(tranDauViewHolder.imgLeftTeam);
                 Picasso.get()
-                        .load(tranDau.getLogoDoiKhach())
+                        .load(tranDau.getLogo_guess_url())
                         .resize(50, 50)
                         .centerCrop()
                         .placeholder(R.drawable.galleryoo)

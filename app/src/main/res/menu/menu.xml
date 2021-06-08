@@ -2,10 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:title="Home"
+            android:id="@+id/ADMIN"
             android:icon="@drawable/right"
+            android:title="Quản trị" />
+        <item
             android:id="@+id/H"
-            />
+            android:icon="@drawable/right"
+            android:title="Home"
+            android:visible="true" />
         <item
             android:title="Chia sẻ"
             android:icon="@drawable/right"

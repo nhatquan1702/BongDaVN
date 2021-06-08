@@ -130,12 +130,12 @@ public class LichSapDauFragment extends Fragment implements NextView {
                                     SimpleDateFormat print = new SimpleDateFormat("HH:mm");
                                     TranDau tranDau = new TranDau();
 
-                                    tranDau.setThoiGian(print.format(parsedDate));
-                                    tranDau.setDoiNha(jsonObject.get("clb_home_name").toString());
-                                    tranDau.setDoiKhach(jsonObject.get("clb_guess_name").toString());
-                                    tranDau.setKetQua(jsonObject.get("match_result").toString());
+                                    tranDau.setMatch_time(print.format(parsedDate));
+                                    tranDau.setClb_home_name(jsonObject.get("clb_home_name").toString());
+                                    tranDau.setClb_guess_name(jsonObject.get("clb_guess_name").toString());
+                                    tranDau.setMatch_result(jsonObject.get("match_result").toString());
 
-                                    Log.d("match_parse", tranDau.getKetQua());
+                                    Log.d("match_parse", tranDau.getMatch_result());
                                     // lấy logo đội nhà
                                     simpleAPI = Constants.instance();
                                     simpleAPI.getChiTietCLB(jsonObject.get("clb_home_name").toString()).enqueue(new Callback<ArrayList<CauLacBo>>() {
@@ -145,11 +145,7 @@ public class LichSapDauFragment extends Fragment implements NextView {
                                             try {
                                                 jsonArray = new JSONArray(response.body().toArray());
                                                 JSONObject jsonObject = jsonArray.getJSONObject(0);
-                                                tranDau.setLogoDoiNha(jsonObject.get("clb_img_url").toString());
-                                                mData.add(tranDau);
-                                                adapter = new LichDauAdapter(getContext(),mData);
-                                                mRecyclerView.setAdapter(adapter);
-                                                mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                tranDau.setLogo_home_url(jsonObject.get("clb_img_url").toString());
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
@@ -168,11 +164,7 @@ public class LichSapDauFragment extends Fragment implements NextView {
                                             try {
                                                 jsonArray = new JSONArray(response.body().toArray());
                                                 JSONObject jsonObject = jsonArray.getJSONObject(0);
-                                                tranDau.setLogoDoiKhach(jsonObject.get("clb_img_url").toString());
-                                                mData.add(tranDau);
-                                                adapter = new LichDauAdapter(getContext(),mData);
-                                                mRecyclerView.setAdapter(adapter);
-                                                mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                tranDau.setLogo_guess_url(jsonObject.get("clb_img_url").toString());
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
@@ -205,9 +197,6 @@ public class LichSapDauFragment extends Fragment implements NextView {
                     });
 
                 }
-                adapter = new LichDauAdapter(getContext(),mData);
-                mRecyclerView.setAdapter(adapter);
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             }
 
             @Override

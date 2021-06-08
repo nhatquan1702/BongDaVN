@@ -26,28 +26,35 @@
         android:layout_centerVertical="true"
         android:id="@+id/imgAVT"
         />
-    <TextView
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvHoTenNa_Header"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/imgAVT"
-        android:layout_centerVertical="true"
-        android:text="username"
-        android:textSize="17sp"
-        android:textColor="#fff"
-        />
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnHeaderLogin"
-        android:layout_width="100dp"
-        android:layout_height="24dp"
-        android:layout_below="@+id/tvHoTenNa_Header"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@+id/imgAVT"
-        android:text="Đăng nhập"
-        android:textColor="@color/black"
-        android:background="@drawable/btn_dn_bg"
-        android:textSize="9dp"
-        />
+        android:layout_height="match_parent"
+        android:layout_alignTop="@+id/imgAVT"
+        android:layout_alignBottom="@+id/imgAVT"
+        android:layout_toEndOf="@+id/imgAVT"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvHoTenNa_Header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="username"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnHeaderLogin"
+            android:layout_width="100dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/btn_dn_bg"
+            android:text="Đăng nhập"
+            android:textColor="@color/black"
+            android:textSize="9dp" />
+    </LinearLayout>
+
 </RelativeLayout>

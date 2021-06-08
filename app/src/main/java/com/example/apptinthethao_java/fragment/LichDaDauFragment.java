@@ -135,12 +135,12 @@ public class LichDaDauFragment extends Fragment implements LastView {
                                     SimpleDateFormat print = new SimpleDateFormat("HH:mm");
                                     TranDau tranDau = new TranDau();
 
-                                    tranDau.setThoiGian(print.format(parsedDate));
-                                    tranDau.setDoiNha(jsonObject.get("clb_home_name").toString());
-                                    tranDau.setDoiKhach(jsonObject.get("clb_guess_name").toString());
-                                    tranDau.setKetQua(jsonObject.get("match_result").toString());
+                                    tranDau.setMatch_time(print.format(parsedDate));
+                                    tranDau.setClb_home_name(jsonObject.get("clb_home_name").toString());
+                                    tranDau.setClb_guess_name(jsonObject.get("clb_guess_name").toString());
+                                    tranDau.setMatch_result(jsonObject.get("match_result").toString());
 
-                                    Log.d("match_parse", tranDau.getKetQua());
+                                    Log.d("match_parse", tranDau.getMatch_result());
                                     // lấy logo đội nhà
                                     simpleAPI = Constants.instance();
                                     simpleAPI.getChiTietCLB(jsonObject.get("clb_home_name").toString()).enqueue(new Callback<ArrayList<CauLacBo>>() {
@@ -148,8 +148,8 @@ public class LichDaDauFragment extends Fragment implements LastView {
                                         public void onResponse(Call<ArrayList<CauLacBo>> call, Response<ArrayList<CauLacBo>> response) {
                                             CLB = new ArrayList<>();
                                             CLB = response.body();
-                                            tranDau.setLogoDoiNha(CLB.get(0).getLink());
-                                            Log.d("home_logo",tranDau.getDoiNha() + " " + tranDau.getLogoDoiNha());
+                                            tranDau.setLogo_home_url(CLB.get(0).getLink());
+                                            Log.d("home_logo",tranDau.getClb_home_name() + " " + tranDau.getLogo_home_url());
                                         }
 
                                         @Override
@@ -163,7 +163,7 @@ public class LichDaDauFragment extends Fragment implements LastView {
                                         public void onResponse(Call<ArrayList<CauLacBo>> call, Response<ArrayList<CauLacBo>> response) {
                                             CLB = new ArrayList<>();
                                             CLB = response.body();
-                                            tranDau.setLogoDoiKhach(CLB.get(0).getLink());
+                                            tranDau.setLogo_guess_url(CLB.get(0).getLink());
                                         }
 
                                         @Override
@@ -193,9 +193,6 @@ public class LichDaDauFragment extends Fragment implements LastView {
                     });
 
                 }
-//                adapter = new LichDauAdapter(getContext(),mData);
-//                mRecyclerView.setAdapter(adapter);
-//                mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             }
 
             @Override
