@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -24,17 +23,11 @@ import com.example.apptinthethao_java.R;
 import com.example.apptinthethao_java.adapter.ItemClickInterface;
 import com.example.apptinthethao_java.adapter.MenuItemRecyclerViewAdapter;
 import com.example.apptinthethao_java.adapter.ViewPagerAdapter;
-import com.example.apptinthethao_java.model.Post;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
@@ -47,6 +40,7 @@ public class MainActivity extends AppCompatActivity{
     ImageView imgAVTHeader ;
     TextView iconToolbarMenu;
     FlowingDrawer drawerlayout;
+    SearchView searchView;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     @Override
@@ -71,16 +65,31 @@ public class MainActivity extends AppCompatActivity{
         //Load menu navigation khi vuốt cạnh trái hoặc click icon tool bar
         iconToolbarMenu = findViewById(R.id.iconToolbarMenu);
         drawerlayout = (FlowingDrawer) findViewById(R.id.drawerlayout);
+        searchView = findViewById(R.id.searchView);
         LoadNavigation();
-
 
         //Load menu recyclerView bên dưới
         LoadMenuReCyclerView();
 
         //Xử lý thanh search
-        //Search();
+        Search();
+    }
 
+    private void Search() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent(MainActivity.this, SearchPostsActivity.class);
+                intent.putExtra("searchText", query);
+                startActivity(intent);
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
     private void LoadMenuReCyclerView() {

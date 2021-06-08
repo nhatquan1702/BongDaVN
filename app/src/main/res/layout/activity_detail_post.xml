@@ -1,53 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_width="match_parent"
+<androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:id="@+id/constraintLayoutDetailPost"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".activity.DetailPostActivity">
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:orientation="vertical"
-            android:id="@+id/shimmerFrame">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <!--4 dong include thể hiện cho 4 item trong RecyclerView đang được load data-->
-                <include layout="@layout/abc" />
+<!--        <com.facebook.shimmer.ShimmerFrameLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            android:layout_marginRight="5dp"-->
+<!--            android:orientation="vertical"-->
+<!--            android:id="@+id/shimmerFrame">-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical">-->
+<!--                &lt;!&ndash;4 dong include thể hiện cho 4 item trong RecyclerView đang được load data&ndash;&gt;-->
+<!--                <include layout="@layout/abc" />-->
 
-                <include layout="@layout/abcd" />
+<!--                <include layout="@layout/abcd" />-->
 
-                <include layout="@layout/abcd" />
+<!--                <include layout="@layout/abcd" />-->
 
-                <include layout="@layout/abcd" />
+<!--                <include layout="@layout/abcd" />-->
 
-                <include layout="@layout/abcd" />
+<!--                <include layout="@layout/abcd" />-->
 
-                <include layout="@layout/abcd" />
+<!--                <include layout="@layout/abcd" />-->
 
-            </LinearLayout>
-        </com.facebook.shimmer.ShimmerFrameLayout>
+<!--            </LinearLayout>-->
+<!--        </com.facebook.shimmer.ShimmerFrameLayout>-->
         <LinearLayout
             android:id="@+id/rl"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@drawable/ti_so_bg"
             android:layout_height="?attr/actionBarSize"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
             <TextView
-                android:layout_width="30dp"
+                android:id="@+id/tvBackDPost"
+                android:layout_width="match_parent"
+                android:text="Tin thể thao 24/7"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:paddingStart="10dp"
+                android:drawableStart="@drawable/ic_soccer_24"
                 android:layout_gravity="center"
-                android:layout_height="30dp"
-                android:background="@drawable/ic_baseline_arrow_back_24"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
         <ImageView
             android:id="@+id/imgDetailPost"
@@ -133,5 +142,59 @@
             android:paddingBottom="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvNoiDung" />
+
+        <EditText
+            android:id="@+id/edtComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="70dp"
+            android:background="@drawable/cmt_bg"
+            android:hint="Nhập bình luận..."
+            android:padding="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvNguoiTao" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCmt"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:background="@drawable/btn_cmt_bg"
+            android:layout_marginEnd="10dp"
+            android:text="Gửi"
+            android:textSize="11sp"
+            android:padding="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/edtComment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLuotView" />
+        <TextView
+            android:id="@+id/tvBinhLuan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Bình luận"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:textStyle="italic"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtComment"/>
+
+        <ListView
+            android:id="@+id/listViewComment"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:nestedScrollingEnabled="false"
+            android:divider="@android:color/transparent"
+            android:paddingBottom="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBinhLuan" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>
