@@ -57,7 +57,7 @@ public class TongQuanCauThuFragment extends Fragment {
                 ((TextView) view.findViewById(R.id.txtTenPlayer)).setText(cauThuDetail.getTenCauThu());
                 ((TextView) view.findViewById(R.id.txtPlayerClub)).append(cauThuDetail.getClb_name());
                 ((TextView) view.findViewById(R.id.txtAssist)).append(String.valueOf(cauThuDetail.getAssist()));
-//                ((TextView) view.findViewById(R.id.txtGoal)).append(String.valueOf(cauThuDetail.getGoal()));
+                ((TextView) view.findViewById(R.id.txtGoal)).append(String.valueOf(cauThuDetail.getGoal()));
                 ((TextView) view.findViewById(R.id.txtDOB)).append(cauThuDetail.getDob());
                 ((TextView) view.findViewById(R.id.txtRaThay)).append(String.valueOf(cauThuDetail.getIn()));
                 ((TextView) view.findViewById(R.id.txtDaChinh)).append(String.valueOf(cauThuDetail.getMain()));

@@ -76,9 +76,9 @@ public class CauThuDetail {
     @Expose
     private int value;
 
-//    @SerializedName("goal")
-//    @Expose
-//    private int goal;
+    @SerializedName("goal")
+    @Expose
+    private int goal;
 
 
     public String getIdCauThu() {
@@ -225,15 +225,15 @@ public class CauThuDetail {
         this.value = value;
     }
 
-//    public int getGoal() {
-//        return goal;
-//    }
-//
-//    public void setGoal(int goal) {
-//        this.goal = goal;
-//    }
+    public int getGoal() {
+        return goal;
+    }
 
-    public CauThuDetail(String idCauThu, String tenCauThu, String imgCauThu, String viTri, int soAo, String dob, String player_height, String player_foot, String nationality, String clb_name, int main, int sub, int out, int in, int assist, int yellow, int red, int value) {
+    public void setGoal(int goal) {
+        this.goal = goal;
+    }
+
+    public CauThuDetail(String idCauThu, String tenCauThu, String imgCauThu, String viTri, int soAo, String dob, String player_height, String player_foot, String nationality, String clb_name, int main, int sub, int out, int in, int assist, int yellow, int red, int value, int goal) {
         this.idCauThu = idCauThu;
         this.tenCauThu = tenCauThu;
         this.imgCauThu = imgCauThu;
@@ -252,5 +252,6 @@ public class CauThuDetail {
         this.yellow = yellow;
         this.red = red;
         this.value = value;
+        this.goal = goal;
     }
 }
