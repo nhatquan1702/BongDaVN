@@ -120,28 +120,34 @@ public class DetailPostActivity extends AppCompatActivity {
                     cmtPostAdapter.setOnClickItemListViewCmt(new ItemClickInterface() {
                         @Override
                         public void onClick(View view, int position) {
-                            simpleAPI = Constants.instance();
-                            simpleAPI.deleteCmt(cmtArrayList.get(position).getUserName(),
-                                    cmtArrayList.get(position).getId_post(),
-                                    cmtArrayList.get(position).getNgayCmt()).enqueue(new Callback<Status>() {
-                                @Override
-                                public void onResponse(Call<Status> call, Response<Status> response) {
-                                    Status status = response.body();
-                                    if(status.getStatus()==1){
-                                        Toast.makeText(DetailPostActivity.this, "Xóa bình luận thành công!", Toast.LENGTH_SHORT).show();
-                                        LoadListCmt(id);
+                            String check = sharedPreferences.getString("role", "0");
+                            if(check.equals("0")){
+                                Toast.makeText(DetailPostActivity.this, "Vui lòng đăng nhập!", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                simpleAPI = Constants.instance();
+                                simpleAPI.deleteCmt(cmtArrayList.get(position).getUserName(),
+                                        cmtArrayList.get(position).getId_post(),
+                                        cmtArrayList.get(position).getNgayCmt()).enqueue(new Callback<Status>() {
+                                    @Override
+                                    public void onResponse(Call<Status> call, Response<Status> response) {
+                                        Status status = response.body();
+                                        if(status.getStatus()==1){
+                                            LoadListCmt(id);
+                                            Toast.makeText(DetailPostActivity.this, "Xóa bình luận thành công!", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else {
+                                            Toast.makeText(DetailPostActivity.this, "Xóa bình luận thất bại!", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                    else {
-                                        Toast.makeText(DetailPostActivity.this, "Xóa bình luận thất bại!", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
 
-                                @Override
-                                public void onFailure(Call<Status> call, Throwable t) {
-                                    Toast.makeText(DetailPostActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
-                                    t.printStackTrace();
-                                }
-                            });
+                                    @Override
+                                    public void onFailure(Call<Status> call, Throwable t) {
+                                        Toast.makeText(DetailPostActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
+                                        t.printStackTrace();
+                                    }
+                                });
+                            }
                         }
                     });
                 }
