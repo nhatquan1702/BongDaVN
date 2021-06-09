@@ -43,7 +43,7 @@
             android:layout_marginLeft="10dp"
             android:text="username"
             android:textColor="#fff"
-            android:textSize="20sp" />
+            android:textSize="14sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnHeaderLogin"

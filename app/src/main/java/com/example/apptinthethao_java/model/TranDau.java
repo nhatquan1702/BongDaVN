@@ -3,6 +3,8 @@ package com.example.apptinthethao_java.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TranDau {
@@ -27,6 +29,10 @@ public class TranDau {
     @SerializedName("match_description")
     @Expose
     private String match_description;
+
+    private String logo_home_url;
+    private String logo_guess_url;
+    private String match_time;
 
     public TranDau() {
     }
@@ -95,5 +101,29 @@ public class TranDau {
 
     public void setMatch_description(String match_description) {
         this.match_description = match_description;
+    }
+
+    public String getLogo_home_url() {
+        return logo_home_url;
+    }
+
+    public void setLogo_home_url(String logo_home_url) {
+        this.logo_home_url = logo_home_url;
+    }
+
+    public String getLogo_guess_url() {
+        return logo_guess_url;
+    }
+
+    public void setLogo_guess_url(String logo_guess_url) {
+        this.logo_guess_url = logo_guess_url;
+    }
+
+    public String getMatch_time() {
+        return match_time;
+    }
+
+    public void setMatch_time(String match_time) {
+        this.match_time = match_time;
     }
 }

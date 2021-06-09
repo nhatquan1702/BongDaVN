@@ -1,89 +1,87 @@
 package com.example.apptinthethao_java.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apptinthethao_java.R;
 import com.example.apptinthethao_java.model.BXH_DoiBong;
 
 import java.util.ArrayList;
 
-public class BangXepHangAdapter extends RecyclerView.Adapter<BangXepHangAdapter.ViewHolder> {
-
+public class BangXepHangAdapter extends BaseAdapter {
     Context context;
-    ArrayList<BXH_DoiBong> BXH;
+    private ArrayList<BXH_DoiBong> arrBXH;
 
-    public BangXepHangAdapter(Context context, ArrayList<BXH_DoiBong> BXH) {
+    public BangXepHangAdapter(Context context, ArrayList<BXH_DoiBong> arrBXH) {
         this.context = context;
-        this.BXH = BXH;
+        this.arrBXH = arrBXH;
     }
 
-    public Context getContext() {
-        return context;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
-    public ArrayList<BXH_DoiBong> getBXH() {
-        return BXH;
-    }
-
-    public void setBXH(ArrayList<BXH_DoiBong> BXH) {
-        this.BXH = BXH;
-    }
-
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_bxh,parent,false);
-
-        return new ViewHolder(view);
+    public int getCount() {
+        return arrBXH.size();
     }
-    int i=1;
+
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (BXH!=null && BXH.size()>0){
-            BXH_DoiBong doibong = BXH.get(position);
-            holder.STT.setText(String.valueOf(i));
-            holder.TenDoiBong.setText(String.valueOf(doibong.getTenDoiBong()));
-            holder.SoTran.setText(String.valueOf(doibong.getSotran()));
-            holder.Thang.setText(String.valueOf(doibong.getThang()));
-            holder.Hoa.setText(String.valueOf(doibong.getHoa()));
-            holder.Bai.setText(String.valueOf(doibong.getThua()));
-            holder.HieuSo.setText(String.valueOf(doibong.getHieuso()));
-            holder.Diem.setText(String.valueOf(doibong.getDiem()));
-            i++;
+    public Object getItem(int position) {
+        return arrBXH.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+    public static class DoiBongViewHolder{
+        public TextView STT;
+        public TextView TenCLB;
+        public TextView SoTran;
+        public TextView Thang;
+        public TextView Hoa;
+        public TextView Bai;
+        public TextView BanThang;
+        public TextView BanThua;
+        public TextView HieuSo;
+        public TextView Diem;
+
+    }
+    @Override
+    public View getView(int position, View view, ViewGroup viewGroup) {
+        DoiBongViewHolder holder = null;
+        if(view==null){
+            LayoutInflater inflater=((Activity)context).getLayoutInflater();
+            view=inflater.inflate(R.layout.item_bxh,null);
+            holder= new DoiBongViewHolder();
+            holder.STT=view.findViewById(R.id.tvSTT);
+            holder.TenCLB=view.findViewById(R.id.tvTenCLB);
+            holder.SoTran=view.findViewById(R.id.tvSoTran);
+            holder.Thang=view.findViewById(R.id.tvThang);
+            holder.Hoa=view.findViewById(R.id.tvHoa);
+            holder.Bai=view.findViewById(R.id.tvBai);
+            holder.BanThang=view.findViewById(R.id.tvBanThang);
+            holder.BanThua=view.findViewById(R.id.tvBanThua);
+            holder.HieuSo=view.findViewById(R.id.tvHieuSo);
+            holder.Diem=view.findViewById(R.id.tvDiem);
+            view.setTag(holder);
         }else{
-            return;
+            holder=(DoiBongViewHolder) view.getTag();
         }
-    }
-
-    @Override
-    public int getItemCount() {
-        return BXH.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView TenDoiBong,STT,SoTran, Thang, Hoa, Bai, HieuSo, Diem;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            STT=(TextView)itemView.findViewById(R.id.STT);
-            TenDoiBong=(TextView)itemView.findViewById(R.id.TenCLB);
-            SoTran=(TextView)itemView.findViewById(R.id.SoTran);
-            Thang=(TextView)itemView.findViewById(R.id.Thang);
-            Hoa=(TextView)itemView.findViewById(R.id.Hoa);
-            Bai=(TextView)itemView.findViewById(R.id.Bai);
-            HieuSo=(TextView)itemView.findViewById(R.id.HieuSo);
-            Diem=(TextView)itemView.findViewById(R.id.Diem);
-        }
+        holder.STT.setText(String.valueOf(position+1));
+        holder.TenCLB.setText(String.valueOf(arrBXH.get(position).getTenDoiBong()));
+        holder.SoTran.setText(String.valueOf(arrBXH.get(position).getSotran()));
+        holder.Thang.setText(String.valueOf(arrBXH.get(position).getThang()));
+        holder.Hoa.setText(String.valueOf(arrBXH.get(position).getHoa()));
+        holder.Bai.setText(String.valueOf(arrBXH.get(position).getThua()));
+        holder.BanThang.setText(String.valueOf(arrBXH.get(position).getTongBanThang()));
+        holder.BanThua.setText(String.valueOf(arrBXH.get(position).getTongBanThua()));
+        holder.HieuSo.setText(String.valueOf(arrBXH.get(position).getHieuso()));
+        holder.Diem.setText(String.valueOf(arrBXH.get(position).getDiem()));
+        return view;
     }
 }

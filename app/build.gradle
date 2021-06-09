@@ -27,6 +27,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        main {
+            res {
+                srcDirs 'src\\main\\res', 'src\\main\\res\\layout\\itemlists', 'src\\main\\res\\layout\\fragments'
+            }
+        }
+    }
 }
 
 dependencies {
@@ -35,6 +42,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.github.hajiyevelnur92:intentanimation:1.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -61,13 +69,21 @@ dependencies {
 // JSON Parsing
     implementation 'com.google.code.gson:gson:2.6.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
-    implementation 'org.postgresql:postgresql:42.2.10'
+    implementation 'org.postgresql:postgresql:42.2.20'
     // chart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     // multidex request
     implementation 'com.android.support:multidex:1.0.3'
     // chart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-    // multidex request
-    implementation 'com.android.support:multidex:1.0.3'
+    //EpandableView
+    implementation 'com.thoughtbot:expandablerecyclerview:1.4'
+
+    allprojects {
+        repositories {
+            google()
+            jcenter()
+            maven { url 'https://jitpack.io' }
+        }
+    }
 }

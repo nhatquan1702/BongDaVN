@@ -4,17 +4,40 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class BXH_DoiBong {
-    @SerializedName("clb_name")
+    @SerializedName("club_name")
     @Expose
     private String TenDoiBong = "";
 
+    @SerializedName("match")
+    @Expose
     private int sotran;
+
+    @SerializedName("win")
+    @Expose
     private int thang;
+
+    @SerializedName("banthang")
+    @Expose
     private int tongBanThang;
+
+    @SerializedName("draw")
+    @Expose
     private int hoa;
+
+    @SerializedName("lose")
+    @Expose
     private int thua;
+
+    @SerializedName("banthua")
+    @Expose
     private int tongBanThua;
+
+    @SerializedName("hieuso")
+    @Expose
     private int hieuso;
+
+    @SerializedName("diem")
+    @Expose
     private int diem;
 
     public BXH_DoiBong(String tenDoiBong) {

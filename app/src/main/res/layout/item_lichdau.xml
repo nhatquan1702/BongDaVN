@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:contentPaddingBottom="15dp"
+        app:contentPaddingTop="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+                <ImageView
+                    android:id="@+id/img_left_team"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/img_bg"
+                    android:scaleType="centerCrop"
+                    tools:srcCompat="@drawable/deappool"
+                    android:layout_toStartOf = "@id/tv_left_team"/>
+
+                <TextView
+                    android:id="@+id/tv_left_team"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_toStartOf="@id/tv_time"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textSize="15sp"
+                    tools:text="Man United"
+                    android:gravity="left"/>
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp"
+                    style="bold"
+                    android:text="21:00"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/tv_right_team"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@+id/tv_time"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textSize="15sp"
+                    android:gravity="right"
+                    tools:text="Wolves" />
+                <ImageView
+                    android:id="@+id/img_right_team"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/img_bg"
+                    android:scaleType="centerCrop"
+                    tools:srcCompat="@drawable/deappool"
+                    android:layout_toEndOf="@id/tv_right_team"/>
+
+            </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

@@ -1,23 +1,30 @@
 package com.example.apptinthethao_java.api;
 
+import com.example.apptinthethao_java.model.BXH_DoiBong;
 import com.example.apptinthethao_java.model.CauLacBo;
 import com.example.apptinthethao_java.model.CauThuDetail;
 import com.example.apptinthethao_java.model.CauThuSimple;
 import com.example.apptinthethao_java.model.CauThu_DoiHinh;
 import com.example.apptinthethao_java.model.CauThu_Performance;
+import com.example.apptinthethao_java.model.Cmt;
 import com.example.apptinthethao_java.model.DetailPost;
 import com.example.apptinthethao_java.model.DienBienTranDau;
 import com.example.apptinthethao_java.model.DoiHinh;
 import com.example.apptinthethao_java.model.KetQua_TranDau;
 import com.example.apptinthethao_java.model.Post;
+import com.example.apptinthethao_java.model.Status;
 import com.example.apptinthethao_java.model.SuKienTrongTran;
 import com.example.apptinthethao_java.model.TranDau;
 import com.example.apptinthethao_java.model.User;
 
+import java.sql.Struct;
 import java.util.ArrayList;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface SimpleAPI {
@@ -45,10 +52,6 @@ public interface SimpleAPI {
     @GET("quan/chitietclb/{clb_id}")
     Call<ArrayList<CauLacBo>> getChiTietCLB(@Path("clb_id") String id);
 
-    @GET("khoa/get_ketqua_nam/{year}")
-    Call<ArrayList<KetQua_TranDau>> getListKetQuaTranDau(@Path("year") String year);
-//    @GET("khoa/get_ketqua_nam/2021")
-//    Call<ArrayList<KetQua_TranDau>> getListKetQuaTranDau();
 
     @GET("quan/trandau/{match_id}")
     Call<ArrayList<DienBienTranDau>> getTranDau(@Path("match_id") String id);
@@ -76,5 +79,35 @@ public interface SimpleAPI {
 
     @GET("manem/allperformance/{player_id}")
     Call<ArrayList<CauThu_Performance>> getPhongDo(@Path("player_id") String id);
+    @GET("khai/getNgaySapDau/{date}")
+    Call<ArrayList<Object>> getNgaySapDau(@Path("date") String date);
 
+    @GET("khai/getNgayDaDau/{date}")
+    Call<ArrayList<Object>> getNgayDaDau(@Path("date") String date);
+
+    @GET("khai/getTranDau/{date}")
+    Call<ArrayList<Object>> getLichTranDau(@Path("date") String date);
+
+    @GET("quan/search/{searchText}")
+    Call<ArrayList<Post>> getListPostSearch(@Path("searchText") String searchText);
+
+    @GET("quan/list_comment/{post_id}")
+    Call<ArrayList<Cmt>> getListCmt(@Path("post_id") String id);
+
+    @POST("quan/comment")
+    Call<Status> postCmt(@Header("account_email") String username, @Header("post_id") String id, @Header("comment_content") String noidung);
+
+    @POST("quan/del/comment")
+    Call<Status> deleteCmt(@Header("account_email") String username, @Header("post_id") String id, @Header("comment_time") String noidung);
+
+    @GET("khoa/get_ketqua_nam/{year}")
+    Call<ArrayList<KetQua_TranDau>> getListKetQuaTranDau(@Path("year") String year);
+    @GET("khoa/tiso")
+    Call<ArrayList<KetQua_TranDau>> getTiSo();
+    @GET("khoa/get_bxh_year/{year}")
+    Call<ArrayList<BXH_DoiBong>> getBXH_year(@Path("year") String year);
+    @GET("khoa/get_all_bxh_doi/{clb_name}")
+    Call<ArrayList<BXH_DoiBong>> getBXH_clb(@Path("clb_name") String clb_name);
+    @GET("khoa/get_bxh_clb_nameYear/{clb_name}/{year}")
+    Call<ArrayList<BXH_DoiBong>> getBXH_clb_year(@Path("clb_name") String clb_name, @Path("year") String year);
 }

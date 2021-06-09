@@ -13,6 +13,14 @@ import java.sql.Statement;
 public class doQueryDBTask extends AsyncTask<String, Integer, ResultSet> {
 
     Activity contextParent;
+    private Connection connection;
+    private final String host = "ec2-52-71-231-37.compute-1.amazonaws.com";
+    private final String database = "d3pbrmjh5hgsb9";
+    private final int port = 5432;
+    private final String user = "cuefzkwkvdoncc";
+    private final String pass = "3b5a03ed19cb22bbb695c2b1763d6a7035e2beb9e97221330a9e209500e1c3b8";
+    private String url = "jdbc:postgresql://%s:%d/%s";
+    private boolean status;
 
 
     public doQueryDBTask(Activity contextParent) {
@@ -21,45 +29,28 @@ public class doQueryDBTask extends AsyncTask<String, Integer, ResultSet> {
 
     @Override
     protected ResultSet doInBackground(String... strings) {
-        ResultSet mRs = null;
-        Connection conn = null;
-        Statement st = null;
+        this.url = String.format(this.url, this.host, this.port, this.database);
+
+        Statement st;
         ResultSet rs = null;
         try {
-            //STEP 2: Register JDBC driver
-            Class.forName("org.postgresql.Driver").newInstance ();
-
-            //STEP 3: Open a connection
-            conn = DriverManager.getConnection("jdbc:postgresql://ec2-52-71-231-37.compute-1.amazonaws.com:5432/d3pbrmjh5hgsb9",
-                    "cuefzkwkvdoncc", "3b5a03ed19cb22bbb695c2b1763d6a7035e2beb9e97221330a9e209500e1c3b8");
-            Log.d("connectOK", "Connecting to database...");
-            st = conn.createStatement();
+            try {
+                Class.forName("org.postgresql.Driver");
+                connection = DriverManager.getConnection(url, user, pass);
+                status = true;
+                System.out.println("connected:" + status);
+            } catch (Exception e) {
+                status = false;
+                System.out.print(e.getMessage());
+                e.printStackTrace();
+            }
+            st = connection.createStatement();
             Log.d("testSt", "Creating statement...");
             rs = st.executeQuery(strings[0]);
-//            mRs = rs;
-//            rs.close();
-//            st.close();
-//            conn.close();
-        } catch (SQLException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+        } catch (SQLException e) {
             //Handle errors for JDBC
             Log.d("connect", "connect fail!");
         }
-//        finally
-//        {
-//            //finally block used to close resources
-//            try{
-//                if(st!=null)
-//                    st.close();
-//            }catch(SQLException se2){
-//            }// nothing we can do
-//            try{
-//                if(conn!=null)
-//                    conn.close();
-//            }
-//            catch(SQLException se){
-//                se.printStackTrace();
-//            }//end finally try
-//        }
         return rs;
     }
 
@@ -70,11 +61,9 @@ public class doQueryDBTask extends AsyncTask<String, Integer, ResultSet> {
         String pass = null;
         try{
             while (resultSet.next()) {
-                //Retrieve by column name
                 emailTest = resultSet.getString(1);
-                pass = resultSet.getString(2);
-//                    role = rs.getInt(3);
-                Log.d("accountTest", emailTest + " " + pass);
+//                pass = resultSet.getString(2);
+                Log.d("accountTest", emailTest);
             }
         } catch (SQLException e) {
             Log.d("e", "fail Query");

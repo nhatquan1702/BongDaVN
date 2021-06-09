@@ -39,10 +39,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_login);
-        // kết nối db
+
         RelativeLayout rLayoutDN = findViewById(R.id.rLayoutDN);
         RelativeLayout rLayoutAdd = findViewById(R.id.rLayoutAdd);
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.uptodowndiagonal);
@@ -62,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
         rLayoutAdd.setAnimation(animationy);
         CardView cvDNLogin = findViewById(R.id.cvDNLogin);
         ImageView imgbtnDKTK = findViewById(R.id.imgbtnDKTK);
-
 
         checkShowPass.setOnClickListener(new View.OnClickListener() {
             @Override

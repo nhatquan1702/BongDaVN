@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_ngaydau"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            app:contentPaddingBottom="15dp"
+            app:contentPaddingTop="10dp">
+            <TextView
+                android:id="@+id/tv_ngaydau"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp"
+                tools:text="Mon, 29 Sep 2018" />
+        </androidx.cardview.widget.CardView>
+
+        <!--<androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_last_match"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="5dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingTop="5dp"
+            tools:listitem="@layout/item_lichdau"
+            android:layout_below="@id/cv_date">
+
+        </androidx.recyclerview.widget.RecyclerView>-->
+
+
+</LinearLayout>
