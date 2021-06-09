@@ -30,6 +30,8 @@ import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
 import java.util.ArrayList;
 
+import maes.tech.intentanim.CustomIntent;
+
 public class MainActivity extends AppCompatActivity{
     TabLayout tabLayout;
     ViewPager2 viewPager2;
@@ -180,6 +182,7 @@ public class MainActivity extends AppCompatActivity{
                         Toast.makeText(getApplicationContext(), "Điều khoản sử dụng!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, DieuKhoanActivity.class);
                         startActivity(intent);
+                        CustomIntent.customType(MainActivity.this,"right-to-left");
                         return true;
                     }
                 }

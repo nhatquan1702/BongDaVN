@@ -1,5 +1,6 @@
 package com.example.apptinthethao_java.api;
 
+import com.example.apptinthethao_java.model.BXH_DoiBong;
 import com.example.apptinthethao_java.model.CauLacBo;
 import com.example.apptinthethao_java.model.CauThu_DoiHinh;
 import com.example.apptinthethao_java.model.Cmt;
@@ -48,10 +49,6 @@ public interface SimpleAPI {
     @GET("quan/chitietclb/{clb_id}")
     Call<ArrayList<CauLacBo>> getChiTietCLB(@Path("clb_id") String id);
 
-    @GET("khoa/get_ketqua_nam/{year}")
-    Call<ArrayList<KetQua_TranDau>> getListKetQuaTranDau(@Path("year") String year);
-//    @GET("khoa/get_ketqua_nam/2021")
-//    Call<ArrayList<KetQua_TranDau>> getListKetQuaTranDau();
 
     @GET("quan/trandau/{match_id}")
     Call<ArrayList<DienBienTranDau>> getTranDau(@Path("match_id") String id);
@@ -91,4 +88,15 @@ public interface SimpleAPI {
 
     @POST("quan/del/comment")
     Call<Status> deleteCmt(@Header("account_email") String username, @Header("post_id") String id, @Header("comment_time") String noidung);
+
+    @GET("khoa/get_ketqua_nam/{year}")
+    Call<ArrayList<KetQua_TranDau>> getListKetQuaTranDau(@Path("year") String year);
+    @GET("khoa/tiso")
+    Call<ArrayList<KetQua_TranDau>> getTiSo();
+    @GET("khoa/get_bxh_year/{year}")
+    Call<ArrayList<BXH_DoiBong>> getBXH_year(@Path("year") String year);
+    @GET("khoa/get_all_bxh_doi/{clb_name}")
+    Call<ArrayList<BXH_DoiBong>> getBXH_clb(@Path("clb_name") String clb_name);
+    @GET("khoa/get_bxh_clb_nameYear/{clb_name}/{year}")
+    Call<ArrayList<BXH_DoiBong>> getBXH_clb_year(@Path("clb_name") String clb_name, @Path("year") String year);
 }

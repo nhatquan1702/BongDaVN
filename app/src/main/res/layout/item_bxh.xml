@@ -1,100 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/row_BXH"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="40dp"
     android:orientation="horizontal"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    android:paddingBottom="5dp"
+    >
 
-    <TableRow>
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
 
         <TextView
-            android:id="@+id/STT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/tvSTT"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="1dp"
             android:layout_marginRight="1dp"
-            android:background="#E0F7FA"
-            android:layout_weight="1"
             android:textAlignment="center"
             android:padding="2dp"/>
+
         <TextView
-            android:id="@+id/TenCLB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:id="@+id/tvTenCLB"
+            android:layout_width="100dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:layout_marginLeft="1dp"
             android:layout_marginRight="1dp"
-            android:background="#E0F7FA"
-            android:padding="2dp"
+            android:padding="2dp" />
+
+        <TextView
+            android:id="@+id/tvSoTran"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tvThang"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tvHoa"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tvBai"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:textAlignment="center" />
+        <TextView
+            android:id="@+id/tvBanThang"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:textAlignment="center" />
+        <TextView
+            android:id="@+id/tvBanThua"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:textAlignment="center" />
+        <TextView
+            android:id="@+id/tvHieuSo"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
             />
 
         <TextView
-            android:id="@+id/SoTran"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="1dp"
-            android:padding="2dp"
-            android:background="#E0F7FA"/>
-
-        <TextView
-            android:id="@+id/Thang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="1dp"
-            android:padding="2dp"
-            android:background="#E0F7FA"/>
-
-        <TextView
-            android:id="@+id/Hoa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="1dp"
-            android:padding="2dp"
-            android:background="#E0F7FA"/>
-
-        <TextView
-            android:id="@+id/Bai"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="1dp"
-            android:padding="2dp"
-            android:background="#E0F7FA"/>
-
-        <TextView
-            android:id="@+id/HieuSo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="1dp"
-            android:padding="2dp"
-            android:background="#E0F7FA"
-            />
-
-        <TextView
-            android:id="@+id/Diem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="1dp"
-            android:padding="2dp"
-            android:background="#E0F7FA"/>
-    </TableRow>
-</TableLayout>
+            android:id="@+id/tvDiem"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:textAlignment="center" />
+    </LinearLayout>
+</LinearLayout>
