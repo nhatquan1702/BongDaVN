@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#E8E8E8"
+    tools:context=".activity.ChiTietCauThuActivity">
+    <TextView
+        android:id="@+id/tvTenCauThu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Player"
+        android:layout_gravity="center"
+        android:textColor="@color/purple_700"
+        android:textSize="20sp"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutChiTietCauThu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/tab_bg_new"
+        app:tabMode="fixed"
+        app:tabBackground="@drawable/tab_selected_bg"
+        app:tabIndicatorColor="#E8E8E8"
+        app:tabRippleColor="@color/white">
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerChiTietCauThu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayoutChiTietCauThu" />
+</LinearLayout>

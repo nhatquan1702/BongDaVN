@@ -1,7 +1,10 @@
 package com.example.apptinthethao_java.api;
 
 import com.example.apptinthethao_java.model.CauLacBo;
+import com.example.apptinthethao_java.model.CauThuDetail;
+import com.example.apptinthethao_java.model.CauThuSimple;
 import com.example.apptinthethao_java.model.CauThu_DoiHinh;
+import com.example.apptinthethao_java.model.CauThu_Performance;
 import com.example.apptinthethao_java.model.DetailPost;
 import com.example.apptinthethao_java.model.DienBienTranDau;
 import com.example.apptinthethao_java.model.DoiHinh;
@@ -65,6 +68,13 @@ public interface SimpleAPI {
     @GET("nhan/user/{email}/{password}")
     Call<ArrayList<User>> getLoginResult(@Path("email") String email, @Path("password") String password);
 
+    @GET("manem/listcauthu/")
+    Call<ArrayList<CauThuSimple>> getListAllPlayer();
 
+    @GET("manem/thongtincauthu/{player_id}")
+    Call<ArrayList<CauThuDetail>> getThongTinCauThu(@Path("player_id") String id);
+
+    @GET("manem/allperformance/{player_id}")
+    Call<ArrayList<CauThu_Performance>> getPhongDo(@Path("player_id") String id);
 
 }
