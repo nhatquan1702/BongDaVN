@@ -78,4 +78,12 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     //EpandableView
     implementation 'com.thoughtbot:expandablerecyclerview:1.4'
+
+    allprojects {
+        repositories {
+            google()
+            jcenter()
+            maven { url 'https://jitpack.io' }
+        }
+    }
 }

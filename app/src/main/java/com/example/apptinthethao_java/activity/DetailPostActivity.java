@@ -2,6 +2,8 @@ package com.example.apptinthethao_java.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import com.example.apptinthethao_java.R;
 import com.example.apptinthethao_java.adapter.CmtPostAdapter;
 import com.example.apptinthethao_java.adapter.ItemClickInterface;
+import com.example.apptinthethao_java.adapter.RecyclerViewCmtAdapter;
 import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.Cmt;
 import com.example.apptinthethao_java.model.DetailPost;
@@ -42,6 +45,7 @@ public class DetailPostActivity extends AppCompatActivity {
     private EditText edtNoiDungCmt;
     private Button btnGuiCmt;
     private ListView listView;
+    private RecyclerView recyclerViewCmt;
     private SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +61,8 @@ public class DetailPostActivity extends AppCompatActivity {
         constraintLayout = findViewById(R.id.constraintLayoutDetailPost);
         edtNoiDungCmt = findViewById(R.id.edtComment);
         btnGuiCmt = findViewById(R.id.btnCmt);
-        listView = findViewById(R.id.listViewComment);
+        //listView = findViewById(R.id.listViewComment);
+        recyclerViewCmt = findViewById(R.id.recyclerViewComment);
         tvBinhLuan = findViewById(R.id.tvBinhLuan);
 
         cmtArrayList = new ArrayList<>();
@@ -115,12 +120,27 @@ public class DetailPostActivity extends AppCompatActivity {
                 cmtArrayList = response.body();
                 if(cmtArrayList.size()>0){
                     tvBinhLuan.setText("Bình luận");
-                    CmtPostAdapter cmtPostAdapter = new CmtPostAdapter(DetailPostActivity.this, cmtArrayList);
-                    listView.setAdapter(cmtPostAdapter);
-                    cmtPostAdapter.setOnClickItemListViewCmt(new ItemClickInterface() {
+                    //CmtPostAdapter cmtPostAdapter = new CmtPostAdapter(DetailPostActivity.this, cmtArrayList);
+                    String check = sharedPreferences.getString("role", "0");
+                    String userName = sharedPreferences.getString("email", "username");
+                    String a = "";
+
+                    //listView.setAdapter(cmtPostAdapter);
+
+                    for(int i=0; i<cmtArrayList.size(); i++){
+                        if(userName.equals(cmtArrayList.get(i).getUserName())){
+                            a = "Xóa";
+                        }
+                        else{
+                            a="";
+                        }
+                    }
+                    RecyclerViewCmtAdapter recyclerViewCmtAdapter = new RecyclerViewCmtAdapter(a, cmtArrayList, DetailPostActivity.this);
+                    recyclerViewCmt.setAdapter(recyclerViewCmtAdapter);
+                    recyclerViewCmt.setLayoutManager(new GridLayoutManager(DetailPostActivity.this,1,GridLayoutManager.VERTICAL,false));
+                    recyclerViewCmtAdapter.setOnClickItemRecyclerView(new ItemClickInterface() {
                         @Override
                         public void onClick(View view, int position) {
-                            String check = sharedPreferences.getString("role", "0");
                             if(check.equals("0")){
                                 Toast.makeText(DetailPostActivity.this, "Vui lòng đăng nhập!", Toast.LENGTH_SHORT).show();
                             }
