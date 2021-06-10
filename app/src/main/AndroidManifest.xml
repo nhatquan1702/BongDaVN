@@ -12,12 +12,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppTinTheThao_Java">
-        <activity android:name=".activity.GopYActivity"></activity>
+        <activity android:name=".activity.LoadingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.GopYActivity" />
         <activity android:name=".activity.LienHeActivity" />
         <activity android:name=".activity.SearchPostsActivity" />
-        <activity android:name=".activity.ChiTietCauThuActivity"></activity>
+        <activity android:name=".activity.ChiTietCauThuActivity" />
         <activity android:name=".activity.ListCauThuActivity" />
-        <activity android:name=".activity.SearchPostsActivity"></activity>
         <activity android:name=".activity.ListCLBActivity" />
         <activity android:name=".activity.BangXepHangActivity" />
         <activity android:name=".activity.AdminActivity" />
@@ -30,11 +36,6 @@
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.CauLacBoActivity" />
         <activity android:name=".activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

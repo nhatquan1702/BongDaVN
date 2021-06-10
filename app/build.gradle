@@ -63,6 +63,7 @@ dependencies {
     implementation files('libs/activation.jar')
     implementation files('libs/additionnal.jar')
     implementation files('libs/mail.jar')
+    implementation "com.airbnb.android:lottie:3.4.0"
     repositories {
         maven { url 'https://jitpack.io' }
     }
