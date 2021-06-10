@@ -22,6 +22,7 @@ import com.example.apptinthethao_java.activity.CauLacBoActivity;
 import com.example.apptinthethao_java.activity.ChiTietCLBActivity;
 import com.example.apptinthethao_java.adapter.CauLacBoAdapter;
 import com.example.apptinthethao_java.adapter.ChiTietCLBAdapter;
+import com.example.apptinthethao_java.adapter.TranDauAdapter;
 import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.CauLacBo;
 import com.example.apptinthethao_java.model.CauThu_DoiHinh;
@@ -67,6 +68,7 @@ public class TongQuanCLBFragment extends Fragment {
         txtTenCLB.setText(id_clb);
         loadIMG(id_clb);
         createChart(id_clb);
+        loadLatestMatch(id_clb);
 
         return view;
     }
@@ -92,6 +94,25 @@ public class TongQuanCLBFragment extends Fragment {
 
 
     }
+
+    private void loadLatestMatch(String id_clb){
+        simpleAPI = Constants.instance();
+        simpleAPI.getLatestMatch(id_clb).enqueue(new Callback<ArrayList<TranDau>>() {
+            @Override
+            public void onResponse(Call<ArrayList<TranDau>> call, Response<ArrayList<TranDau>> response) {
+                ArrayList<TranDau> res = response.body();
+                Log.d("tncnhan", "res: " + res.toString());
+                TranDauAdapter matchAdapter = new TranDauAdapter(res);
+                ListView listLastest = view.findViewById(R.id.listViewLastMatches);
+                listLastest.setAdapter(matchAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<TranDau>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    };
 
     private void createChart(String id_clb){
         List<PieEntry> entries = new ArrayList<>();

@@ -61,13 +61,13 @@ public class MainActivity extends AppCompatActivity{
         btnLoginHeader = headerView.findViewById(R.id.btnHeaderLogin);
         imgAVTHeader = headerView.findViewById(R.id.imgAVT);
         DangNhap();
-        Log.d("tncnhan", "Load login done!");
+
         //Load menu navigation khi vuốt cạnh trái hoặc click icon tool bar
         iconToolbarMenu = findViewById(R.id.iconToolbarMenu);
         drawerlayout = (FlowingDrawer) findViewById(R.id.drawerlayout);
         searchView = findViewById(R.id.searchView);
         LoadNavigation();
-
+        //Log.d("tncnhan", "Load login done!");
         //Load menu recyclerView bên dưới
         LoadMenuReCyclerView();
 
@@ -142,7 +142,8 @@ public class MainActivity extends AppCompatActivity{
         String check = sharedPreferences.getString("role", "0");
         Menu menu = navigationView.getMenu();
         MenuItem adminItem = menu.findItem(R.id.ADMIN);
-        adminItem.setVisible(check == "1");
+        //Log.d("tncnhan", check);
+        adminItem.setVisible(check.equals("1"));
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -210,9 +211,22 @@ public class MainActivity extends AppCompatActivity{
     // role
     private void DangNhap(){
         sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
-        String check = sharedPreferences.getString("role", "0");
+        String check = sharedPreferences.getString("role", "-1");
 
-        if(check.equals("1")){//đã đăng nhập admin
+
+        if(check.equals("-1")){//chưa đăng nhập
+            navUsername.setVisibility(View.GONE);
+            btnLoginHeader.setText("Đăng nhập");
+            imgAVTHeader.setImageResource(R.drawable.ic_launcher_foreground);
+            btnLoginHeader.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
+        else{//đã đăng nhập
             //onBackPressed()
             navUsername.setText(sharedPreferences.getString("email", "username"));
             btnLoginHeader.setText("Đăng xuất");
@@ -230,18 +244,6 @@ public class MainActivity extends AppCompatActivity{
 
                     editor.commit();
                     Toast.makeText(getApplicationContext(), "Đăng xuất thành công!", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-        if(check.equals("0")){//chưa đăng nhập
-            navUsername.setVisibility(View.GONE);
-            btnLoginHeader.setText("Đăng nhập");
-            imgAVTHeader.setImageResource(R.drawable.ic_launcher_foreground);
-            btnLoginHeader.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
                 }
             });
         }

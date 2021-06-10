@@ -20,10 +20,13 @@ import com.example.apptinthethao_java.model.User;
 import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -68,8 +71,18 @@ public interface SimpleAPI {
     @GET("nhan/match_result/{clb_id}")
     Call<ArrayList<TranDau>> getMatchResult(@Path("clb_id") String id);
 
+    @GET("nhan/upcomming/{clb_id}")
+    Call<ArrayList<TranDau>> geUpcommingtMatch(@Path("clb_id") String id);
+
+    @GET("nhan/lastest_match/{clb_id}")
+    Call<ArrayList<TranDau>> getLatestMatch(@Path("clb_id") String id);
+
     @GET("nhan/user/{email}/{password}")
     Call<ArrayList<User>> getLoginResult(@Path("email") String email, @Path("password") String password);
+
+    @Headers({"Content-Type:application/json"})
+    @POST("nhan/user/")
+    Call<Status> postUser(@Body User body);
 
     @GET("manem/listcauthu/")
     Call<ArrayList<CauThuSimple>> getListAllPlayer();
