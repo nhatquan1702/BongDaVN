@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity{
                         startActivity(intent);
                         break;
                     case 3:
-                        intent = new Intent(MainActivity.this, LichThiDauActivity.class);
+                        intent = new Intent(MainActivity.this, ListCauThuActivity.class);
                         startActivity(intent);
                         break;
                 }
