@@ -60,6 +60,9 @@ dependencies {
 
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
     implementation 'com.facebook.shimmer:shimmer:0.5.0@aar'
+    implementation files('libs/activation.jar')
+    implementation files('libs/additionnal.jar')
+    implementation files('libs/mail.jar')
     repositories {
         maven { url 'https://jitpack.io' }
     }

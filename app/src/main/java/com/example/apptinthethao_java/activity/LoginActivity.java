@@ -8,7 +8,6 @@ import android.text.InputType;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,10 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.apptinthethao_java.R;
-import com.example.apptinthethao_java.adapter.CauLacBoAdapter;
 import com.example.apptinthethao_java.api.SimpleAPI;
-import com.example.apptinthethao_java.doQueryDBTask;
-import com.example.apptinthethao_java.model.CauLacBo;
 import com.example.apptinthethao_java.model.User;
 import com.example.apptinthethao_java.util.Constants;
 
@@ -114,7 +110,6 @@ public class LoginActivity extends AppCompatActivity {
                                 finish();
                             }
                         }
-
                         @Override
                         public void onFailure(Call<ArrayList<User>> call, Throwable t) {
                             Toast.makeText(LoginActivity.this, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();

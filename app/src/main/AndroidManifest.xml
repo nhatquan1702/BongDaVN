@@ -13,13 +13,15 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.AppTinTheThao_Java">
+        <activity android:name=".activity.GopYActivity"></activity>
+        <activity android:name=".activity.LienHeActivity" />
+        <activity android:name=".activity.SearchPostsActivity" />
         <activity android:name=".activity.ChiTietCauThuActivity"></activity>
         <activity android:name=".activity.ListCauThuActivity" />
         <activity android:name=".activity.SearchPostsActivity"></activity>
         <activity android:name=".activity.ListCLBActivity" />
         <activity android:name=".activity.BangXepHangActivity" />
         <activity android:name=".activity.AdminActivity" />
-        <activity android:name=".activity.BangXepHangActivity" />
         <activity android:name=".activity.ChiTietCLBActivity" />
         <activity android:name=".activity.DienBienActivity" />
         <activity android:name=".activity.DetailPostActivity" />

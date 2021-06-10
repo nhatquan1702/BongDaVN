@@ -26,10 +26,9 @@
             android:id="@+id/DGUD"
             />
         <item
-            android:title="Hỗ trợ"
-            android:icon="@drawable/right"
             android:id="@+id/HT"
-            />
+            android:icon="@drawable/right"
+            android:title="Liên Hệ" />
     </group>
     <item android:title=""
         >
