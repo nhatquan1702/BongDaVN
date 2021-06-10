@@ -1,5 +1,6 @@
 package com.example.apptinthethao_java.fragment;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,12 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.apptinthethao_java.R;
+import com.example.apptinthethao_java.adapter.ItemClickInterface;
 import com.example.apptinthethao_java.adapter.LichDauAdapter;
 import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.CauLacBo;
 import com.example.apptinthethao_java.model.TranDau;
 import com.example.apptinthethao_java.util.Constants;
 import com.example.apptinthethao_java.view.NextView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +31,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
@@ -42,9 +46,12 @@ public class LichSapDauFragment extends Fragment implements NextView {
     private SimpleAPI simpleAPI;
     private ArrayList<Object> mData;
     private ArrayList<String> ngayDauStringArrayList;
+    private FloatingActionButton fab;
+    private ArrayList<CauLacBo> CLB;
+    private ItemClickInterface ItemClickListener;
     public String strDate;
-    LichDauAdapter adapter;
     RecyclerView mRecyclerView;
+    LichDauAdapter adapter;
 
     public LichSapDauFragment() {
         // Required empty public constructor
@@ -67,19 +74,46 @@ public class LichSapDauFragment extends Fragment implements NextView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_lich_sap_dau, container, false);
-        RecyclerView mRecyclerView = rootView.findViewById(R.id.rv_next_match);
+        mRecyclerView = rootView.findViewById(R.id.rv_next_match);
         mSwipeRefresh = rootView.findViewById(R.id.swipe_refresh);
         mProgressBar = rootView.findViewById(R.id.progress_bar);
+        fab = rootView.findViewById(R.id.fab_new_schedule);
         mData = new ArrayList<>();
-//        LoadDataLichDau();
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        return rootView;
-    }
+        ngayDauStringArrayList = new ArrayList<>();
 
-    private void LoadDataLichDau(){
+        adapter = new LichDauAdapter(getContext(),mData);
+        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         strDate = "'" + formatter.format(date) + "'";
+        LoadDataLichDau(strDate);
+        //refresh
+        mSwipeRefresh.setOnRefreshListener(() -> {
+            Calendar c = Calendar.getInstance();
+            c.setTime(date);
+            c.add(Calendar.DATE, 10);  // number of days to add
+            strDate = "'" + formatter.format(c.getTime()) + "'";
+            mData = new ArrayList<>();
+            ngayDauStringArrayList = new ArrayList<>();
+            LoadDataLichDau(strDate);
+            mSwipeRefresh.setRefreshing(false);
+        });
+        fab.setOnClickListener(v -> {
+            Calendar now = Calendar.getInstance();
+            DatePickerDialog datePicker = new DatePickerDialog(getContext(),(view, year, month, dayOfMonth) ->
+                    strDate = "'" +year +"-"+ month +"-"+ dayOfMonth +"'"
+                    ,now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+            datePicker.show();
+            mData = new ArrayList<>();
+            ngayDauStringArrayList = new ArrayList<>();
+            LoadDataLichDau(strDate);
+        });
+        return rootView;
+    }
+
+    private void LoadDataLichDau(String strDate){
 
         simpleAPI = Constants.instance();
         simpleAPI.getNgaySapDau(strDate).enqueue(new Callback<ArrayList<Object>>() {
@@ -88,28 +122,21 @@ public class LichSapDauFragment extends Fragment implements NextView {
                 JSONArray jsonArray = null;
                 try {
                     jsonArray = new JSONArray(response.body().toArray());
+                    Log.d("show",jsonArray.toString());
+                    for(int i = 0; i< Objects.requireNonNull(jsonArray).length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        ngayDauStringArrayList.add(jsonObject.get("date_match").toString());
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for(int i = 0; i< Objects.requireNonNull(jsonArray).length(); i++) {
-
-                    try {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        ngayDauStringArrayList.add(jsonObject.get("date_match").toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Log.d("ngayDau",ngayDauStringArrayList.toString());
-                int temp = 0;
                 for(int i = 0;i<ngayDauStringArrayList.size();i++)
                 {
                     Log.d("match_date",ngayDauStringArrayList.get(i));
-                    strDate = "'" + ngayDauStringArrayList.get(i) + "'";
+                    String strDate = "'" + ngayDauStringArrayList.get(i) + "'";
                     simpleAPI = Constants.instance();
 //                    mData.add(ngayDauStringArrayList.get(i));
-                    temp = i;
-                    int finalTemp = temp;
+                    int finalTemp = i;
                     simpleAPI.getLichTranDau(strDate).enqueue(new Callback<ArrayList<Object>>() {
                         @Override
                         public void onResponse(Call<ArrayList<Object>> call, Response<ArrayList<Object>> response) {
@@ -141,14 +168,9 @@ public class LichSapDauFragment extends Fragment implements NextView {
                                     simpleAPI.getChiTietCLB(jsonObject.get("clb_home_name").toString()).enqueue(new Callback<ArrayList<CauLacBo>>() {
                                         @Override
                                         public void onResponse(Call<ArrayList<CauLacBo>> call, Response<ArrayList<CauLacBo>> response) {
-                                            JSONArray jsonArray = null;
-                                            try {
-                                                jsonArray = new JSONArray(response.body().toArray());
-                                                JSONObject jsonObject = jsonArray.getJSONObject(0);
-                                                tranDau.setLogo_home_url(jsonObject.get("clb_img_url").toString());
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
+                                            CLB = new ArrayList<>();
+                                            CLB = response.body();
+                                            tranDau.setLogo_home_url(CLB.get(0).getLink());
                                         }
 
                                         @Override
@@ -160,14 +182,9 @@ public class LichSapDauFragment extends Fragment implements NextView {
                                     simpleAPI.getChiTietCLB(jsonObject.get("clb_guess_name").toString()).enqueue(new Callback<ArrayList<CauLacBo>>() {
                                         @Override
                                         public void onResponse(Call<ArrayList<CauLacBo>> call, Response<ArrayList<CauLacBo>> response) {
-                                            JSONArray jsonArray = null;
-                                            try {
-                                                jsonArray = new JSONArray(response.body().toArray());
-                                                JSONObject jsonObject = jsonArray.getJSONObject(0);
-                                                tranDau.setLogo_guess_url(jsonObject.get("clb_img_url").toString());
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
+                                            CLB = new ArrayList<>();
+                                            CLB = response.body();
+                                            tranDau.setLogo_guess_url(CLB.get(0).getLink());
                                         }
 
                                         @Override
@@ -183,9 +200,8 @@ public class LichSapDauFragment extends Fragment implements NextView {
                                 }
                             }
                             mData.add(ngayDauStringArrayList.get(finalTemp));
-                            adapter = new LichDauAdapter(getContext(),mData);
-                            mRecyclerView.setAdapter(adapter);
-                            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                            adapter.updateChange(mData);
+                            HideLoading();
 
                         }
 
@@ -206,6 +222,7 @@ public class LichSapDauFragment extends Fragment implements NextView {
             }
         });
     }
+
 
     @Override
     public void ShowLoading() {

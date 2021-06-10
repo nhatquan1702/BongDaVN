@@ -92,6 +92,7 @@ public interface SimpleAPI {
 
     @GET("manem/allperformance/{player_id}")
     Call<ArrayList<CauThu_Performance>> getPhongDo(@Path("player_id") String id);
+
     @GET("khai/getNgaySapDau/{date}")
     Call<ArrayList<Object>> getNgaySapDau(@Path("date") String date);
 

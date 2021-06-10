@@ -18,15 +18,17 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class LichDauAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class LichDauAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
     private Context mContext;
     private List<Object> mObjects;
 
     public static final int TEXT = 0;
     public static final int TRAN_DAU = 1;
 
+    public static ItemClickInterface itemClickListener;
 
     public LichDauAdapter(Context context, List<Object> objects) {
         mContext = context;
@@ -39,12 +41,15 @@ public class LichDauAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         switch (viewType) {
-            case TEXT:
+            case TEXT: {
                 View view0 = layoutInflater.inflate(R.layout.item_ngaydau, parent, false);
                 return new NgayDauViewHolder(view0);
-            case TRAN_DAU:
+            }
+            case TRAN_DAU: {
                 View view1 = layoutInflater.inflate(R.layout.item_lichdau, parent, false);
+                view1.setOnClickListener(this);
                 return new TranDauViewHolder(view1);
+            }
             default:
                 break;
         }
@@ -54,16 +59,17 @@ public class LichDauAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
-            case TEXT:
+            case TEXT: {
                 NgayDauViewHolder ngayDauViewHolder = (NgayDauViewHolder) holder;
                 ngayDauViewHolder.mDate.setText(mObjects.get(position).toString());
                 break;
-            case TRAN_DAU:
+            }
+            case TRAN_DAU: {
                 TranDau tranDau = (TranDau) mObjects.get(position);
                 TranDauViewHolder tranDauViewHolder = (TranDauViewHolder) holder;
                 tranDauViewHolder.leftTeam.setText(tranDau.getClb_home_name());
                 tranDauViewHolder.rightTeam.setText(tranDau.getClb_guess_name());
-                if(tranDau.getMatch_result().equals("-:-"))
+                if (tranDau.getMatch_result().equals("-:-"))
                     tranDauViewHolder.matchTime.setText(tranDau.getMatch_time());
                 else
                     tranDauViewHolder.matchTime.setText(tranDau.getMatch_result());
@@ -82,12 +88,29 @@ public class LichDauAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         .error(R.drawable.galleryoo)
                         .into(tranDauViewHolder.imgRightTeam);
                 break;
+            }
         }
     }
 
     @Override
     public int getItemCount() {
-        return mObjects.size();
+        if (mObjects.size() > 0)
+            return mObjects.size();
+        else
+            return 0;
+    }
+
+    public void updateChange(ArrayList<Object> data) {
+        mObjects = data;
+        notifyDataSetChanged();
+    }
+
+    public TranDau getAtPosition(int position){
+        return (TranDau) mObjects.get(position);
+    }
+
+    public void setOnItemClickListener(ItemClickInterface clickListener) {
+        LichDauAdapter.itemClickListener = clickListener;
     }
 
     @Override
@@ -97,6 +120,11 @@ public class LichDauAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         else if (mObjects.get(position) instanceof TranDau) // nếu là các trận đấu
             return TRAN_DAU;
         return -1;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 
     // view holder ( ngaydau , trandau)
@@ -109,7 +137,7 @@ public class LichDauAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    public class TranDauViewHolder extends RecyclerView.ViewHolder {
+    public class TranDauViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView leftTeam;
         private TextView rightTeam;
@@ -125,6 +153,14 @@ public class LichDauAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             matchTime = itemView.findViewById(R.id.tv_time);
             imgLeftTeam = itemView.findViewById(R.id.img_left_team);
             imgRightTeam = itemView.findViewById(R.id.img_right_team);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            itemClickListener.onClick(v,getAdapterPosition());
         }
     }
 }
+
+
