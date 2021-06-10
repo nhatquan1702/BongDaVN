@@ -16,28 +16,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp">
+
                 <ImageView
                     android:id="@+id/img_left_team"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toStartOf="@id/tv_left_team"
                     android:background="@drawable/img_bg"
                     android:scaleType="centerCrop"
-                    tools:srcCompat="@drawable/deappool"
-                    android:layout_toStartOf = "@id/tv_left_team"/>
+                    tools:srcCompat="@drawable/deappool" />
 
                 <TextView
                     android:id="@+id/tv_left_team"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_toStartOf="@id/tv_time"
                     android:ellipsize="end"
-                    android:maxLines="1"
+                    android:gravity="start|center"
+                    android:maxLines="2"
                     android:textSize="15sp"
-                    tools:text="Man United"
-                    android:gravity="left"/>
+                    tools:text="Man United" />
 
                 <TextView
                     android:id="@+id/tv_time"
@@ -53,15 +55,16 @@
 
                 <TextView
                     android:id="@+id/tv_right_team"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_toEndOf="@+id/tv_time"
                     android:ellipsize="end"
-                    android:maxLines="1"
+                    android:maxLines="2"
                     android:textSize="15sp"
-                    android:gravity="right"
+                    android:gravity="end|center"
                     tools:text="Wolves" />
                 <ImageView
                     android:id="@+id/img_right_team"
@@ -71,7 +74,7 @@
                     android:background="@drawable/img_bg"
                     android:scaleType="centerCrop"
                     tools:srcCompat="@drawable/deappool"
-                    android:layout_toEndOf="@id/tv_right_team"/>
+                    android:layout_toEndOf="@id/tv_right_team" />
 
             </RelativeLayout>
 
