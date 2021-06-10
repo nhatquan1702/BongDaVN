@@ -158,6 +158,13 @@ public class MainActivity extends AppCompatActivity{
                     }
                     case R.id.CS : {
                         Toast.makeText(getApplicationContext(), "Chia sẻ!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        intent.setType("text/plain");
+                        String shareBody="Facebook: https://www.facebook.com/nhatquan99\n\nYoutube: https://www.youtube.com/channel/UCIyQPdxwhuLv0GaEXI5kOjA";
+                        String shareSub="https://www.youtube.com/channel/UCIyQPdxwhuLv0GaEXI5kOjA";
+                        intent.putExtra(Intent.EXTRA_SUBJECT,shareSub);
+                        intent.putExtra(Intent.EXTRA_TEXT,shareBody);
+                        startActivity(Intent.createChooser(intent, "Share Using"));
                         return true;
                     }
                     case R.id.GY : {
