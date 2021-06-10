@@ -1,11 +1,5 @@
 package com.example.apptinthethao_java.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,6 +13,12 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.example.apptinthethao_java.R;
 import com.example.apptinthethao_java.adapter.ItemClickInterface;
 import com.example.apptinthethao_java.adapter.MenuItemRecyclerViewAdapter;
@@ -29,8 +29,6 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
 import java.util.ArrayList;
-
-import maes.tech.intentanim.CustomIntent;
 
 public class MainActivity extends AppCompatActivity{
     TabLayout tabLayout;
@@ -164,6 +162,8 @@ public class MainActivity extends AppCompatActivity{
                     }
                     case R.id.GY : {
                         Toast.makeText(getApplicationContext(), "Góp ý!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, GopYActivity.class);
+                        startActivity(intent);
                         return true;
                     }
                     case R.id.CD : {
@@ -171,7 +171,9 @@ public class MainActivity extends AppCompatActivity{
                         return true;
                     }
                     case R.id.HT : {
-                        Toast.makeText(getApplicationContext(), "Hỗ trợ!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Liên hệ!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, LienHeActivity.class);
+                        startActivity(intent);
                         return true;
                     }
                     case R.id.DGUD : {
@@ -182,7 +184,6 @@ public class MainActivity extends AppCompatActivity{
                         Toast.makeText(getApplicationContext(), "Điều khoản sử dụng!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, DieuKhoanActivity.class);
                         startActivity(intent);
-                        CustomIntent.customType(MainActivity.this,"right-to-left");
                         return true;
                     }
                 }
