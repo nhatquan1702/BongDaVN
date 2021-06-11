@@ -1,26 +1,28 @@
 package com.example.apptinthethao_java.activity;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.example.apptinthethao_java.AdminTranDauActivity;
 import com.example.apptinthethao_java.R;
+import com.example.apptinthethao_java.api.SimpleAPI;
+import com.example.apptinthethao_java.model.Analysis;
+import com.example.apptinthethao_java.util.Constants;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
-import java.util.Objects;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdminActivity extends AppCompatActivity implements View.OnClickListener {
-
+    private SimpleAPI simpleAPI;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +32,11 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         Button btnBaiViet = (Button)  findViewById(R.id.btnBaiViet);
         Button btnTranDau = (Button)  findViewById(R.id.btnTranDau);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        ActionBar actionBar = getSupportActionBar();
+//
+//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         btnTaiKhoan.setOnClickListener(this);
         btnBaiViet.setOnClickListener(this);
@@ -59,6 +61,24 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
             }
         }
+    }
+
+    private void updateInfo(){
+        simpleAPI = Constants.instance();
+        simpleAPI.getAnalysis().enqueue(new Callback<Analysis>() {
+            @Override
+            public void onResponse(Call<Analysis> call, Response<Analysis> response) {
+                Analysis res = response.body();
+                ((TextView) findViewById(R.id.txtCountUser)).setText(String.valueOf(res.getCount_account()));
+                ((TextView) findViewById(R.id.txtCountPost)).setText(String.valueOf(res.getCount_post()));
+                ((TextView) findViewById(R.id.txtCountMatch)).setText(String.valueOf(res.getCount_match()));
+            }
+
+            @Override
+            public void onFailure(Call<Analysis> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

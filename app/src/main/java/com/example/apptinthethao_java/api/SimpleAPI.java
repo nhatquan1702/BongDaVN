@@ -1,5 +1,6 @@
 package com.example.apptinthethao_java.api;
 
+import com.example.apptinthethao_java.model.Analysis;
 import com.example.apptinthethao_java.model.BXH_DoiBong;
 import com.example.apptinthethao_java.model.CauLacBo;
 import com.example.apptinthethao_java.model.CauThuDetail;
@@ -73,7 +74,7 @@ public interface SimpleAPI {
     Call<ArrayList<TranDau>> getMatchResult(@Path("clb_id") String id);
 
     @GET("nhan/upcomming/{clb_id}")
-    Call<ArrayList<TranDau>> geUpcommingtMatch(@Path("clb_id") String id);
+    Call<ArrayList<TranDau>> getUpcommingtMatch(@Path("clb_id") String id);
 
     @GET("nhan/lastest_match/{clb_id}")
     Call<ArrayList<TranDau>> getLatestMatch(@Path("clb_id") String id);
@@ -90,6 +91,9 @@ public interface SimpleAPI {
 
     @GET("nhan/user/del/{email}")
     Call<Status> delUser(@Path("email") String email);
+
+    @GET("nhan/analysis")
+    Call<Analysis> getAnalysis();
 
     @Headers({"Content-Type:application/json"})
     @PUT("nhan/user/")
@@ -158,4 +162,11 @@ public interface SimpleAPI {
     @Headers({"Content-Type:application/json"})
     @POST("khai/del/post/{post_id}")
     Call<Post> DelBaiViet(@Path("post_id") String id);
+
+
+    @POST("quan/create_match")
+    Call<Status> postmatch(@Header("clb_home_name") String clb_home_name, @Header("clb_guess_name") String clb_guess_name, @Header("match_happen_time") String match_happent_time);
+
+
+
 }
