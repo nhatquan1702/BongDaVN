@@ -85,6 +85,14 @@ public class LichSapDauFragment extends Fragment implements NextView {
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+
+        adapter.setOnItemClickListener(new ItemClickInterface() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(getContext(),"Chưa có diễn biến", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         strDate = "'" + formatter.format(date) + "'";
@@ -102,13 +110,14 @@ public class LichSapDauFragment extends Fragment implements NextView {
         });
         fab.setOnClickListener(v -> {
             Calendar now = Calendar.getInstance();
-            DatePickerDialog datePicker = new DatePickerDialog(getContext(),(view, year, month, dayOfMonth) ->
-                    strDate = "'" +year +"-"+ month +"-"+ dayOfMonth +"'"
+            DatePickerDialog datePicker = new DatePickerDialog(getContext(),(view, year, month, dayOfMonth) ->{
+                    strDate = "'" +year +"-"+ month +"-"+ dayOfMonth +"'";
+                    mData = new ArrayList<>();
+                    ngayDauStringArrayList = new ArrayList<>();
+                    LoadDataLichDau(strDate);
+                    }
                     ,now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
             datePicker.show();
-            mData = new ArrayList<>();
-            ngayDauStringArrayList = new ArrayList<>();
-            LoadDataLichDau(strDate);
         });
         return rootView;
     }

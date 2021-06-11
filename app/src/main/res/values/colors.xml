@@ -19,4 +19,11 @@
     <color name="colorLost">#FF5252</color>
     <color name="colorTie">#40C4FF</color>
     <color name="colorWin">#69F0AE</color>
+
+    <color name="colorUser">#7944DA</color>
+    <color name="colorUser2">#81F1CD</color>
+    <color name="colorPost">#EC399B</color>
+    <color name="colorPost2">#536DFE</color>
+    <color name="colorMatch">#129570</color>
+    <color name="colorMatch2">#B0BD64</color>
 </resources>
