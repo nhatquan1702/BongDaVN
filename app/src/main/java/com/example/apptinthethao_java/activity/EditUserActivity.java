@@ -129,7 +129,45 @@ public class EditUserActivity extends AppCompatActivity {
                 };
             }});
 
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                simpleAPI = Constants.instance();
+                simpleAPI.delUser(user_id).enqueue(new Callback<Status>() {
+                    @Override
+                    public void onResponse(Call<Status> call, Response<Status> response) {
+                        try{
+                            switch (response.body().getStatus()) {
+                                case 0: {
+                                    Toast.makeText(EditUserActivity.this, "Đã có lỗi xảy ra, vui lòng thử lại sau!", Toast.LENGTH_SHORT).show();
+                                    break;
+                                }
+                                case 1: {
+                                    Toast.makeText(EditUserActivity.this, "Tài khoản không tồn tại!", Toast.LENGTH_SHORT).show();
+                                    break;
+                                }
+                                case 2: {
+                                    Intent intent;
+                                    Toast.makeText(EditUserActivity.this, "Xóa tài khoản thành công!", Toast.LENGTH_SHORT).show();
+                                    intent = new Intent(EditUserActivity.this, ListUserActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                    startActivityIfNeeded(intent, 0);
+                                    finish();
+                                    break;
+                                }
+                            }
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(Call<Status> call, Throwable t) {
+                        Toast.makeText(EditUserActivity.this, "Đã có lỗi xảy ra, vui lòng thử lại sau!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
         cbShowPass.setOnClickListener(new View.OnClickListener() {
             @Override

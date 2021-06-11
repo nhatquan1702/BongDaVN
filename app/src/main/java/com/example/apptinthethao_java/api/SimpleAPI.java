@@ -88,6 +88,9 @@ public interface SimpleAPI {
     @POST("nhan/user/")
     Call<Status> postUser(@Body User body);
 
+    @GET("nhan/user/del/{email}")
+    Call<Status> delUser(@Path("email") String email);
+
     @Headers({"Content-Type:application/json"})
     @PUT("nhan/user/")
     Call<Status> putUser(@Body User body);
