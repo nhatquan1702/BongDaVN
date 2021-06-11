@@ -3,8 +3,12 @@ package com.example.apptinthethao_java.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -15,9 +19,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.apptinthethao_java.R;
+import com.example.apptinthethao_java.api.SimpleAPI;
+import com.example.apptinthethao_java.model.Status;
+import com.example.apptinthethao_java.model.User;
+import com.example.apptinthethao_java.util.Constants;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DangKyActivity extends AppCompatActivity {
-
+    private SimpleAPI simpleAPI;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +112,51 @@ public class DangKyActivity extends AppCompatActivity {
                     isValid = false;
                 }
                 if(isValid){
-                    Toast.makeText(DangKyActivity.this, "Đăng kí tài khoản", Toast.LENGTH_SHORT).show();
+                    simpleAPI = Constants.instance();
+                    User newUser = new User(email, pass1, 0);
+//                    body.put("account_email", email);
+//                    body.put("account_password", pass1);
+//                    body.put("role", 0);
+                    simpleAPI.postUser(newUser).enqueue(new Callback<Status>() {
+                        @Override
+                        public void onResponse(Call<Status> call, Response<Status> response) {
+                            Log.d("tncnhan", "res: " + response.body().getStatus());
+                            switch (response.body().getStatus()){
+                                case 0:{
+                                    Toast.makeText(DangKyActivity.this, "Đã có lỗi xảy ra, vui lòng thử lại sau!", Toast.LENGTH_SHORT).show();
+                                    break;
+                                }
+                                case 1:{
+                                    Toast.makeText(DangKyActivity.this, "Tài khoản đã tồn tại!", Toast.LENGTH_SHORT).show();
+                                    break;
+                                }
+                                case 2:{
+
+                                    Intent intent;
+                                    SharedPreferences sharedPreferences = getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("email", email);
+                                    editor.putString("pass", pass1);
+                                    editor.putString("role", "0");
+                                    editor.commit();
+
+                                    Toast.makeText(DangKyActivity.this, "Tạo tài khoản thành công!", Toast.LENGTH_SHORT).show();
+                                    intent = new Intent(DangKyActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                    break;
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Status> call, Throwable t) {
+
+                        }
+
+
+
+                    });
                 }
 
             }
