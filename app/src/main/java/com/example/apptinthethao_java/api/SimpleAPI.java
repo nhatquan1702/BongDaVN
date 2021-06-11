@@ -155,4 +155,11 @@ public interface SimpleAPI {
     @Headers({"Content-Type:application/json"})
     @POST("khai/del/post/{post_id}")
     Call<Post> DelBaiViet(@Path("post_id") String id);
+
+
+    @POST("quan/create_match")
+    Call<Status> postmatch(@Header("clb_home_name") String clb_home_name, @Header("clb_guess_name") String clb_guess_name, @Header("match_happen_time") String match_happent_time);
+
+
+
 }
