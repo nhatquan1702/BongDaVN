@@ -77,7 +77,7 @@ public class BaiVietAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public void setOnItemClickListener(ItemClickInterface clickListener) {
-        LichDauAdapter.itemClickListener = clickListener;
+        BaiVietAdapter.itemClickListener = clickListener;
     }
 
     public class BaiVietViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

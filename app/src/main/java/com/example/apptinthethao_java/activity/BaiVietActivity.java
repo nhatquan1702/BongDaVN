@@ -50,6 +50,7 @@ public class BaiVietActivity extends AppCompatActivity implements View.OnClickLi
     private Boolean checkSuccess = false;
     private String encoded = null; // encoded img bitmap to base64
     private int postId = -1;
+    private String imgReceive = null;
     SharedPreferences sharedPreferences;
     int REQUEST_CODE = 1;
 
@@ -69,14 +70,20 @@ public class BaiVietActivity extends AppCompatActivity implements View.OnClickLi
 
         // receive update
         Bundle bundle = getIntent().getExtras();
-        edtTitle.setText(bundle.getString("post_title",""));
-        edtContent.setText(bundle.getString("post_content",""));
-        postId = bundle.getInt("post_id",0);
-        String imgReceive = bundle.getString("post_img",null);
+        if(bundle!= null) {
+            edtTitle.setText(bundle.getString("post_title", ""));
+            edtContent.setText(bundle.getString("post_content", ""));
+            postId = bundle.getInt("post_id", 0);
+            imgReceive = bundle.getString("post_img", null);
+            Log.d("idPost",String.valueOf(postId));
+//            if (postId != -1) {
+//                MenuItem menuItem = (MenuItem) findViewById(R.id.action_save);
+//                menuItem.setIcon(getResources().getDrawable(R.drawable.ic_edit));
+//            }
+        }
 
         Picasso.get()
                 .load(imgReceive)
-                .centerCrop()
                 .placeholder(R.drawable.galleryoo)
                 .error(R.drawable.galleryoo)
                 .into(imgTitle);
