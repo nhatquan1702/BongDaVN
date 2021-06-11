@@ -17,6 +17,15 @@ public class Post {
     @Expose
     private String post_create_time = "";
 
+    @SerializedName("post_create_by")
+    @Expose
+    private String post_create_by = "";
+    @SerializedName("post_content")
+    @Expose
+    private String post_content;
+
+    public Post(){}
+
     public Post(int post_id, String post_title, String post_img, String post_create_time) {
         this.post_id = post_id;
         this.post_title = post_title;
@@ -56,5 +65,19 @@ public class Post {
         this.post_create_time = post_create_time;
     }
 
+    public String getPost_create_by() {
+        return post_create_by;
+    }
 
+    public void setPost_create_by(String post_create_by) {
+        this.post_create_by = post_create_by;
+    }
+
+    public String getPost_content() {
+        return post_content;
+    }
+
+    public void setPost_content(String post_content) {
+        this.post_content = post_content;
+    }
 }

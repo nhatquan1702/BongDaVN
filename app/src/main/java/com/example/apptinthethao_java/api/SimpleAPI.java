@@ -93,15 +93,6 @@ public interface SimpleAPI {
     @GET("manem/allperformance/{player_id}")
     Call<ArrayList<CauThu_Performance>> getPhongDo(@Path("player_id") String id);
 
-    @GET("khai/getNgaySapDau/{date}")
-    Call<ArrayList<Object>> getNgaySapDau(@Path("date") String date);
-
-    @GET("khai/getNgayDaDau/{date}")
-    Call<ArrayList<Object>> getNgayDaDau(@Path("date") String date);
-
-    @GET("khai/getTranDau/{date}")
-    Call<ArrayList<Object>> getLichTranDau(@Path("date") String date);
-
     @GET("quan/search/{searchText}")
     Call<ArrayList<Post>> getListPostSearch(@Path("searchText") String searchText);
 
@@ -116,12 +107,35 @@ public interface SimpleAPI {
 
     @GET("khoa/get_ketqua_nam/{year}")
     Call<ArrayList<KetQua_TranDau>> getListKetQuaTranDau(@Path("year") String year);
+
     @GET("khoa/tiso")
     Call<ArrayList<KetQua_TranDau>> getTiSo();
+
     @GET("khoa/get_bxh_year/{year}")
     Call<ArrayList<BXH_DoiBong>> getBXH_year(@Path("year") String year);
+
     @GET("khoa/get_all_bxh_doi/{clb_name}")
     Call<ArrayList<BXH_DoiBong>> getBXH_clb(@Path("clb_name") String clb_name);
+
     @GET("khoa/get_bxh_clb_nameYear/{clb_name}/{year}")
     Call<ArrayList<BXH_DoiBong>> getBXH_clb_year(@Path("clb_name") String clb_name, @Path("year") String year);
+
+
+//    Khải
+    @GET("khai/getNgaySapDau/{date}")
+    Call<ArrayList<Object>> getNgaySapDau(@Path("date") String date);
+
+    @GET("khai/getNgayDaDau/{date}")
+    Call<ArrayList<Object>> getNgayDaDau(@Path("date") String date);
+
+    @GET("khai/getTranDau/{date}")
+    Call<ArrayList<Object>> getLichTranDau(@Path("date") String date);
+
+    @Headers({"Content-Type:application/json"})
+    @POST("khai/add/post/")
+    Call<Post> postBaiViet(@Body Post body);
+
+    @GET("khai/getbaiviet/{account_email}")
+    Call<ArrayList<Post>> getBaiVietBy(@Path("account_email") String account);
+
 }

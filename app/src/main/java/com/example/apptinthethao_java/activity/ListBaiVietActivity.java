@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,8 +19,10 @@ import android.widget.Toast;
 import com.example.apptinthethao_java.R;
 import com.example.apptinthethao_java.adapter.BaiVietAdapter;
 import com.example.apptinthethao_java.adapter.ItemClickInterface;
+import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.Post;
 import com.example.apptinthethao_java.model.TranDau;
+import com.example.apptinthethao_java.util.Constants;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
@@ -26,9 +30,18 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ListBaiVietActivity extends AppCompatActivity {
 
-    private ArrayList<Object> mData;
+    private ArrayList<Post> mData;
+    private SimpleAPI simpleAPI;
+    SharedPreferences sharedPreferences;
+    private BaiVietAdapter adapter;
+    String mAuthor = null;
+    int requestCode = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +52,11 @@ public class ListBaiVietActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fab);
         RecyclerView mRecyclerView = findViewById(R.id.rv_listbaiviet);
         mData = new ArrayList<>();
-
-        BaiVietAdapter adapter = new BaiVietAdapter(getApplicationContext(),mData);
+        sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
+        mAuthor = sharedPreferences.getString("email", "admin");
+        Log.d("author",mAuthor);
+        LoadBaiViet();
+        adapter = new BaiVietAdapter(getApplicationContext(),mData);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
@@ -51,7 +67,7 @@ public class ListBaiVietActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ListBaiVietActivity.this, BaiVietActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, requestCode);
             }
         });
 
@@ -99,5 +115,26 @@ public class ListBaiVietActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void LoadBaiViet() {
+        simpleAPI = Constants.instance();
+        simpleAPI.getBaiVietBy(mAuthor).enqueue(new Callback<ArrayList<Post>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Post>> call, Response<ArrayList<Post>> response) {
+                Log.d("json", response.body().toString());
+                mData = response.body();
+                adapter.updateChange(mData);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Post>> call, Throwable t) {
+                if(call.isCanceled()) {
+                    Log.d("fail", "request was aborted");
+                }else {
+                    Log.d("fail", "Unable to submit post to API.");
+                }
+            }
+        });
     }
 }
