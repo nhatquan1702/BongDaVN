@@ -73,7 +73,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:textColor="@color/black"
-            android:hint="Nội Dung"
+            android:text="Nội Dung"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_TieuDeDeTail" />
@@ -85,7 +85,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:textColor="@color/black"
-            android:text="Nhập nội dung bài viết"
+            android:hint="Nhập nội dung bài viết"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvNoiDung" />
