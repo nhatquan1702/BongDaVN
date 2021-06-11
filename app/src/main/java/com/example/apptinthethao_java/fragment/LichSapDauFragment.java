@@ -85,6 +85,14 @@ public class LichSapDauFragment extends Fragment implements NextView {
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+
+        adapter.setOnItemClickListener(new ItemClickInterface() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(getContext(),"Chưa có diễn biến", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         strDate = "'" + formatter.format(date) + "'";
