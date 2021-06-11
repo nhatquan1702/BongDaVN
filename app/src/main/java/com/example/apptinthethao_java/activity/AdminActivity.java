@@ -30,11 +30,11 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         Button btnBaiViet = (Button)  findViewById(R.id.btnBaiViet);
         Button btnTranDau = (Button)  findViewById(R.id.btnTranDau);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        ActionBar actionBar = getSupportActionBar();
+//
+//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         btnTaiKhoan.setOnClickListener(this);
         btnBaiViet.setOnClickListener(this);
