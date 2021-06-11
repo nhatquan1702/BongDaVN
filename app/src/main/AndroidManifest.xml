@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -11,14 +14,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.AppTinTheThao_Java">
-        <activity android:name=".activity.GopYActivity"></activity>
+        android:theme="@style/Theme.AppTinTheThao_Java"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".activity.BaiVietActivity"></activity>
+        <activity android:name=".activity.GopYActivity" />
         <activity android:name=".activity.LienHeActivity" />
         <activity android:name=".activity.SearchPostsActivity" />
-        <activity android:name=".activity.ChiTietCauThuActivity"></activity>
+        <activity android:name=".activity.ChiTietCauThuActivity" />
         <activity android:name=".activity.ListCauThuActivity" />
-        <activity android:name=".activity.SearchPostsActivity"></activity>
+        <activity android:name=".activity.SearchPostsActivity" />
         <activity android:name=".activity.ListCLBActivity" />
         <activity android:name=".activity.BangXepHangActivity" />
         <activity android:name=".activity.AdminActivity" />
