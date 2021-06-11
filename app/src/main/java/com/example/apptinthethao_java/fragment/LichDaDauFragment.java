@@ -118,13 +118,13 @@ public class LichDaDauFragment extends Fragment implements LastView{
         });
         fab.setOnClickListener(v -> {
             Calendar now = Calendar.getInstance();
-            DatePickerDialog datePicker = new DatePickerDialog(getContext(),(view, year, month, dayOfMonth) ->
-                    strDate = "'" +year +"-"+ month +"-"+ dayOfMonth +"'"
+            DatePickerDialog datePicker = new DatePickerDialog(getContext(),(view, year, month, dayOfMonth) ->{
+                    strDate = "'" +year +"-"+ month +"-"+ dayOfMonth +"'";
+                    mData = new ArrayList<>();
+                    ngayDauStringArrayList = new ArrayList<>();
+                    LoadDataLichDau(strDate);}
                     ,now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
             datePicker.show();
-            mData = new ArrayList<>();
-            ngayDauStringArrayList = new ArrayList<>();
-            LoadDataLichDau(strDate);
         });
 
         return rootView;

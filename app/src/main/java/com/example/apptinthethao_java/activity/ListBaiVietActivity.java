@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -133,21 +135,57 @@ public class ListBaiVietActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
+
+        getMenuInflater().inflate(R.menu.menu_list_bai_viet,menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId())
         {
-            case android.R.id.home:
+            case android.R.id.home:{
                 onBackPressed();
                 return true;
-            default:
-                break;
-        }
+            }
+            case R.id.clear_data:{
+                // clear
+                return true;
+            }
+            case R.id.set_date:{
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog datePicker = new DatePickerDialog(ListBaiVietActivity.this,(view, year, month, dayOfMonth) ->{
+                    String strDate = "'" +year +"-"+ month +"-"+ dayOfMonth +"'";
+                    mData = new ArrayList<>();
+                    simpleAPI = Constants.instance();
+                    simpleAPI.getBaiVietByAccountAndDate(mAuthor,strDate).enqueue(new Callback<ArrayList<Post>>() {
+                        @Override
+                        public void onResponse(Call<ArrayList<Post>> call, Response<ArrayList<Post>> response) {
+                            Log.d("json", response.body().toString());
+                            mData = response.body();
+                            if(mData == null)
+                                Toast.makeText(ListBaiVietActivity.this,"không có bài viết nào vào ngày này",Toast.LENGTH_SHORT).show();
+                            adapter.updateChange(mData);
+                        }
 
-        return super.onOptionsItemSelected(item);
+                        @Override
+                        public void onFailure(Call<ArrayList<Post>> call, Throwable t) {
+                            if(call.isCanceled()) {
+                                Log.d("fail", "request was aborted");
+                            }else {
+                                Log.d("fail", "Unable to submit post to API.");
+                            }
+                        }
+                    });
+                }
+                        ,now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+                datePicker.show();
+                return true;
+            }
+            default: {
+                return super.onOptionsItemSelected(item);
+            }
+        }
     }
 
     @Override

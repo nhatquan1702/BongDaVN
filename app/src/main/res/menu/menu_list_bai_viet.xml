@@ -6,4 +6,10 @@
         android:orderInCategory="100"
         android:title="@string/clear_all"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/set_date"
+        android:orderInCategory="10"
+        android:title="@string/set_date"
+        android:icon="@drawable/ic_calendar"
+        app:showAsAction="always" />
 </menu>

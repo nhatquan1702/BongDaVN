@@ -148,6 +148,9 @@ public interface SimpleAPI {
     @GET("khai/getbaiviet/{account_email}")
     Call<ArrayList<Post>> getBaiVietBy(@Path("account_email") String account);
 
+    @GET("khai/getbaiviet/{account_email}/{date}")
+    Call<ArrayList<Post>> getBaiVietByAccountAndDate(@Path("account_email") String account, @Path("date") String date);
+
     @Headers({"Content-Type:application/json"})
     @POST("khai/edit/post/{post_id}")
     Call<Post> UpdateBaiViet(@Path("post_id") String id,@Body Post body);
