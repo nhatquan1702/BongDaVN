@@ -139,11 +139,13 @@ public class MainActivity extends AppCompatActivity{
         });
 
         sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
-        String check = sharedPreferences.getString("role", "0");
+        String role = sharedPreferences.getString("role", "-1");
         Menu menu = navigationView.getMenu();
         MenuItem adminItem = menu.findItem(R.id.ADMIN);
+        MenuItem editItem = menu.findItem(R.id.CD);
         //Log.d("tncnhan", check);
-        adminItem.setVisible(check.equals("1"));
+        adminItem.setVisible(role.equals("1"));
+        editItem.setVisible(!role.equals("-1"));
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -175,7 +177,13 @@ public class MainActivity extends AppCompatActivity{
                         return true;
                     }
                     case R.id.CD : {
-                        Toast.makeText(getApplicationContext(), "Cài đặt!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, EditUserActivity.class);
+
+                        intent.putExtra("user_id", sharedPreferences.getString("email", "user"));
+                        intent.putExtra("pass", sharedPreferences.getString("password", "pass"));
+                        intent.putExtra("mode", "selfEdit");
+                        intent.putExtra("role", role);
+                        startActivity(intent);
                         return true;
                     }
                     case R.id.HT : {

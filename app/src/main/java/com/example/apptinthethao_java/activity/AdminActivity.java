@@ -43,11 +43,15 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnTaiKhoan:{
-                // chuyen acti
+                Intent intent = new Intent(AdminActivity.this, ListUserActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityIfNeeded(intent, 0);
+                break;
             }
             case R.id.btnBaiViet:{
                 Intent intent = new Intent(AdminActivity.this, ListBaiVietActivity.class);
                 startActivity(intent);
+                break;
             }
             case R.id.btnTranDau:{
                 // chuyen acti

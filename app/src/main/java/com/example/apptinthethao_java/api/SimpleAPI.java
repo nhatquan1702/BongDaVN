@@ -28,6 +28,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface SimpleAPI {
@@ -80,9 +81,19 @@ public interface SimpleAPI {
     @GET("nhan/user/{email}/{password}")
     Call<ArrayList<User>> getLoginResult(@Path("email") String email, @Path("password") String password);
 
+    @GET("nhan/users")
+    Call<ArrayList<User>> getListUsers();
+
     @Headers({"Content-Type:application/json"})
     @POST("nhan/user/")
     Call<Status> postUser(@Body User body);
+
+    @GET("nhan/user/del/{email}")
+    Call<Status> delUser(@Path("email") String email);
+
+    @Headers({"Content-Type:application/json"})
+    @PUT("nhan/user/")
+    Call<Status> putUser(@Body User body);
 
     @GET("manem/listcauthu/")
     Call<ArrayList<CauThuSimple>> getListAllPlayer();
