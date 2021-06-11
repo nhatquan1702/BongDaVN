@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -84,6 +85,7 @@ public class ListBaiVietActivity extends AppCompatActivity {
                 Post mPost = adapter.getAtPosition(position);
                 Toast.makeText(getApplicationContext(), "Deleting " , Toast.LENGTH_SHORT).show();
                 //call delete
+                DeleteBaiViet(mPost);
             }
         });
 
@@ -92,8 +94,39 @@ public class ListBaiVietActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new ItemClickInterface() {
             @Override
             public void onClick(View view, int position) {
-                Post tranDau = adapter.getAtPosition(position);
+                Post mPost = adapter.getAtPosition(position);
                 // call update
+                Intent intent = new Intent(ListBaiVietActivity.this,BaiVietActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("post_title", mPost.getPost_title());
+                bundle.putString("post_content", mPost.getPost_content());
+                bundle.putString("post_img", mPost.getPost_img());
+                bundle.putInt("post_id", mPost.getPost_id());
+                intent.putExtras(bundle);
+                startActivityForResult(intent, requestCode);
+            }
+        });
+    }
+
+    private void DeleteBaiViet(Post mPost) {
+
+        simpleAPI = Constants.instance();
+        simpleAPI.DelBaiViet(String.valueOf(mPost.getPost_id())).enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                if (response.isSuccessful()) {
+                    Log.d("success", "post submitted to API." + response.body().toString());
+                    LoadBaiViet();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                if(call.isCanceled()) {
+                    Log.d("fail", "request was aborted");
+                }else {
+                    Log.d("fail", "Unable to submit post to API.");
+                }
             }
         });
     }
@@ -115,6 +148,19 @@ public class ListBaiVietActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == requestCode) {
+            if(resultCode == Activity.RESULT_OK){
+                LoadBaiViet();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+            }
+        }
     }
 
     public void LoadBaiViet() {

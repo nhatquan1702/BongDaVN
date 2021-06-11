@@ -28,6 +28,8 @@ import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.Post;
 import com.example.apptinthethao_java.util.Constants;
 import com.example.apptinthethao_java.util.ImageUtil;
+import com.squareup.picasso.Picasso;
+
 import java.io.FileNotFoundException;
 import java.util.Objects;
 
@@ -46,7 +48,8 @@ public class BaiVietActivity extends AppCompatActivity implements View.OnClickLi
     private TextView author;
     private SimpleAPI simpleAPI;
     private Boolean checkSuccess = false;
-    private String encoded; // encoded img bitmap to base64
+    private String encoded = null; // encoded img bitmap to base64
+    private int postId = -1;
     SharedPreferences sharedPreferences;
     int REQUEST_CODE = 1;
 
@@ -64,7 +67,19 @@ public class BaiVietActivity extends AppCompatActivity implements View.OnClickLi
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        imgTitle.setImageResource(R.drawable.galleryoo);
+        // receive update
+        Bundle bundle = getIntent().getExtras();
+        edtTitle.setText(bundle.getString("post_title",""));
+        edtContent.setText(bundle.getString("post_content",""));
+        postId = bundle.getInt("post_id",0);
+        String imgReceive = bundle.getString("post_img",null);
+
+        Picasso.get()
+                .load(imgReceive)
+                .centerCrop()
+                .placeholder(R.drawable.galleryoo)
+                .error(R.drawable.galleryoo)
+                .into(imgTitle);
         sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
         String mAuthor = sharedPreferences.getString("email", "admin");
         author.setText(mAuthor);
@@ -120,13 +135,20 @@ public class BaiVietActivity extends AppCompatActivity implements View.OnClickLi
                 return true;
             }
             case R.id.action_save:{
-                // call api save
                 Post mPost = new Post();
                 mPost.setPost_title(edtTitle.getText().toString());
                 mPost.setPost_content(edtContent.getText().toString());
-                mPost.setPost_img(encoded);
+//                if(encoded != null)
+//                mPost.setPost_img(encoded);
                 mPost.setPost_create_by(sharedPreferences.getString("email", "admin"));
-                upLoadPost(mPost);
+                // call api save or update
+                if(postId == -1) {
+                    upLoadPost(mPost);
+                }
+                else
+                    UpdatePost(mPost);
+
+                // chuyen ve man hinh cu
                 Intent replyIntent = new Intent();
                 if (checkSuccess) {
                     setResult(RESULT_OK, replyIntent);
@@ -147,6 +169,29 @@ public class BaiVietActivity extends AppCompatActivity implements View.OnClickLi
                 return super.onOptionsItemSelected(item);
             }
         }
+    }
+
+    private void UpdatePost(Post mPost) {
+        simpleAPI = Constants.instance();
+        simpleAPI.UpdateBaiViet(String.valueOf(postId),mPost).enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                if (response.isSuccessful()) {
+                    Log.d("success", "post submitted to API." + response.body().toString());
+                    result(true);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                if(call.isCanceled()) {
+                    result(false);
+                    Log.d("fail", "request was aborted");
+                }else {
+                    Log.d("fail", "Unable to submit post to API.");
+                }
+            }
+        });
     }
 
     public void upLoadPost(Post mPost) {
