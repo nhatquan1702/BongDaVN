@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class Post {
     @SerializedName("post_id")
     @Expose
-    private int post_id = 0;
+    private int post_id;
     @SerializedName("post_title")
     @Expose
     private String post_title = "";

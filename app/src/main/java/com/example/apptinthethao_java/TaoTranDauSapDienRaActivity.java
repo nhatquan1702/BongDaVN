@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +22,7 @@ import com.example.apptinthethao_java.activity.ChiTietCLBActivity;
 import com.example.apptinthethao_java.adapter.CauLacBoAdapter;
 import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.CauLacBo;
+import com.example.apptinthethao_java.model.Status;
 import com.example.apptinthethao_java.util.Constants;
 
 import java.text.SimpleDateFormat;
@@ -39,10 +41,15 @@ public class TaoTranDauSapDienRaActivity extends AppCompatActivity {
     Date hourFinish;
     private Spinner spinnerDoiNha, spinnerDoiKhach;
     private TextView textViewChonNgay, textViewChonGio;
-    private CardView cardViewTao;
+    private CardView cardViewTaoTran;
     private ArrayList<CauLacBo> cauLacBoArrayList;
     private CauLacBoAdapter cauLacBoAdapter;
     private SimpleAPI simpleAPI;
+    private String clb_home_name;
+    private String clb_guess_name;
+    private String match_happen_time;
+    private String day;
+    private String time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +58,14 @@ public class TaoTranDauSapDienRaActivity extends AppCompatActivity {
         spinnerDoiKhach = findViewById(R.id.spinnerChonDoiKhach);
         textViewChonNgay = findViewById(R.id.textViewChonNgay);
         textViewChonGio = findViewById(R.id.textViewChonGio);
+        cardViewTaoTran= findViewById(R.id.cvTao);
         cal=Calendar.getInstance();
         SimpleDateFormat dft=null;
         //Định dạng ngày / tháng /năm
         dft=new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         String strDate=dft.format(cal.getTime());
+
+
         //hiển thị lên giao diện
         textViewChonNgay.setText(strDate);
         //Định dạng giờ phút am/pm
@@ -71,6 +81,8 @@ public class TaoTranDauSapDienRaActivity extends AppCompatActivity {
         dateFinish=cal.getTime();
         hourFinish=cal.getTime();
 
+
+
         textViewChonNgay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +96,31 @@ public class TaoTranDauSapDienRaActivity extends AppCompatActivity {
             }
         });
 
-        //LoadSpinner();
+        LoadSpinner();
+
+    }
+
+    private void post_tran_dau(String clb_home_name, String clb_guess_name, String match_happen_time) {
+        simpleAPI= Constants.instance();
+        simpleAPI.postmatch(clb_home_name,clb_guess_name,match_happen_time).enqueue(new Callback<Status>() {
+            @Override
+            public void onResponse(Call<Status> call, Response<Status> response) {
+                Status st= response.body();
+                Log.d("test", "onResponse: "+String.valueOf(st.getStatus()));
+                if(st.getStatus() == 1){
+                    Toast.makeText(TaoTranDauSapDienRaActivity.this,"thanh cong", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(TaoTranDauSapDienRaActivity.this,String.valueOf(st.getStatus()), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Status> call, Throwable t) {
+                Toast.makeText(TaoTranDauSapDienRaActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
+            }
+        });
     }
 
     private void LoadSpinner() {
@@ -103,18 +139,50 @@ public class TaoTranDauSapDienRaActivity extends AppCompatActivity {
                 adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
                 spinnerDoiNha.setAdapter(adapter);
                 spinnerDoiNha.setSelection(0);
-                spinnerDoiNha.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                spinnerDoiNha.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(TaoTranDauSapDienRaActivity.this, cauLacBoArrayList.get(position).getTenCLB(), Toast.LENGTH_SHORT).show();
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        Toast.makeText(TaoTranDauSapDienRaActivity.this,cauLacBoArrayList.get(position).getTenCLB(), Toast.LENGTH_SHORT).show();
+                        clb_home_name= cauLacBoArrayList.get(position).getTenCLB();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
                     }
                 });
                 spinnerDoiKhach.setAdapter(adapter);
                 spinnerDoiKhach.setSelection(0);
-                spinnerDoiKhach.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                spinnerDoiKhach.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(TaoTranDauSapDienRaActivity.this, cauLacBoArrayList.get(position).getTenCLB(), Toast.LENGTH_SHORT).show();
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        Toast.makeText(TaoTranDauSapDienRaActivity.this,cauLacBoArrayList.get(position).getTenCLB(), Toast.LENGTH_SHORT).show();
+                        clb_guess_name= cauLacBoArrayList.get(position).getTenCLB();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+                cardViewTaoTran.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (clb_home_name.equals(clb_guess_name)){
+                            Toast.makeText(TaoTranDauSapDienRaActivity.this,"Kiem tra lai clb", Toast.LENGTH_SHORT).show();
+                        }
+                        if(day != null && time != null){
+                            match_happen_time=day+" "+time;
+                            Log.d("test", "onClick: "+match_happen_time);
+                            Log.d("test", "onClick: "+clb_home_name);
+                            Log.d("test", "onClick: "+clb_guess_name);
+                            post_tran_dau(clb_home_name,clb_guess_name,match_happen_time);
+                        }
+                        else{
+                            Toast.makeText(TaoTranDauSapDienRaActivity.this,"kiem tra lai ngay gio", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 });
             }
@@ -139,6 +207,8 @@ public class TaoTranDauSapDienRaActivity extends AppCompatActivity {
                 //Lưu vết lại biến ngày hoàn thành
                 cal.set(year, monthOfYear, dayOfMonth);
                 dateFinish=cal.getTime();
+
+                day =  year+"-"+(monthOfYear+1)+"-"+(dayOfMonth);
             }
         };
         //các lệnh dưới này xử lý ngày giờ trong DatePickerDialog
@@ -172,6 +242,8 @@ public class TaoTranDauSapDienRaActivity extends AppCompatActivity {
                 cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 cal.set(Calendar.MINUTE, minute);
                 hourFinish=cal.getTime();
+
+                time= hourTam +":"+minute+":00";
             }
         };
         //các lệnh dưới này xử lý ngày giờ trong TimePickerDialog

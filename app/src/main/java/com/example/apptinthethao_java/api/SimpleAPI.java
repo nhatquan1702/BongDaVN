@@ -57,7 +57,6 @@ public interface SimpleAPI {
     @GET("quan/chitietclb/{clb_id}")
     Call<ArrayList<CauLacBo>> getChiTietCLB(@Path("clb_id") String id);
 
-
     @GET("quan/trandau/{match_id}")
     Call<ArrayList<DienBienTranDau>> getTranDau(@Path("match_id") String id);
 
@@ -105,15 +104,6 @@ public interface SimpleAPI {
     @GET("manem/allperformance/{player_id}")
     Call<ArrayList<CauThu_Performance>> getPhongDo(@Path("player_id") String id);
 
-    @GET("khai/getNgaySapDau/{date}")
-    Call<ArrayList<Object>> getNgaySapDau(@Path("date") String date);
-
-    @GET("khai/getNgayDaDau/{date}")
-    Call<ArrayList<Object>> getNgayDaDau(@Path("date") String date);
-
-    @GET("khai/getTranDau/{date}")
-    Call<ArrayList<Object>> getLichTranDau(@Path("date") String date);
-
     @GET("quan/search/{searchText}")
     Call<ArrayList<Post>> getListPostSearch(@Path("searchText") String searchText);
 
@@ -141,11 +131,19 @@ public interface SimpleAPI {
     Call<ArrayList<TranDauSapDienRa>> getListTranSapDau();
 
     //    Khải
+
     @GET("khai/getNgaySapDau/{date}")
+    Call<ArrayList<Object>> getNgaySapDau(@Path("date") String date);
+
+    @GET("khai/getNgayDaDau/{date}")
+    Call<ArrayList<Object>> getNgayDaDau(@Path("date") String date);
+
+    @GET("khai/getTranDau/{date}")
+    Call<ArrayList<Object>> getLichTranDau(@Path("date") String date);
 
     @Headers({"Content-Type:application/json"})
-    @POST("khai/add/post/")
-    Call<Post> postBaiViet(@Body Post body);
+    @POST("khai/add/post")
+    Call<Object> postBaiViet(@Body Post body);
 
     @GET("khai/getbaiviet/{account_email}")
     Call<ArrayList<Post>> getBaiVietBy(@Path("account_email") String account);
@@ -157,4 +155,11 @@ public interface SimpleAPI {
     @Headers({"Content-Type:application/json"})
     @POST("khai/del/post/{post_id}")
     Call<Post> DelBaiViet(@Path("post_id") String id);
+
+
+    @POST("quan/create_match")
+    Call<Status> postmatch(@Header("clb_home_name") String clb_home_name, @Header("clb_guess_name") String clb_guess_name, @Header("match_happen_time") String match_happent_time);
+
+
+
 }
