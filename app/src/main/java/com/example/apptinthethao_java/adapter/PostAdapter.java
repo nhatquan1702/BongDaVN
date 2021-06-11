@@ -29,6 +29,9 @@ public class PostAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+        if(arrayList == null){
+            return 0;
+        }
         return arrayList.size();
     }
 
