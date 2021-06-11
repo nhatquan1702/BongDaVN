@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppTinTheThao_Java"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AdminCapNhatTranDauNewActivity"></activity>
+        <activity android:name=".activity.ChiTietBXHActivity"/>
+        <activity android:name=".AdminCapNhatTranDauNewActivity" />
         <activity android:name=".TaoTranDauSapDienRaActivity" />
         <activity android:name=".TaoTranDauDaDienRaActivity" />
         <activity android:name=".AdminTranDauActivity" />

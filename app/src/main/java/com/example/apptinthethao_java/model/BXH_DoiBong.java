@@ -40,6 +40,18 @@ public class BXH_DoiBong {
     @Expose
     private int diem;
 
+    @SerializedName("year")
+    @Expose
+    private String year;
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
     public BXH_DoiBong(String tenDoiBong) {
         this.TenDoiBong = tenDoiBong;
         this.sotran = 0;

@@ -18,10 +18,7 @@ import com.example.apptinthethao_java.model.TranDau;
 import com.example.apptinthethao_java.model.TranDauSapDienRa;
 import com.example.apptinthethao_java.model.User;
 
-import java.sql.Struct;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -122,7 +119,7 @@ public interface SimpleAPI {
     Call<ArrayList<KetQua_TranDau>> getTiSo();
     @GET("khoa/get_bxh_year/{year}")
     Call<ArrayList<BXH_DoiBong>> getBXH_year(@Path("year") String year);
-    @GET("khoa/get_all_bxh_doi/{clb_name}")
+    @GET("s")
     Call<ArrayList<BXH_DoiBong>> getBXH_clb(@Path("clb_name") String clb_name);
     @GET("khoa/get_bxh_clb_nameYear/{clb_name}/{year}")
     Call<ArrayList<BXH_DoiBong>> getBXH_clb_year(@Path("clb_name") String clb_name, @Path("year") String year);

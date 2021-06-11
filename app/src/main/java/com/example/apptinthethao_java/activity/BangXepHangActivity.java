@@ -1,36 +1,25 @@
 package com.example.apptinthethao_java.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.apptinthethao_java.R;
 import com.example.apptinthethao_java.adapter.BangXepHangAdapter;
-import com.example.apptinthethao_java.adapter.CauLacBoAdapter;
 import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.BXH_DoiBong;
-import com.example.apptinthethao_java.model.CauLacBo;
-import com.example.apptinthethao_java.model.KetQua_TranDau;
 import com.example.apptinthethao_java.util.Constants;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-import maes.tech.intentanim.CustomIntent;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -91,6 +80,14 @@ public class BangXepHangActivity extends AppCompatActivity {
                 }
                 adapterBXH = new BangXepHangAdapter(BangXepHangActivity.this,bxhDoiBong);
                 listViewlBXH.setAdapter(adapterBXH);
+                listViewlBXH.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(BangXepHangActivity.this, ChiTietBXHActivity.class);
+                        intent.putExtra("clb_name", String.valueOf(bxhDoiBong.get(position).getTenDoiBong()));
+                        startActivity(intent);
+                    }
+                });
             }
 
             @Override
