@@ -1,5 +1,6 @@
 package com.example.apptinthethao_java.api;
 
+import com.example.apptinthethao_java.model.Analysis;
 import com.example.apptinthethao_java.model.BXH_DoiBong;
 import com.example.apptinthethao_java.model.CauLacBo;
 import com.example.apptinthethao_java.model.CauThuDetail;
@@ -90,6 +91,9 @@ public interface SimpleAPI {
 
     @GET("nhan/user/del/{email}")
     Call<Status> delUser(@Path("email") String email);
+
+    @GET("nhan/analysis")
+    Call<Analysis> getAnalysis();
 
     @Headers({"Content-Type:application/json"})
     @PUT("nhan/user/")
