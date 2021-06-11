@@ -70,7 +70,8 @@ public class PhongDoCauThuFragment extends Fragment {
                     lineEntries.add(new Entry(i+1, cauThu_performances.get(i).getPhongDo()));
                 }
                 LineDataSet dataSet = new LineDataSet(lineEntries, "");
-                dataSet.setLineWidth(1f);
+                dataSet.setLineWidth(5f);
+                dataSet.setValueTextSize(11f);
                 YAxis rightAxis = lineChart.getAxisRight();
                 YAxis leftAxis = lineChart.getAxisLeft();
                 rightAxis.setEnabled(false);

@@ -1,5 +1,6 @@
 package com.example.apptinthethao_java.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.example.apptinthethao_java.R;
 import com.example.apptinthethao_java.activity.CauLacBoActivity;
 import com.example.apptinthethao_java.activity.ChiTietCLBActivity;
+import com.example.apptinthethao_java.activity.ChiTietCauThuActivity;
 import com.example.apptinthethao_java.adapter.ChiTietCLBAdapter;
 import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.CauThu_DoiHinh;
@@ -66,7 +68,10 @@ public class ListCauThuFragment extends Fragment {
                 listViewDSCauThu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(getContext(), cauThu_doiHinhArrayList.get(position).getIdCauThu(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), cauThu_doiHinhArrayList.get(position).getIdCauThu(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getContext(), ChiTietCauThuActivity.class);
+                        intent.putExtra("player_id", cauThu_doiHinhArrayList.get(position).getIdCauThu());
+                        startActivity(intent);
                     }
                 });
                 shimmerFrameFB.stopShimmer();

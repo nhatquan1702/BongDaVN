@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.apptinthethao_java.AdminTranDauActivity;
 import com.example.apptinthethao_java.R;
 
 import android.content.Intent;
@@ -54,7 +55,8 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                 break;
             }
             case R.id.btnTranDau:{
-                // chuyen acti
+                Intent intent = new Intent(AdminActivity.this, AdminTranDauActivity.class);
+                startActivity(intent);
             }
         }
     }

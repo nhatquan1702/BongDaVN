@@ -16,5 +16,6 @@
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chartPhongDo"
         android:layout_width="match_parent"
-        android:layout_height="252dp"/>
+        android:layout_height="252dp"
+        android:background="@color/white"/>
 </LinearLayout>

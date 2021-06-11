@@ -19,6 +19,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppTinTheThao_Java"
         android:usesCleartextTraffic="true">
+        <activity android:name=".AdminCapNhatTranDauNewActivity"></activity>
+        <activity android:name=".TaoTranDauSapDienRaActivity" />
+        <activity android:name=".TaoTranDauDaDienRaActivity" />
+        <activity android:name=".AdminTranDauActivity" />
         <activity android:name=".activity.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,9 +30,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ListBaiVietActivity"></activity>
+        <activity android:name=".activity.ListBaiVietActivity" />
         <activity android:name=".activity.BaiVietActivity" />
-        <activity android:name=".activity.AddUserActivity"></activity>
+        <activity android:name=".activity.AddUserActivity" />
         <activity android:name=".activity.EditUserActivity" />
         <activity android:name=".activity.ListUserActivity" />
         <activity android:name=".activity.GopYActivity" />
@@ -47,8 +51,7 @@
         <activity android:name=".activity.LichThiDauActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.CauLacBoActivity" />
-        <activity android:name=".activity.MainActivity">
-        </activity>
+        <activity android:name=".activity.MainActivity" />
     </application>
 
 </manifest>
