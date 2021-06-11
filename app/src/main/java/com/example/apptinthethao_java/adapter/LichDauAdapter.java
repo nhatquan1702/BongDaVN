@@ -94,7 +94,7 @@ public class LichDauAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public int getItemCount() {
-        if (mObjects.size() > 0)
+        if (mObjects != null)
             return mObjects.size();
         else
             return 0;

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.LoadingActivity"
+    android:id="@+id/relMain"
+    >
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieFootball"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:visibility="gone"
+        app:lottie_rawRes="@raw/football"/>
+    <TextView
+        android:id="@+id/tvUD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ỨNG DỤNG"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:textColor="#C51162"
+        android:fontFamily="sans-serif-condensed"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/tvXemTinTT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="100dp"
+        android:text="XEM TIN THỂ THAO"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:textColor="#00B8D4"
+        android:textSize="40sp"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ứng dụng xem tin tức bóng đá số một Việt Nam. Vững bước năm châu. Sánh vai địa cầu"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textAlignment="center"
+        android:textColor="#00B8D4"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_marginBottom="50dp"/>
+</RelativeLayout>
