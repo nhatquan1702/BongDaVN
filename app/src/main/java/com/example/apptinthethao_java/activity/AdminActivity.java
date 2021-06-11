@@ -1,11 +1,22 @@
 package com.example.apptinthethao_java.activity;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.example.apptinthethao_java.R;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import java.util.Objects;
 
 public class AdminActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -14,19 +25,20 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
-        Button btnTaiKhoan = findViewById(R.id.btnTaiKhoan);
-        Button btnBaiViet = findViewById(R.id.btnBaiViet);
-        Button btnCauThu = findViewById(R.id.btnCauThu);
-        Button btnTranDau = findViewById(R.id.btnTranDau);
-        Button btnDoiBong = findViewById(R.id.btnDoiBong);
+        Button btnTaiKhoan = (Button) findViewById(R.id.btnTaiKhoan);
+        Button btnBaiViet = (Button)  findViewById(R.id.btnBaiViet);
+        Button btnTranDau = (Button)  findViewById(R.id.btnTranDau);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         btnTaiKhoan.setOnClickListener(this);
         btnBaiViet.setOnClickListener(this);
-        btnCauThu.setOnClickListener(this);
         btnTranDau.setOnClickListener(this);
-        btnDoiBong.setOnClickListener(this);
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -34,17 +46,30 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                 // chuyen acti
             }
             case R.id.btnBaiViet:{
-                // chuyen acti
-            }
-            case R.id.btnCauThu:{
-                // chuyen acti
+//                Intent intent = Intent(AdminActivity.this, )
             }
             case R.id.btnTranDau:{
                 // chuyen acti
             }
-            case R.id.btnDoiBong:{
-                // chuyen acti
-            }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

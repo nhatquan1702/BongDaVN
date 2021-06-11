@@ -7,6 +7,20 @@
     android:orientation="vertical"
     tools:context=".activity.AdminActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.popUpOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <Button
         android:id="@+id/btnTaiKhoan"
         android:layout_width="match_parent"
@@ -26,30 +40,12 @@
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/btnCauThu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_weight="1"
-        android:text="Cầu Thủ"
-        android:textSize="18sp" />
-
-    <Button
         android:id="@+id/btnTranDau"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:layout_weight="1"
         android:text="Trận Đấu"
-        android:textSize="18sp" />
-
-    <Button
-        android:id="@+id/btnDoiBong"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_weight="1"
-        android:text="Đội Bóng"
         android:textSize="18sp" />
 
 </LinearLayout>
