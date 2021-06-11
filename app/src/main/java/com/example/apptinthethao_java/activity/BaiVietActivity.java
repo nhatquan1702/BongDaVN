@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +31,13 @@ import com.example.apptinthethao_java.util.Constants;
 import com.example.apptinthethao_java.util.ImageUtil;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONStringer;
+
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -145,8 +152,8 @@ public class BaiVietActivity extends AppCompatActivity implements View.OnClickLi
                 Post mPost = new Post();
                 mPost.setPost_title(edtTitle.getText().toString());
                 mPost.setPost_content(edtContent.getText().toString());
-//                if(encoded != null)
-//                mPost.setPost_img(encoded);
+                if(encoded != null)
+                    mPost.setPost_img(encoded);
                 mPost.setPost_create_by(sharedPreferences.getString("email", "admin"));
                 // call api save or update
                 if(postId == -1) {
@@ -192,34 +199,36 @@ public class BaiVietActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
                 if(call.isCanceled()) {
-                    result(false);
+
                     Log.d("fail", "request was aborted");
                 }else {
                     Log.d("fail", "Unable to submit post to API.");
                 }
+                result(false);
             }
         });
     }
 
     public void upLoadPost(Post mPost) {
         simpleAPI = Constants.instance();
-        simpleAPI.postBaiViet(mPost).enqueue(new Callback<Post>() {
+        simpleAPI.postBaiViet(mPost).enqueue(new Callback<Object>() {
             @Override
-            public void onResponse(Call<Post> call, Response<Post> response) {
+            public void onResponse(Call<Object> call, Response<Object> response) {
                 if (response.isSuccessful()) {
+                    Toast.makeText(BaiVietActivity.this, "success", Toast.LENGTH_SHORT).show();
                     Log.d("success", "post submitted to API." + response.body().toString());
                     result(true);
                 }
             }
 
             @Override
-            public void onFailure(Call<Post> call, Throwable t) {
+            public void onFailure(Call<Object> call, Throwable t) {
                 if(call.isCanceled()) {
-                    result(false);
                     Log.d("fail", "request was aborted");
                 }else {
                     Log.d("fail", "Unable to submit post to API.");
                 }
+                result(false);
             }
         });
 

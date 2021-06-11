@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -84,7 +85,7 @@ public class TaoTranDauSapDienRaActivity extends AppCompatActivity {
             }
         });
 
-        //LoadSpinner();
+        LoadSpinner();
     }
 
     private void LoadSpinner() {
@@ -103,18 +104,28 @@ public class TaoTranDauSapDienRaActivity extends AppCompatActivity {
                 adapter.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
                 spinnerDoiNha.setAdapter(adapter);
                 spinnerDoiNha.setSelection(0);
-                spinnerDoiNha.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                spinnerDoiNha.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         Toast.makeText(TaoTranDauSapDienRaActivity.this, cauLacBoArrayList.get(position).getTenCLB(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
                     }
                 });
                 spinnerDoiKhach.setAdapter(adapter);
                 spinnerDoiKhach.setSelection(0);
-                spinnerDoiKhach.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                spinnerDoiKhach.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         Toast.makeText(TaoTranDauSapDienRaActivity.this, cauLacBoArrayList.get(position).getTenCLB(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
                     }
                 });
             }
