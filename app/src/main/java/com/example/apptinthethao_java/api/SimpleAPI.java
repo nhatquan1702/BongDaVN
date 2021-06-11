@@ -74,7 +74,7 @@ public interface SimpleAPI {
     Call<ArrayList<TranDau>> getMatchResult(@Path("clb_id") String id);
 
     @GET("nhan/upcomming/{clb_id}")
-    Call<ArrayList<TranDau>> geUpcommingtMatch(@Path("clb_id") String id);
+    Call<ArrayList<TranDau>> getUpcommingtMatch(@Path("clb_id") String id);
 
     @GET("nhan/lastest_match/{clb_id}")
     Call<ArrayList<TranDau>> getLatestMatch(@Path("clb_id") String id);

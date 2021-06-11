@@ -69,6 +69,7 @@ public class TongQuanCLBFragment extends Fragment {
         loadIMG(id_clb);
         createChart(id_clb);
         loadLatestMatch(id_clb);
+        loadUpcommingMatch(id_clb);
 
         return view;
     }
@@ -101,9 +102,28 @@ public class TongQuanCLBFragment extends Fragment {
             @Override
             public void onResponse(Call<ArrayList<TranDau>> call, Response<ArrayList<TranDau>> response) {
                 ArrayList<TranDau> res = response.body();
-                Log.d("tncnhan", "res: " + res.toString());
+                //Log.d("tncnhan", "res: " + res.toString());
                 TranDauAdapter matchAdapter = new TranDauAdapter(res);
                 ListView listLastest = view.findViewById(R.id.listViewLastMatches);
+                listLastest.setAdapter(matchAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<TranDau>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    };
+
+    private void loadUpcommingMatch(String id_clb){
+        simpleAPI = Constants.instance();
+        simpleAPI.getUpcommingtMatch(id_clb).enqueue(new Callback<ArrayList<TranDau>>() {
+            @Override
+            public void onResponse(Call<ArrayList<TranDau>> call, Response<ArrayList<TranDau>> response) {
+                ArrayList<TranDau> res = response.body();
+                Log.d("tncnhan", "res: " + res.toString());
+                TranDauAdapter matchAdapter = new TranDauAdapter(res);
+                ListView listLastest = view.findViewById(R.id.listViewUpcomming);
                 listLastest.setAdapter(matchAdapter);
             }
 
