@@ -111,7 +111,7 @@ public class LichSapDauFragment extends Fragment implements NextView {
         fab.setOnClickListener(v -> {
             Calendar now = Calendar.getInstance();
             DatePickerDialog datePicker = new DatePickerDialog(getContext(),(view, year, month, dayOfMonth) ->{
-                    strDate = "'" +year +"-"+ month +"-"+ dayOfMonth +"'";
+                    strDate = "'" +year +"-"+ (month+1) +"-"+ dayOfMonth +"'";
                     mData = new ArrayList<>();
                     ngayDauStringArrayList = new ArrayList<>();
                     LoadDataLichDau(strDate);
