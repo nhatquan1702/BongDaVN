@@ -20,8 +20,12 @@ public class NgayThiDauAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getCount() {
-        return ngayThiDauArrayList.size();
+    public int getCount()
+    {
+        if(ngayThiDauArrayList != null){
+            return ngayThiDauArrayList.size();
+        }
+        return 0;
     }
 
     @Override

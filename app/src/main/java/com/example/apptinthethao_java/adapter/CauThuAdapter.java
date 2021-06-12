@@ -22,7 +22,10 @@ public class CauThuAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return cauThuSimpleArrayList.size();
+        if(cauThuSimpleArrayList != null){
+            return cauThuSimpleArrayList.size();
+        }
+        return 0;
     }
 
     @Override

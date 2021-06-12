@@ -9,7 +9,7 @@
             android:id="@+id/H"
             android:icon="@drawable/right"
             android:title="Home"
-            android:visible="true" />
+            android:visible="false" />
         <item
             android:id="@+id/CS"
             android:icon="@drawable/right"

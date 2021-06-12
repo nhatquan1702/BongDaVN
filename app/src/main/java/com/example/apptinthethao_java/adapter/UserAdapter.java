@@ -19,7 +19,10 @@ public class UserAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return listUser.size();
+        if(listUser != null){
+            return listUser.size();
+        }
+        return 0;
     }
 
     @Override

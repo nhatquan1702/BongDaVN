@@ -22,7 +22,10 @@ public class TranDauAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return tranDauArrayList.size();
+        if(tranDauArrayList != null){
+            return tranDauArrayList.size();
+        }
+        return 0;
     }
 
     @Override

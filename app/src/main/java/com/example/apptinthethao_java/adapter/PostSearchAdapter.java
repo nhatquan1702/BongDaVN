@@ -27,7 +27,10 @@ public class PostSearchAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return arrayList.size();
+        if(arrayList != null){
+            return arrayList.size();
+        }
+        return 0;
     }
 
     @Override

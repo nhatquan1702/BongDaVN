@@ -19,7 +19,10 @@ public class CauLacBoAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return cauLacBoArrayList.size();
+        if(cauLacBoArrayList != null){
+            return cauLacBoArrayList.size();
+        }
+        return 0;
     }
 
     @Override

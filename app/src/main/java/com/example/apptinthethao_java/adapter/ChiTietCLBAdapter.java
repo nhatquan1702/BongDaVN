@@ -19,7 +19,10 @@ public class ChiTietCLBAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return cauThuDoiHinhsArrayList.size();
+        if(cauThuDoiHinhsArrayList != null){
+            return cauThuDoiHinhsArrayList.size();
+        }
+        return 0;
     }
 
     @Override

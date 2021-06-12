@@ -26,7 +26,10 @@ public class BangXepHangAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return arrBXH.size();
+        if(arrBXH != null){
+            return arrBXH.size();
+        }
+        return 0;
     }
 
     @Override
