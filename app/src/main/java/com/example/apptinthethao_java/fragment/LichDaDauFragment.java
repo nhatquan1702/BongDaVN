@@ -104,6 +104,7 @@ public class LichDaDauFragment extends Fragment implements LastView{
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         strDate = "'" + formatter.format(date) + "'";
+        Log.e("date",strDate);
         LoadDataLichDau(strDate);
         //refresh
         mSwipeRefresh.setOnRefreshListener(() -> {

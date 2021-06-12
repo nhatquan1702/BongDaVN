@@ -85,7 +85,6 @@ public class LichSapDauFragment extends Fragment implements NextView {
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
         adapter.setOnItemClickListener(new ItemClickInterface() {
             @Override
             public void onClick(View view, int position) {

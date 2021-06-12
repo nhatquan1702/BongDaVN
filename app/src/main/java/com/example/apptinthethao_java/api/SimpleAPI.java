@@ -154,11 +154,11 @@ public interface SimpleAPI {
 
     @Headers({"Content-Type:application/json"})
     @POST("khai/edit/post/{post_id}")
-    Call<Post> UpdateBaiViet(@Path("post_id") String id,@Body Post body);
+    Call<Object> UpdateBaiViet(@Path("post_id") String id,@Body Post body);
 
     @Headers({"Content-Type:application/json"})
     @POST("khai/del/post/{post_id}")
-    Call<Post> DelBaiViet(@Path("post_id") String id);
+    Call<Object> DelBaiViet(@Path("post_id") String id);
 
 
     @POST("quan/create_match")

@@ -113,9 +113,9 @@ public class ListBaiVietActivity extends AppCompatActivity {
     private void DeleteBaiViet(Post mPost) {
 
         simpleAPI = Constants.instance();
-        simpleAPI.DelBaiViet(String.valueOf(mPost.getPost_id())).enqueue(new Callback<Post>() {
+        simpleAPI.DelBaiViet(String.valueOf(mPost.getPost_id())).enqueue(new Callback<Object>() {
             @Override
-            public void onResponse(Call<Post> call, Response<Post> response) {
+            public void onResponse(Call<Object> call, Response<Object> response) {
                 if (response.isSuccessful()) {
                     Log.d("success", "post submitted to API." + response.body().toString());
                     LoadBaiViet();
@@ -123,7 +123,7 @@ public class ListBaiVietActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Post> call, Throwable t) {
+            public void onFailure(Call<Object> call, Throwable t) {
                 if(call.isCanceled()) {
                     Log.d("fail", "request was aborted");
                 }else {

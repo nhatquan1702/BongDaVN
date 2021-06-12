@@ -187,9 +187,9 @@ public class BaiVietActivity extends AppCompatActivity implements View.OnClickLi
 
     private void UpdatePost(Post mPost) {
         simpleAPI = Constants.instance();
-        simpleAPI.UpdateBaiViet(String.valueOf(postId),mPost).enqueue(new Callback<Post>() {
+        simpleAPI.UpdateBaiViet(String.valueOf(postId),mPost).enqueue(new Callback<Object>() {
             @Override
-            public void onResponse(Call<Post> call, Response<Post> response) {
+            public void onResponse(Call<Object> call, Response<Object> response) {
                 if (response.isSuccessful()) {
                     Log.d("success", "post submitted to API." + response.body().toString());
                     result(true);
@@ -197,7 +197,7 @@ public class BaiVietActivity extends AppCompatActivity implements View.OnClickLi
             }
 
             @Override
-            public void onFailure(Call<Post> call, Throwable t) {
+            public void onFailure(Call<Object> call, Throwable t) {
                 if(call.isCanceled()) {
 
                     Log.d("fail", "request was aborted");
