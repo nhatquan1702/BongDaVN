@@ -162,8 +162,8 @@ public class ListBaiVietActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<ArrayList<Post>> call, Response<ArrayList<Post>> response) {
                             mData = response.body();
-                            Log.e("json", response.body().toString()+" " +strDate + " " + mAuthor);
-                            if(mData == null)
+                            Log.e("json", response.body().toString()+" " +strDate + " " + mAuthor + " " + String.valueOf(mData.size()));
+                            if(mData.size() == 0)
                                 Toast.makeText(ListBaiVietActivity.this,"không có bài viết nào vào ngày này",Toast.LENGTH_SHORT).show();
                             adapter.updateChange(mData);
                         }
