@@ -164,6 +164,11 @@ public interface SimpleAPI {
     @POST("quan/create_match")
     Call<Status> postmatch(@Header("clb_home_name") String clb_home_name, @Header("clb_guess_name") String clb_guess_name, @Header("match_happen_time") String match_happent_time);
 
+    @POST("quan/create_match_event/{match_id}")
+    Call<Status> postMatchEvent(@Path("match_id") String match_id, @Header("player_id") String player_id, @Header("event_name") String event, @Header("start_time") String time);
+
+    @POST("quan/match_result/{match_id}")
+    Call<Status> postTiSo(@Path("match_id") String match_id, @Header("start_time") String match_result);
 
 
 }

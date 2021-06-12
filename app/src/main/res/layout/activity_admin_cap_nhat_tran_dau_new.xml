@@ -102,13 +102,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:text="Nhập tỉ số: "
+        android:layout_marginTop="50dp"
+        android:text="Nhập tỉ số đội nhà "
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtNhapPhutAdNew" />
+        app:layout_constraintTop_toBottomOf="@+id/cvTaoAdNewEvent" />
 
     <EditText
         android:id="@+id/edtNhapTiSoAdNew"
@@ -117,7 +117,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:hint="Nhập tỉ số"
+        android:hint="Nhập số"
         android:background="@drawable/cmt_bg"
         android:padding="5dp"
         android:textColor="#FF1744"
@@ -126,18 +126,46 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:text="Nhập tỉ số đội khách "
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtNhapTiSoAdNew" />
+
+    <EditText
+        android:id="@+id/edtNhapTiSoDoiKhach"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:hint="Nhập số"
+        android:background="@drawable/cmt_bg"
+        android:padding="5dp"
+        android:textColor="#FF1744"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvTaoAdNew"
+        android:id="@+id/cvTaoAdNewEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:scaleType="centerCrop"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtNhapTiSoAdNew"  >
+        app:layout_constraintTop_toBottomOf="@+id/edtNhapPhutAdNew"  >
 
         <ImageView
             android:layout_width="match_parent"
@@ -147,11 +175,38 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Tạo"
+            android:text="Tạo sự kiện"
             android:padding="10dp"
             android:textColor="#651FFF"
             android:textSize="20sp"
             android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvTaoAdNewTiSo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtNhapTiSoDoiKhach"  >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/dark_bg" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Tạo tỉ số"
+            android:padding="10dp"
+            android:textColor="#651FFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
