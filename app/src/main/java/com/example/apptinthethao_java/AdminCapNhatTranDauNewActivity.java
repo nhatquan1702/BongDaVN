@@ -69,12 +69,15 @@ public class AdminCapNhatTranDauNewActivity extends AppCompatActivity {
                 String tiSoNha = editTextNhapTiSo.getText().toString();
                 String tiSoKhach = edtNhapTiSoDoiKhach.getText().toString();
                 Log.e("tiso",tiSoNha + " " + tiSoKhach);
-                if(Integer.parseInt(tiSoNha)<0 ||Integer.parseInt(tiSoNha)>100){
+                if(editTextNhapTiSo.getText().toString().isEmpty() || editTextNhapPhut.getText().toString().isEmpty()){
                     Toast.makeText(AdminCapNhatTranDauNewActivity.this, "Kiểm tra lại tỉ số", Toast.LENGTH_SHORT).show();
                 }
-                if(Integer.parseInt(tiSoKhach)<0 ||Integer.parseInt(tiSoKhach)>100){
-                    Toast.makeText(AdminCapNhatTranDauNewActivity.this, "Kiểm tra lại tỉ số", Toast.LENGTH_SHORT).show();
-                }
+//                if(Integer.parseInt(editTextNhapTiSo.getText().toString())<0 ||Integer.parseInt(editTextNhapTiSo.getText().toString())>100){
+//                    Toast.makeText(AdminCapNhatTranDauNewActivity.this, "Kiểm tra lại tỉ số", Toast.LENGTH_SHORT).show();
+//                }
+//                if(Integer.parseInt(edtNhapTiSoDoiKhach.getText().toString())<0 ||Integer.parseInt(edtNhapTiSoDoiKhach.getText().toString())>100){
+//                    Toast.makeText(AdminCapNhatTranDauNewActivity.this, "Kiểm tra lại tỉ số", Toast.LENGTH_SHORT).show();
+//                }
                 else {
                     Log.d("quan", editTextNhapTiSo.getText().toString()+":"+edtNhapTiSoDoiKhach.getText().toString());
                     LoadPostTiSo(match_id, editTextNhapTiSo.getText().toString()+":"+edtNhapTiSoDoiKhach.getText().toString());
@@ -161,18 +164,18 @@ public class AdminCapNhatTranDauNewActivity extends AppCompatActivity {
                                 Log.d("quan", "onClick: "+match_id);
                                 Log.d("quan", "onClick: "+id_CauThu);
                                 Log.d("quan", "onClick: "+suKienDcChon);
-                                Log.d("quan", "onClick: "+soPhut);
+                                Log.d("quan", "onClick: "+editTextNhapPhut.getText().toString());
                                 if(id_CauThu.equals("")){
                                     Toast.makeText(AdminCapNhatTranDauNewActivity.this, "Chọn cầu thủ", Toast.LENGTH_SHORT).show();
                                 }
                                 if(suKienDcChon.equals("")){
                                     Toast.makeText(AdminCapNhatTranDauNewActivity.this, "Chọn sự kiện", Toast.LENGTH_SHORT).show();
                                 }
-                                if(Integer.parseInt(soPhut)<0 || Integer.parseInt(soPhut)>200){
-                                    Toast.makeText(AdminCapNhatTranDauNewActivity.this, "Kiểm tra lại số phút", Toast.LENGTH_SHORT).show();
+                                if(editTextNhapPhut.getText().toString().isEmpty()){
+                                    Toast.makeText(AdminCapNhatTranDauNewActivity.this, "nhập phút", Toast.LENGTH_SHORT).show();
                                 }
                                 else{
-                                    PostMatchEvent(match_id, id_CauThu, suKienDcChon, soPhut);
+                                    PostMatchEvent(match_id, id_CauThu, suKienDcChon, editTextNhapPhut.getText().toString());
                                 }
                             }
                         });

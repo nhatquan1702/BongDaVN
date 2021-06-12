@@ -168,7 +168,7 @@ public interface SimpleAPI {
     Call<Status> postMatchEvent(@Path("match_id") String match_id, @Header("player_id") String player_id, @Header("event_name") String event, @Header("start_time") String time);
 
     @POST("quan/match_result/{match_id}")
-    Call<Status> postTiSo(@Path("match_id") String match_id, @Header("start_time") String match_result);
+    Call<Status> postTiSo(@Path("match_id") String match_id, @Header("match_result") String match_result);
 
 
 }
