@@ -62,11 +62,13 @@ public class AdminCapNhatTranDauNewActivity extends AppCompatActivity {
         soPhut = editTextNhapPhut.getText().toString().trim();
         LoadSuKienSpinner();
         LoadDSCauThu(home_name, guess_name);
-        String tiSoNha = editTextNhapTiSo.getText().toString();
-        String tiSoKhach = edtNhapTiSoDoiKhach.getText().toString();
+
         cardViewTaoTiSo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String tiSoNha = editTextNhapTiSo.getText().toString();
+                String tiSoKhach = edtNhapTiSoDoiKhach.getText().toString();
+                Log.e("tiso",tiSoNha + " " + tiSoKhach);
                 if(Integer.parseInt(tiSoNha)<0 ||Integer.parseInt(tiSoNha)>100){
                     Toast.makeText(AdminCapNhatTranDauNewActivity.this, "Kiểm tra lại tỉ số", Toast.LENGTH_SHORT).show();
                 }
