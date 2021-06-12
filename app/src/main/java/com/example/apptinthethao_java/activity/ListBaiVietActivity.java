@@ -155,14 +155,14 @@ public class ListBaiVietActivity extends AppCompatActivity {
             case R.id.set_date:{
                 Calendar now = Calendar.getInstance();
                 DatePickerDialog datePicker = new DatePickerDialog(ListBaiVietActivity.this,(view, year, month, dayOfMonth) ->{
-                    String strDate = "'" +year +"-"+ month +"-"+ dayOfMonth +"'";
+                    String strDate = "'" +year +"-"+ (month+1) +"-"+ dayOfMonth +"'";
                     mData = new ArrayList<>();
                     simpleAPI = Constants.instance();
                     simpleAPI.getBaiVietByAccountAndDate(mAuthor,strDate).enqueue(new Callback<ArrayList<Post>>() {
                         @Override
                         public void onResponse(Call<ArrayList<Post>> call, Response<ArrayList<Post>> response) {
-                            Log.d("json", response.body().toString());
                             mData = response.body();
+                            Log.e("json", response.body().toString()+" " +strDate + " " + mAuthor);
                             if(mData == null)
                                 Toast.makeText(ListBaiVietActivity.this,"không có bài viết nào vào ngày này",Toast.LENGTH_SHORT).show();
                             adapter.updateChange(mData);
@@ -177,8 +177,7 @@ public class ListBaiVietActivity extends AppCompatActivity {
                             }
                         }
                     });
-                }
-                        ,now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+                },now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
                 datePicker.show();
                 return true;
             }

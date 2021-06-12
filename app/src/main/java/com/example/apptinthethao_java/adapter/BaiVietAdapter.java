@@ -22,10 +22,10 @@ import java.util.List;
 public class BaiVietAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
 
     private Context mContext;
-    private List<Post> mObjects;
+    private ArrayList<Post> mObjects;
     public static ItemClickInterface itemClickListener;
 
-    public BaiVietAdapter(Context context, List<Post> objects) {
+    public BaiVietAdapter(Context context, ArrayList<Post> objects) {
         mContext = context;
         mObjects = objects;
     }
