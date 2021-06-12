@@ -123,7 +123,7 @@ public interface SimpleAPI {
     Call<ArrayList<KetQua_TranDau>> getTiSo();
     @GET("khoa/get_bxh_year/{year}")
     Call<ArrayList<BXH_DoiBong>> getBXH_year(@Path("year") String year);
-    @GET("s")
+    @GET("/khoa/get_all_bxh_doi/{clb_name}")
     Call<ArrayList<BXH_DoiBong>> getBXH_clb(@Path("clb_name") String clb_name);
     @GET("khoa/get_bxh_clb_nameYear/{clb_name}/{year}")
     Call<ArrayList<BXH_DoiBong>> getBXH_clb_year(@Path("clb_name") String clb_name, @Path("year") String year);
