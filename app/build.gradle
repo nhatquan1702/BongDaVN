@@ -90,4 +90,6 @@ dependencies {
             maven { url 'https://jitpack.io' }
         }
     }
+    implementation 'com.cloudinary:cloudinary-android:1.24.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

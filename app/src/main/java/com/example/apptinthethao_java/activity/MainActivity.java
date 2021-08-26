@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity{
     SearchView searchView;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    TextView textViewReFresh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +74,14 @@ public class MainActivity extends AppCompatActivity{
 
         //Xử lý thanh search
         Search();
+
+        textViewReFresh = findViewById(R.id.tvRefresh);
+        textViewReFresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoadTabLayoutAndViewpager2();
+            }
+        });
     }
 
     private void Search() {

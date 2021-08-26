@@ -34,7 +34,7 @@
                 android:drawableStart="@drawable/ic_baseline_vertical_split_24" />
             <SearchView
                 android:id="@+id/searchView"
-                android:layout_width="wrap_content"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/iconToolbarMenu"
                 android:layout_marginLeft="4dp"
@@ -42,6 +42,15 @@
                 android:iconifiedByDefault="false"
                 android:queryHint="Search"
                 />
+
+            <TextView
+                android:id="@+id/tvRefresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/searchView"
+                android:background="@drawable/ic_baseline_refresh_24" />
         </RelativeLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

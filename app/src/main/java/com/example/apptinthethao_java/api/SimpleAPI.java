@@ -131,7 +131,6 @@ public interface SimpleAPI {
     @GET("quan/trandau_chuada")
     Call<ArrayList<TranDauSapDienRa>> getListTranSapDau();
 
-    //    Khải
 
     @GET("khai/getNgaySapDau/{date}")
     Call<ArrayList<Object>> getNgaySapDau(@Path("date") String date);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,6 +43,7 @@ public class TinMoiFragment extends Fragment {
     private SimpleAPI simpleAPI;
     private View view;
     private ShimmerFrameLayout shimmerFrameFB;
+    private SwipeRefreshLayout mSwipeRefresh;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,6 +52,10 @@ public class TinMoiFragment extends Fragment {
         listViewTinMoi = view.findViewById(R.id.listViewTinMoi);
         shimmerFrameFB = view.findViewById(R.id.shimmerFrame);
         LoadDataTinMoi();
+//        mSwipeRefresh.setOnRefreshListener(()->{
+//            LoadDataTinMoi();
+//            mSwipeRefresh.setRefreshing(false);
+//        });
 
         return view;
     }

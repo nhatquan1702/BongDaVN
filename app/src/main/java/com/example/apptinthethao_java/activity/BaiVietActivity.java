@@ -1,17 +1,21 @@
 package com.example.apptinthethao_java.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -19,11 +23,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.cloudinary.android.MediaManager;
+import com.cloudinary.android.callback.ErrorInfo;
+import com.cloudinary.android.callback.UploadCallback;
 import com.example.apptinthethao_java.R;
 import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.Post;
@@ -37,7 +45,10 @@ import org.json.JSONObject;
 import org.json.JSONStringer;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -46,10 +57,7 @@ import retrofit2.Response;
 
 import static android.content.ContentValues.TAG;
 
-public class BaiVietActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private ImageView imgTitle;
-    private ImageButton btnImg;
+public class BaiVietActivity extends AppCompatActivity {
     private EditText edtTitle;
     private EditText edtContent;
     private TextView author;
@@ -61,15 +69,52 @@ public class BaiVietActivity extends AppCompatActivity implements View.OnClickLi
     SharedPreferences sharedPreferences;
     int REQUEST_CODE = 1;
 
+    private ImageView mProfile;
+    private ImageView mImageAdd;
+    private Button mBtnUpload;
+    private TextView mText;
+
+    private static final int PERMISSION_CODE =1;
+    private static final int PICK_IMAGE=1;
+
+    String filePath;
+    Map config = new HashMap();
+
+    private void configCloudinary() {
+        config.put("cloud_name", "dmfrvd4tl");
+        config.put("api_key", "258945955129684");
+        config.put("api_secret", "taQ7f4rtk6nM2DzRGo9Crzj3WVs");
+        MediaManager.init(BaiVietActivity.this, config);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bai_viet);
-        imgTitle = findViewById(R.id.imgDetailPost);
-        btnImg = findViewById(R.id.button_uploadimg);
+
         edtTitle = findViewById(R.id.et_TieuDeDeTail);
         edtContent = findViewById(R.id.etNoiDung);
         author = findViewById(R.id.tv_nguoitao);
+        mProfile = findViewById(R.id.imgProfile);
+        mImageAdd = findViewById(R.id.imgAdd);
+        mBtnUpload = findViewById(R.id.btnUpload);
+        mText = findViewById(R.id.txt);
+
+        configCloudinary();
+        //when click mImageAdd request the permission to access the gallery
+        mImageAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //request permission to access external storage
+                requestPermission();
+            }
+        });
+        mBtnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uploadToCloudinary(filePath);
+            }
+        });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -82,57 +127,102 @@ public class BaiVietActivity extends AppCompatActivity implements View.OnClickLi
             edtContent.setText(bundle.getString("post_content", ""));
             postId = bundle.getInt("post_id", 0);
             imgReceive = bundle.getString("post_img", null);
-            Log.d("idPost",String.valueOf(postId));
-//            if (postId != -1) {
-//                MenuItem menuItem = (MenuItem) findViewById(R.id.action_save);
-//                menuItem.setIcon(getResources().getDrawable(R.drawable.ic_edit));
-//            }
         }
+    }
 
-        Picasso.get()
-                .load(imgReceive)
-                .placeholder(R.drawable.galleryoo)
-                .error(R.drawable.galleryoo)
-                .into(imgTitle);
-        sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
-        String mAuthor = sharedPreferences.getString("email", "admin");
-        author.setText(mAuthor);
-        btnImg.setOnClickListener(this);
-
+    private void requestPermission(){
+        if(ContextCompat.checkSelfPermission
+                (BaiVietActivity.this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_GRANTED
+        ){
+            accessTheGallery();
+        } else {
+            ActivityCompat.requestPermissions(
+                    BaiVietActivity.this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    PERMISSION_CODE
+            );
+        }
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.button_uploadimg:{
-                WritePermission();
-                ReadPermission();
-                Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 0);
-                break;
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                accessTheGallery();
+            } else {
+                Toast.makeText(BaiVietActivity.this, "Không có quyền truy cập vào thư viện", Toast.LENGTH_SHORT).show();
             }
-            default:
-                break;
         }
     }
+
+    public void accessTheGallery(){
+        Intent i = new Intent(
+                Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        );
+        i.setType("image/*");
+        startActivityForResult(i, PICK_IMAGE);
+    }
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK){
-            Uri targetUri = data.getData();
-            Bitmap bitmap;
+        //get the image's file location
+        filePath = getRealPathFromUri(data.getData(), BaiVietActivity.this);
+
+        if(requestCode==PICK_IMAGE && resultCode==RESULT_OK){
             try {
-                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-                imgTitle.setImageBitmap(bitmap);
-                encoded = ImageUtil.convert(bitmap);
-                Log.d("showbitmap" , encoded);
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
+                //set picked image to the mProfile
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                mProfile.setImageBitmap(bitmap);
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private String getRealPathFromUri(Uri imageUri, Activity activity){
+        Cursor cursor = activity.getContentResolver().query(imageUri, null, null, null, null);
+
+        if(cursor==null) {
+            return imageUri.getPath();
+        }else{
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            return cursor.getString(idx);
+        }
+    }
+    private void uploadToCloudinary(String filePath) {
+        MediaManager.get().upload(filePath).callback(new UploadCallback() {
+            @Override
+            public void onStart(String requestId) {
+                mText.setText("Bắt đầu tải lên");
+            }
+
+            @Override
+            public void onProgress(String requestId, long bytes, long totalBytes) {
+                mText.setText("Vui đòng đợi... ");
+            }
+
+            @Override
+            public void onSuccess(String requestId, Map resultData) {
+                mText.setText("URL: "+resultData.get("url").toString());
+            }
+
+            @Override
+            public void onError(String requestId, ErrorInfo error) {
+                mText.setText("Lỗi "+ error.getDescription());
+            }
+
+            @Override
+            public void onReschedule(String requestId, ErrorInfo error) {
+                mText.setText("Reshedule "+error.getDescription());
+            }
+        }).dispatch();
     }
 
     @Override
@@ -149,32 +239,11 @@ public class BaiVietActivity extends AppCompatActivity implements View.OnClickLi
                 return true;
             }
             case R.id.action_save:{
-                Post mPost = new Post();
-                mPost.setPost_title(edtTitle.getText().toString());
-                mPost.setPost_content(edtContent.getText().toString());
-                if(encoded != null)
-                    mPost.setPost_img(encoded);
-                mPost.setPost_create_by(sharedPreferences.getString("email", "admin"));
-                // call api save or update
-                if(postId == -1) {
-                    upLoadPost(mPost);
-                }
-                else
-                    UpdatePost(mPost);
 
-                // chuyen ve man hinh cu
-                Intent replyIntent = new Intent();
-                if (checkSuccess) {
-                    setResult(RESULT_OK, replyIntent);
-                } else {
-                    setResult(RESULT_CANCELED, replyIntent);
-                }
-                finish();
-                return true;
             }
             case R.id.action_reset:{
                 // reset
-                imgTitle.setImageResource(R.drawable.galleryoo);
+                mProfile.setImageResource(R.drawable.galleryoo);
                 edtTitle.getText().clear();
                 edtContent.getText().clear();
                 return true;
@@ -237,47 +306,5 @@ public class BaiVietActivity extends AppCompatActivity implements View.OnClickLi
         this.checkSuccess = isSuccess;
     }
 
-    // yêu cầu quyền truy cập
-    public void WritePermission() {
-        if (ContextCompat.checkSelfPermission(BaiVietActivity.this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(BaiVietActivity.this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-            } else {
-                // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(BaiVietActivity.this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        REQUEST_CODE);
 
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-
-            }
-        } else {
-            // Permission has already been granted
-        }
-    }
-
-    public void ReadPermission() {
-        if (ContextCompat.checkSelfPermission(BaiVietActivity.this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(BaiVietActivity.this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            } else {
-                ActivityCompat.requestPermissions(BaiVietActivity.this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        REQUEST_CODE);
-            }
-        } else {
-            // Permission has already been granted
-        }
-    }
 }
