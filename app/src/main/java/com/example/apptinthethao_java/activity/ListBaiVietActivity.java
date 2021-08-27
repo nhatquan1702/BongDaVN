@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ import com.example.apptinthethao_java.adapter.BaiVietAdapter;
 import com.example.apptinthethao_java.adapter.ItemClickInterface;
 import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.Post;
+import com.example.apptinthethao_java.model.Status;
 import com.example.apptinthethao_java.model.TranDau;
 import com.example.apptinthethao_java.util.Constants;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,7 +48,7 @@ public class ListBaiVietActivity extends AppCompatActivity {
     private BaiVietAdapter adapter;
     String mAuthor = null;
     int requestCode = 2;
-
+    RecyclerView mRecyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +56,7 @@ public class ListBaiVietActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
-        RecyclerView mRecyclerView = findViewById(R.id.rv_listbaiviet);
+         mRecyclerView = findViewById(R.id.rv_listbaiviet);
         mData = new ArrayList<>();
         sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
         mAuthor = sharedPreferences.getString("email", "admin");
@@ -85,9 +88,33 @@ public class ListBaiVietActivity extends AppCompatActivity {
             public void onSwiped(@NonNull @NotNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 Post mPost = adapter.getAtPosition(position);
-                Toast.makeText(getApplicationContext(), "Deleting " , Toast.LENGTH_SHORT).show();
-                //call delete
-                DeleteBaiViet(mPost);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ListBaiVietActivity.this);
+                builder.setTitle("Xác nhận");
+                builder.setMessage("Bạn có thực sự muốn xóa bài viết này?");
+                builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(), "Đã xóa" , Toast.LENGTH_SHORT).show();
+                        //call delete
+                        DeletePost(String.valueOf(mPost.getPost_id()));
+                        LoadBaiViet();
+                        adapter = new BaiVietAdapter(getApplicationContext(),mData);
+                        mRecyclerView.setAdapter(adapter);
+                        mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    }
+                });
+                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(), "Đã hủy thao tác" , Toast.LENGTH_SHORT).show();
+                        LoadBaiViet();
+                        adapter = new BaiVietAdapter(getApplicationContext(),mData);
+                        mRecyclerView.setAdapter(adapter);
+                        mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
@@ -110,32 +137,33 @@ public class ListBaiVietActivity extends AppCompatActivity {
         });
     }
 
-    private void DeleteBaiViet(Post mPost) {
-
+    private void DeletePost(String post_id) {
         simpleAPI = Constants.instance();
-        simpleAPI.DelBaiViet(String.valueOf(mPost.getPost_id())).enqueue(new Callback<Object>() {
+        simpleAPI.deletePost(post_id).enqueue(new Callback<Status>() {
             @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
-                if (response.isSuccessful()) {
-                    Log.d("success", "post submitted to API." + response.body().toString());
+            public void onResponse(Call<Status> call, Response<Status> response) {
+                Status status = response.body();
+                if(status.getStatus()==2){
+                    Toast.makeText(ListBaiVietActivity.this, "Xóa bài viết thành công!", Toast.LENGTH_SHORT).show();
                     LoadBaiViet();
+                    adapter = new BaiVietAdapter(getApplicationContext(),mData);
+                    mRecyclerView.setAdapter(adapter);
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                }
+                else {
+                    Toast.makeText(ListBaiVietActivity.this, "Xóa bài viết không thành công!", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
-                if(call.isCanceled()) {
-                    Log.d("fail", "request was aborted");
-                }else {
-                    Log.d("fail", "Unable to submit post to API.");
-                }
+            public void onFailure(Call<Status> call, Throwable t) {
+                Toast.makeText(ListBaiVietActivity.this, "Lỗi: "+t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu_list_bai_viet,menu);
         return true;
     }
@@ -148,8 +176,11 @@ public class ListBaiVietActivity extends AppCompatActivity {
                 onBackPressed();
                 return true;
             }
-            case R.id.clear_data:{
-                // clear
+            case R.id.refresh:{
+                LoadBaiViet();
+                adapter = new BaiVietAdapter(getApplicationContext(),mData);
+                mRecyclerView.setAdapter(adapter);
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 return true;
             }
             case R.id.set_date:{

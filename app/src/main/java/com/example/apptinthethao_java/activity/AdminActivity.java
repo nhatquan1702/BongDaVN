@@ -30,17 +30,10 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
 
         Button btnTaiKhoan = (Button) findViewById(R.id.btnTaiKhoan);
         Button btnBaiViet = (Button)  findViewById(R.id.btnBaiViet);
-       // Button btnTranDau = (Button)  findViewById(R.id.btnTranDau);
-
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        ActionBar actionBar = getSupportActionBar();
-//
-//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         btnTaiKhoan.setOnClickListener(this);
         btnBaiViet.setOnClickListener(this);
-        //btnTranDau.setOnClickListener(this);
+        updateInfo();
     }
     @Override
     public void onClick(View v) {
@@ -56,10 +49,6 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             }
-//            case R.id.btnTranDau:{
-//                Intent intent = new Intent(AdminActivity.this, AdminTranDauActivity.class);
-//                startActivity(intent);
-//            }
         }
     }
 
@@ -71,7 +60,6 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                 Analysis res = response.body();
                 ((TextView) findViewById(R.id.txtCountUser)).setText(String.valueOf(res.getCount_account()));
                 ((TextView) findViewById(R.id.txtCountPost)).setText(String.valueOf(res.getCount_post()));
-               // ((TextView) findViewById(R.id.txtCountMatch)).setText(String.valueOf(res.getCount_match()));
             }
 
             @Override

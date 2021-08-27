@@ -67,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="25dp"
         app:cardBackgroundColor="@color/colorPost"
@@ -105,52 +105,6 @@
                 app:cornerRadius="0dp"
                 app:elevation="0dp"
                 app:iconPadding="0dp" />
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="25dp"
-        app:cardBackgroundColor="@color/colorMatch"
-        app:cardCornerRadius="25dp"
-        app:cardElevation="7dp"
-        app:cardMaxElevation="10dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <android.widget.Button
-                android:id="@+id/btnTranDau"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:background="@drawable/background_match"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:text="Trận Đấu"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                app:cornerRadius="0dp"
-                app:elevation="0dp"
-                app:iconPadding="0dp" />
-
-            <TextView
-                android:id="@+id/txtCountMatch"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:gravity="center"
-                android:text="56"
-                android:textColor="#FFFFFF"
-                android:textSize="36sp"
-                android:textStyle="bold" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

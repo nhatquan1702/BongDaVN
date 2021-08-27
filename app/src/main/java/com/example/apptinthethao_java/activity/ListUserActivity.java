@@ -17,6 +17,7 @@ import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.CauThuSimple;
 import com.example.apptinthethao_java.model.User;
 import com.example.apptinthethao_java.util.Constants;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -33,7 +34,7 @@ public class ListUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_user);
         listViewUser = findViewById(R.id.listUser);
-        Button addUser = findViewById(R.id.btnAddUser);
+        FloatingActionButton addUser = findViewById(R.id.fabAddUser);
         addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

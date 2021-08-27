@@ -4,12 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/drawable/custom_press.xml" value="0.109375" />
+        <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/activity_admin.xml" value="0.17255434782608695" />
         <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/activity_bai_viet.xml" value="0.25" />
         <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/activity_bang_xep_hang.xml" value="0.22" />
         <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/activity_detail_post.xml" value="0.1766304347826087" />
+        <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/activity_edit_user.xml" value="0.25" />
         <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/activity_lich_thi_dau.xml" value="0.1766304347826087" />
+        <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/activity_list_bai_viet.xml" value="0.16802536231884058" />
+        <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/activity_list_user.xml" value="0.16802536231884058" />
         <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/content_bai_viet.xml" value="0.22" />
+        <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/content_list_bai_viet.xml" value="0.16802536231884058" />
+        <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/content_list_user.xml" value="0.16802536231884058" />
         <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/fragment_lich_da_dau.xml" value="0.1766304347826087" />
         <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/fragment_lich_sap_dau.xml" value="0.1766304347826087" />
         <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/fragment_tin_moi.xml" value="0.1766304347826087" />
@@ -17,8 +23,10 @@
         <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/item_cmt.xml" value="0.1766304347826087" />
         <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/item_dien_bien.xml" value="0.1766304347826087" />
         <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/item_doi_hinh.xml" value="0.1766304347826087" />
+        <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/item_list_view_post.xml" value="0.16802536231884058" />
         <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/item_loading.xml" value="0.1766304347826087" />
         <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/layout/item_title_doi_hinh.xml" value="0.1766304347826087" />
+        <entry key="..\:/Users/nhatm/AndroidStudioProjects/BongDaVN/app/src/main/res/menu/menu_list_bai_viet.xml" value="0.1" />
       </map>
     </option>
   </component>

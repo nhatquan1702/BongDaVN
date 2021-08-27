@@ -169,5 +169,18 @@ public interface SimpleAPI {
     @POST("quan/match_result/{match_id}")
     Call<Status> postTiSo(@Path("match_id") String match_id, @Header("match_result") String match_result);
 
+    @POST("quan/add/post")
+    Call<Status> addNewPost(@Header("post_title") String post_title, @Header("post_content") String post_content, @Header("post_img") String post_img, @Header("email") String email);
 
+    @POST("quan/post/edit/{post_id}")
+    Call<Status> editPost(@Header("post_title") String post_title, @Header("post_content") String post_content, @Header("post_img") String post_img);
+
+    @POST("quan/post/delete")
+    Call<Status> deletePost(@Header("post_id") String post_id);
+
+    @POST("quan/add/post/{post_title}/{post_content}")
+    Call<Status> addNewPostNew(@Path("post_title") String post_title, @Path("post_content") String post_content, @Header("post_img") String post_img, @Header("email") String email);
+
+    @POST("quan/post/edit/{post_id}/{post_title}/{post_content}")
+    Call<Status> editPostNew(@Path("post_id") String post_id, @Path("post_title") String post_title, @Path("post_content") String post_content, @Header("post_img") String post_img);
 }

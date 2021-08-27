@@ -2,9 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/clear_data"
+        android:id="@+id/refresh"
         android:orderInCategory="100"
-        android:title="@string/clear_all"
+        android:title="Làm mới"
+        android:icon="@drawable/ic_refresh"
         app:showAsAction="never" />
     <item
         android:id="@+id/set_date"
