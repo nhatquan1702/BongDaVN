@@ -1,5 +1,13 @@
 package com.example.apptinthethao_java.activity;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +18,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,14 +29,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import com.cloudinary.android.MediaManager;
 import com.cloudinary.android.callback.ErrorInfo;
 import com.cloudinary.android.callback.UploadCallback;
@@ -36,6 +37,7 @@ import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.Status;
 import com.example.apptinthethao_java.util.Constants;
 import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +47,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BaiVietActivity extends AppCompatActivity {
+public class SuaBaiVietActivity extends AppCompatActivity {
     private EditText edtTitle;
     private EditText edtContent;
     private TextView author;
@@ -63,15 +65,16 @@ public class BaiVietActivity extends AppCompatActivity {
     private static final int PERMISSION_CODE =1;
     private static final int PICK_IMAGE=1;
 
-    String filePath="";
-    Map config = new HashMap();
+    String filePath;
+    public boolean checkInit = true;
 
     private void configCloudinary() {
-
+        Map config = new HashMap();
         config.put("cloud_name", "dmfrvd4tl");
         config.put("api_key", "258945955129684");
         config.put("api_secret", "taQ7f4rtk6nM2DzRGo9Crzj3WVs");
-        MediaManager.init(BaiVietActivity.this, config);
+        MediaManager.init(SuaBaiVietActivity.this, config);
+        checkInit=false;
     }
 
     @Override
@@ -87,16 +90,17 @@ public class BaiVietActivity extends AppCompatActivity {
         mBtnUpload = findViewById(R.id.btnUpload);
         btnCapNhat = findViewById(R.id.btnCapNhat);
         mText = findViewById(R.id.txt);
+
         tvCapNhat = findViewById(R.id.tvCapNhat);
         tvRefreshPost = findViewById(R.id.tvLamMoi);
-        tvCapNhat.setText("Thêm bài viết");
+        tvCapNhat.setText("Cập nhật");
         mBtnUpload.setVisibility(View.GONE);
         sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
         String mAuthor = sharedPreferences.getString("email", "admin");
-        author.setText(mAuthor);
-        configCloudinary();
+        if(checkInit)
+            configCloudinary();
+        Log.d("quan", MediaManager.get().getCloudinary().toString());
         //when click mImageAdd request the permission to access the gallery
-
         LoadButton();
 
         // receive update
@@ -106,6 +110,7 @@ public class BaiVietActivity extends AppCompatActivity {
             edtContent.setText(bundle.getString("post_content", ""));
             postId = bundle.getInt("post_id", 0);
             imgReceive = bundle.getString("post_img", null);
+            author.setText(mAuthor);
             Picasso.get()
                     .load(imgReceive)
                     .placeholder(R.drawable.galleryoo)
@@ -116,7 +121,7 @@ public class BaiVietActivity extends AppCompatActivity {
         }
     }
 
-    private void LoadButton(){
+    private void LoadButton() {
         tvRefreshPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,8 +144,8 @@ public class BaiVietActivity extends AppCompatActivity {
         mBtnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(filePath.isEmpty() || filePath.trim().equals("")){
-                    Toast.makeText(BaiVietActivity.this, "Vui lòng chọn ảnh!", Toast.LENGTH_SHORT).show();
+                if(filePath.isEmpty() || filePath.toString().trim().equals("")){
+                    Toast.makeText(SuaBaiVietActivity.this, "Vui lòng chọn ảnh!", Toast.LENGTH_SHORT).show();
                 }
                 else
                     uploadToCloudinary(filePath);
@@ -150,35 +155,33 @@ public class BaiVietActivity extends AppCompatActivity {
         btnCapNhat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = author.getText().toString();
                 String post_title = edtTitle.getText().toString().trim();
                 if(post_title.isEmpty()){
-                    Toast.makeText(BaiVietActivity.this, "Tiêu đề không được bỏ trống!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SuaBaiVietActivity.this, "Tiêu đề không được bỏ trống!", Toast.LENGTH_SHORT).show();
                 }
                 String post_content = edtContent.getText().toString().trim();
                 if(post_content.isEmpty()){
-                    Toast.makeText(BaiVietActivity.this, "Nội dung không được bỏ trống!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SuaBaiVietActivity.this, "Nội dung không được bỏ trống!", Toast.LENGTH_SHORT).show();
                 }
                 String post_img = mText.getText().toString().trim();
                 if(post_img.isEmpty()){
-                    Toast.makeText(BaiVietActivity.this, "Hình ảnh không được bỏ trống!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SuaBaiVietActivity.this, "Hình ảnh không được bỏ trống!", Toast.LENGTH_SHORT).show();
                 }
-                else
-                    AddNewPostNew(post_title, post_content, post_img, email);
+                    EditPostNew(String.valueOf(postId), post_title, post_content, post_img);
             }
         });
     }
 
     private void requestPermission(){
         if(ContextCompat.checkSelfPermission
-                (BaiVietActivity.this,
+                (SuaBaiVietActivity.this,
                         Manifest.permission.READ_EXTERNAL_STORAGE
                 ) == PackageManager.PERMISSION_GRANTED
         ){
             accessTheGallery();
         } else {
             ActivityCompat.requestPermissions(
-                    BaiVietActivity.this,
+                    SuaBaiVietActivity.this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     PERMISSION_CODE
             );
@@ -192,7 +195,7 @@ public class BaiVietActivity extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 accessTheGallery();
             } else {
-                Toast.makeText(BaiVietActivity.this, "Không có quyền truy cập vào thư viện", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SuaBaiVietActivity.this, "Không có quyền truy cập vào thư viện", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -211,7 +214,7 @@ public class BaiVietActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         //get the image's file location
-        filePath = getRealPathFromUri(data.getData(), BaiVietActivity.this);
+        filePath = getRealPathFromUri(data.getData(), SuaBaiVietActivity.this);
 
         if(requestCode==PICK_IMAGE && resultCode==RESULT_OK){
             try {
@@ -226,6 +229,7 @@ public class BaiVietActivity extends AppCompatActivity {
 
     private String getRealPathFromUri(Uri imageUri, Activity activity){
         Cursor cursor = activity.getContentResolver().query(imageUri, null, null, null, null);
+
         if(cursor==null) {
             return imageUri.getPath();
         }else{
@@ -264,102 +268,31 @@ public class BaiVietActivity extends AppCompatActivity {
         }).dispatch();
     }
 
-    public void AddNewPostNew(String post_title, String post_content, String post_img, String email) {
-        simpleAPI = Constants.instance();
-        simpleAPI.addNewPostNew(post_title, post_content, post_img, email).enqueue(new Callback<Status>() {
-            @Override
-            public void onResponse(Call<Status> call, Response<Status> response) {
-                Status status = response.body();
-                if(status.getStatus()==5){
-                    Toast.makeText(BaiVietActivity.this, "Thêm bài viết thành công!", Toast.LENGTH_SHORT).show();
-                    Intent intent;
-                    intent = new Intent(BaiVietActivity.this, ListBaiVietActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    startActivityIfNeeded(intent, 0);
-                    finish();
-                }
-                else {
-                    Toast.makeText(BaiVietActivity.this, "Thêm bài viết không thành công!", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Status> call, Throwable t) {
-                Toast.makeText(BaiVietActivity.this, "Lỗi: "+t.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void AddNewPost(String post_title, String post_content, String post_img, String email) {
-        simpleAPI = Constants.instance();
-        simpleAPI.addNewPost(post_title, post_content, post_img, email).enqueue(new Callback<Status>() {
-            @Override
-            public void onResponse(Call<Status> call, Response<Status> response) {
-                Status status = response.body();
-                if(status.getStatus()==5){
-                    Toast.makeText(BaiVietActivity.this, "Thêm bài viết thành công!", Toast.LENGTH_SHORT).show();
-                    //Intent intent = new Intent(BaiVietActivity.this, ListBaiVietActivity.class);
-                    Intent intent;
-                    intent = new Intent(BaiVietActivity.this, ListBaiVietActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    startActivityIfNeeded(intent, 0);
-                    finish();
-
-                }
-                else {
-                    Toast.makeText(BaiVietActivity.this, "Thêm bài viết không thành công!", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Status> call, Throwable t) {
-                Toast.makeText(BaiVietActivity.this, "Lỗi: "+t.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    public void EditPost(String post_title, String post_content, String post_img) {
-        simpleAPI = Constants.instance();
-        simpleAPI.editPost(post_title, post_content, post_img).enqueue(new Callback<Status>() {
-            @Override
-            public void onResponse(Call<Status> call, Response<Status> response) {
-                Status status = response.body();
-                if(status.getStatus()==5){
-                    Toast.makeText(BaiVietActivity.this, "Thêm bài viết thành công!", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(BaiVietActivity.this, "Thêm bài viết không thành công!", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Status> call, Throwable t) {
-                Toast.makeText(BaiVietActivity.this, "Lỗi: "+t.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-
-    public void EditPostNew(String post_id, String post_title, String post_content, String post_img) {
+    public void EditPostNew(String post_id, String post_title,
+                            String post_content, String post_img) {
         simpleAPI = Constants.instance();
         simpleAPI.editPostNew(post_id, post_title, post_content, post_img).enqueue(new Callback<Status>() {
             @Override
             public void onResponse(Call<Status> call, Response<Status> response) {
                 Status status = response.body();
                 if(status.getStatus()==4){
-                    Toast.makeText(BaiVietActivity.this, "Sửa bài viết thành công!", Toast.LENGTH_SHORT).show();
-                    Intent intenta = new Intent(BaiVietActivity.this, ListBaiVietActivity.class);
+                    Toast.makeText(SuaBaiVietActivity.this, "Sửa bài viết thành công!", Toast.LENGTH_SHORT).show();
+                    //Intent intenta = new Intent(SuaBaiVietActivity.this, ListBaiVietActivity.class);
+                    Intent intent;
+                    intent = new Intent(SuaBaiVietActivity.this, ListBaiVietActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivityIfNeeded(intent, 0);
+                    finish();
                 }
                 else {
-                    Toast.makeText(BaiVietActivity.this, "Sửa bài viết không thành công!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SuaBaiVietActivity.this, "Sửa bài viết không thành công!", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Status> call, Throwable t) {
-                Toast.makeText(BaiVietActivity.this, "Lỗi: "+t.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SuaBaiVietActivity.this, "Lỗi: "+t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 }

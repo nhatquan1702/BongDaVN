@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.apptinthethao_java.R;
@@ -29,21 +30,16 @@ public class ListCauThuActivity extends AppCompatActivity {
     private CauThuAdapter cauThuAdapter;
     private ListView listViewCauThu;
     private SimpleAPI simpleAPI;
-    private ShimmerFrameLayout shimmerFrameLayout;
+    private ProgressBar mProgressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_cau_thu);
         listViewCauThu = findViewById(R.id.listViewDSCauThu);
-        shimmerFrameLayout = findViewById(R.id.shimmerFrame);
         cauThuSimpleArrayList = new ArrayList<>();
+        mProgressBar = findViewById(R.id.progress_bar);
+        mProgressBar.setVisibility(View.VISIBLE);
         LoadCLB();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        shimmerFrameLayout.startShimmer();
     }
 
     private void LoadCLB(){
@@ -62,8 +58,7 @@ public class ListCauThuActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                shimmerFrameLayout.stopShimmer();
-                shimmerFrameLayout.setVisibility(View.GONE);
+                mProgressBar.setVisibility(View.GONE);
             }
 
             @Override

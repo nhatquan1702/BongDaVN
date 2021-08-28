@@ -1,6 +1,7 @@
 package com.example.apptinthethao_java.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.apptinthethao_java.R;
@@ -25,7 +27,8 @@ import retrofit2.Response;
 public class AddUserActivity extends AppCompatActivity {
     RadioButton rAdmin;
     RadioButton rUser;
-    Button btnDelete, btnUpdate;
+    TextView btnDelete, tvCN;
+    CardView btnUpdate;
     CheckBox cbShowPass;
     EditText edtNhapEmailDK,edtNhapPass1, edtNhapPass2;
     String role;
@@ -37,13 +40,14 @@ public class AddUserActivity extends AppCompatActivity {
         rAdmin = findViewById(R.id.rAdmin);
         rUser = findViewById(R.id.rUser);
         btnDelete = findViewById(R.id.btnDelete);
+        tvCN = findViewById(R.id.tvCN);
         btnUpdate = findViewById(R.id.btnUpdate);
         cbShowPass = findViewById(R.id.checkShowPassDK);
         edtNhapPass1 = findViewById(R.id.edtNhapPass1);
         edtNhapPass2 = findViewById(R.id.edtNhapPass2);
         edtNhapEmailDK = findViewById(R.id.edtNhapEmailDK);
         btnDelete.setVisibility(View.GONE);
-        btnUpdate.setText("Tạo Tài Khoản");
+        tvCN.setText("Tạo tài khoản");
         rUser.setChecked(true);
         loadButtonAction();
     }

@@ -73,7 +73,8 @@ public class ListBaiVietActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ListBaiVietActivity.this, BaiVietActivity.class);
-                startActivityForResult(intent, requestCode);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityIfNeeded(intent, 0);
             }
         });
 
@@ -125,14 +126,15 @@ public class ListBaiVietActivity extends AppCompatActivity {
             public void onClick(View view, int position) {
                 Post mPost = adapter.getAtPosition(position);
                 // call update
-                Intent intent = new Intent(ListBaiVietActivity.this,BaiVietActivity.class);
+                Intent intent = new Intent(ListBaiVietActivity.this, SuaBaiVietActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("post_title", mPost.getPost_title());
                 bundle.putString("post_content", mPost.getPost_content());
                 bundle.putString("post_img", mPost.getPost_img());
                 bundle.putInt("post_id", mPost.getPost_id());
                 intent.putExtras(bundle);
-                startActivityForResult(intent, requestCode);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityIfNeeded(intent, 0);
             }
         });
     }

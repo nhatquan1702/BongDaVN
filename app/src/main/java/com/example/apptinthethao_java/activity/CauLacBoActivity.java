@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.apptinthethao_java.R;
@@ -14,6 +15,7 @@ import com.example.apptinthethao_java.adapter.CauLacBoAdapter;
 import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.CauLacBo;
 import com.example.apptinthethao_java.util.Constants;
+import com.example.apptinthethao_java.view.LastView;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
@@ -22,26 +24,26 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CauLacBoActivity extends AppCompatActivity {
+public class CauLacBoActivity extends AppCompatActivity{
     private ArrayList<CauLacBo> cauLacBoArrayList;
     private CauLacBoAdapter cauLacBoAdapter;
     private ListView listViewCLB;
     private SimpleAPI simpleAPI;
-    private ShimmerFrameLayout shimmerFrameLayout;
+    private ProgressBar mProgressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cau_lac_bo);
         listViewCLB = findViewById(R.id.listViewDSCLB);
-        shimmerFrameLayout = findViewById(R.id.shimmerFrame);
+        mProgressBar = findViewById(R.id.progress_bar);
         cauLacBoArrayList = new ArrayList<>();
+        ShowLoading();
         LoadCLB();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        shimmerFrameLayout.startShimmer();
     }
 
     private void LoadCLB(){
@@ -60,8 +62,7 @@ public class CauLacBoActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                shimmerFrameLayout.stopShimmer();
-                shimmerFrameLayout.setVisibility(View.GONE);
+                HideLoading();
             }
 
             @Override
@@ -71,4 +72,13 @@ public class CauLacBoActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void ShowLoading() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    public void HideLoading() {
+        mProgressBar.setVisibility(View.GONE);
+    }
+
 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.apptinthethao_java.R;
@@ -34,7 +35,7 @@ public class ListCauThuFragment extends Fragment {
     private ListView listViewDSCauThu;
     private SimpleAPI simpleAPI;
     private View view;
-    private ShimmerFrameLayout shimmerFrameFB;
+    private ProgressBar mProgressBar;
     private CauLacBoActivity cauLacBoActivity;
 
     @Override
@@ -43,19 +44,15 @@ public class ListCauThuFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_list_cau_thu, container, false);
         listViewDSCauThu = view.findViewById(R.id.listViewDSCauThu);
-        shimmerFrameFB = view.findViewById(R.id.shimmerFrame);
+        mProgressBar = view.findViewById(R.id.progress_bar);
         cauThu_doiHinhArrayList = new ArrayList<>();
         ChiTietCLBActivity chiTietCLBActivity = (ChiTietCLBActivity) getActivity();
         String id_clb = chiTietCLBActivity.getId_clb();
+        mProgressBar.setVisibility(View.VISIBLE);
         LoadDSCauThu(id_clb);
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        shimmerFrameFB.startShimmer();
-    }
 
     private void LoadDSCauThu(String id_clb) {
         simpleAPI = Constants.instance();
@@ -74,8 +71,7 @@ public class ListCauThuFragment extends Fragment {
                         startActivity(intent);
                     }
                 });
-                shimmerFrameFB.stopShimmer();
-                shimmerFrameFB.setVisibility(view.GONE);
+                mProgressBar.setVisibility(View.GONE);
             }
 
             @Override

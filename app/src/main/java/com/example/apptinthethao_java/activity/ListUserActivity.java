@@ -35,6 +35,7 @@ public class ListUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_user);
         listViewUser = findViewById(R.id.listUser);
         FloatingActionButton addUser = findViewById(R.id.fabAddUser);
+        loadUser();
         addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +44,7 @@ public class ListUserActivity extends AppCompatActivity {
                 startActivityIfNeeded(intent, 0);
             }
         });
-        loadUser();
+
     }
 
     private void loadUser(){
