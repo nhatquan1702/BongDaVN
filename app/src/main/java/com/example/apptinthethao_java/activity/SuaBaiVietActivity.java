@@ -32,6 +32,8 @@ import android.widget.Toast;
 import com.cloudinary.android.MediaManager;
 import com.cloudinary.android.callback.ErrorInfo;
 import com.cloudinary.android.callback.UploadCallback;
+import com.cloudinary.android.signed.Signature;
+import com.cloudinary.android.signed.SignatureProvider;
 import com.example.apptinthethao_java.R;
 import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.Status;
@@ -64,17 +66,15 @@ public class SuaBaiVietActivity extends AppCompatActivity {
 
     private static final int PERMISSION_CODE =1;
     private static final int PICK_IMAGE=1;
-
+    private  boolean checkInit = true;// chưa
     String filePath;
-    public boolean checkInit = true;
-
     private void configCloudinary() {
         Map config = new HashMap();
         config.put("cloud_name", "dmfrvd4tl");
         config.put("api_key", "258945955129684");
         config.put("api_secret", "taQ7f4rtk6nM2DzRGo9Crzj3WVs");
-        MediaManager.init(SuaBaiVietActivity.this, config);
-        checkInit=false;
+        config.put("secure", true);
+        MediaManager.init(SuaBaiVietActivity.this,null, config);
     }
 
     @Override
@@ -97,9 +97,16 @@ public class SuaBaiVietActivity extends AppCompatActivity {
         mBtnUpload.setVisibility(View.GONE);
         sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
         String mAuthor = sharedPreferences.getString("email", "admin");
-        if(checkInit)
-            configCloudinary();
-        Log.d("quan", MediaManager.get().getCloudinary().toString());
+        if(checkInit){
+            try {
+                configCloudinary();
+            }
+            catch (Exception e){
+
+            }
+
+            checkInit=false;
+        }
         //when click mImageAdd request the permission to access the gallery
         LoadButton();
 
@@ -167,7 +174,15 @@ public class SuaBaiVietActivity extends AppCompatActivity {
                 if(post_img.isEmpty()){
                     Toast.makeText(SuaBaiVietActivity.this, "Hình ảnh không được bỏ trống!", Toast.LENGTH_SHORT).show();
                 }
-                    EditPostNew(String.valueOf(postId), post_title, post_content, post_img);
+                else{
+                    try {
+                        EditPostNew(String.valueOf(postId), post_title, post_content, post_img);
+                    }
+                    catch (Exception e){
+
+                    }
+                }
+
             }
         });
     }

@@ -44,8 +44,10 @@ public class LoadingActivity extends AppCompatActivity {
                         lottieAnimationView.setVisibility(View.VISIBLE);
                         tvUD.setVisibility(View.VISIBLE);
                         tvXTTT.setVisibility(View.VISIBLE);
+                        tvContent.setVisibility(View.VISIBLE);
                         tvUD.setAnimation(txtAnimation);
                         tvXTTT.setAnimation(txtAnimation2);
+                        tvContent.setAnimation(txtAnimation);
                     }
                 },900);
             }
@@ -55,6 +57,7 @@ public class LoadingActivity extends AppCompatActivity {
             public void run() {
                 Intent intent = new Intent(LoadingActivity.this,MainActivity.class);
                 startActivity(intent);
+                onBackPressed();
             }
         },6000);
     }

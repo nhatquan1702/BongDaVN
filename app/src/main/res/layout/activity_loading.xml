@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.LoadingActivity"
-    android:id="@+id/relMain"
-    >
+    android:id="@+id/relMain">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieFootball"
@@ -36,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="100dp"
-        android:text="XEM TIN THỂ THAO"
+        android:text="TIN THỂ THAO"
         android:fontFamily="sans-serif-condensed"
         android:layout_centerHorizontal="true"
         android:textAlignment="center"
