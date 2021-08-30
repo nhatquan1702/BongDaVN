@@ -3,8 +3,8 @@ package com.example.apptinthethao_java.util;
 public class Utils {
 
     //This is your from email
-    public static final String EMAIL = "khachhang.appTTT@gmail.com";
+    public static final String EMAIL = "phamnhatquan190@gmail.com";
 
     //This is your from email password
-    public static final String PASSWORD = "ankhoa18599";
+    public static final String PASSWORD = "0326303190";
 }
