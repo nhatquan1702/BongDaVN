@@ -3,65 +3,78 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="30dp"
-        android:text="BIỂU ĐỒ PHONG ĐỘ"
-        android:textAlignment="center"
-        android:textSize="25sp"
-        android:textStyle="bold" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chartPhongDo"
         android:layout_width="match_parent"
         android:layout_height="252dp"
+        android:layout_marginTop="10dp"
         android:background="@color/white"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
+        android:text="BIỂU ĐỒ PHONG ĐỘ"
+        android:textAlignment="center"
+        android:textColor="#651FFF"
+        android:textSize="25sp"
+        android:textStyle="bold" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="5dp"
         android:text="0: Phong độ tệ"
+        android:textColor="@color/black"
         android:textAlignment="textStart"
         android:paddingLeft="20dp"
-        android:textSize="15sp" /><TextView
+        android:textSize="15sp" />
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:text="1: Phong độ xấu"
+        android:textColor="@color/black"
         android:textAlignment="textStart"
         android:paddingLeft="20dp"
-        android:textSize="15sp" /><TextView
+        android:textSize="15sp" />
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:textColor="@color/black"
         android:layout_marginBottom="5dp"
         android:text="2: Phong độ trung bình"
         android:textAlignment="textStart"
         android:paddingLeft="20dp"
-        android:textSize="15sp" /><TextView
+        android:textSize="15sp" />
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:textColor="@color/black"
         android:layout_marginBottom="5dp"
         android:text="3: Phong độ khá"
         android:textAlignment="textStart"
         android:paddingLeft="20dp"
-        android:textSize="15sp" /><TextView
+        android:textSize="15sp" />
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:textColor="@color/black"
         android:layout_marginBottom="5dp"
         android:text="4: Phong độ tốt"
         android:textAlignment="textStart"
         android:paddingLeft="20dp"
-        android:textSize="15sp" /><TextView
+        android:textSize="15sp" />
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:textColor="@color/black"
         android:layout_marginBottom="5dp"
         android:text="5: Phong độ vực tốt"
         android:textAlignment="textStart"

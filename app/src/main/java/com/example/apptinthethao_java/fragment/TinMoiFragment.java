@@ -37,7 +37,7 @@ import retrofit2.Response;
 
 
 public class TinMoiFragment extends Fragment {
-    private ArrayList<Post> postArrayList;
+    private ArrayList<Post> postArrayList ;
     private ListView listViewTinMoi;
     private PostAdapter postAdapter;
     private SimpleAPI simpleAPI;
@@ -51,6 +51,7 @@ public class TinMoiFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_tin_moi, container, false);
         listViewTinMoi = view.findViewById(R.id.listViewTinMoi);
         shimmerFrameFB = view.findViewById(R.id.shimmerFrame);
+        postArrayList= new ArrayList<>();
         LoadDataTinMoi();
 //        mSwipeRefresh.setOnRefreshListener(()->{
 //            LoadDataTinMoi();

@@ -17,12 +17,13 @@
 
         <ImageView
             android:id="@+id/imgViewCauThu"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
+            android:layout_margin="10dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/icon_team" />
+            app:srcCompat="@drawable/gallery" />
 
         <TextView
             android:id="@+id/txtTenPlayer"
@@ -30,7 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="15dp"
-            android:text="ĐỘI BÓNG THIẾU LÂM"
+            android:text="TÊN CẦU THỦ"
+            android:textColor="#651FFF"
             android:textAlignment="center"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -42,6 +44,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
+            android:textColor="@color/black"
             android:layout_marginBottom="10dp"
             android:text="Câu Lạc Bộ: " />
 
@@ -52,6 +55,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
+            android:textColor="@color/black"
             android:layout_marginBottom="5dp"
             android:text="Vị trí: " />
 
@@ -62,6 +66,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
+            android:textColor="@color/black"
             android:layout_marginBottom="5dp"
             android:text="Số Áo: " />
 
@@ -71,6 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
+            android:textColor="@color/black"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
             android:text="Ngày Sinh: " />
@@ -82,6 +88,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
+            android:textColor="@color/black"
             android:layout_marginBottom="5dp"
             android:text="Chiều Cao: " />
 
@@ -91,6 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
+            android:textColor="@color/black"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
             android:text="Chân Thuận: " />
@@ -102,6 +110,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
+            android:textColor="@color/black"
             android:layout_marginBottom="5dp"
             android:text="Quốc tịch: " />
 
@@ -111,6 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
+            android:textColor="@color/black"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
             android:text="Đá chính: " />
@@ -122,6 +132,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
+            android:textColor="@color/black"
             android:layout_marginBottom="5dp"
             android:text="Dự Bị: " />
 
@@ -132,6 +143,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
+            android:textColor="@color/black"
             android:layout_marginBottom="5dp"
             android:text="Vào Chờ: " />
 
@@ -142,6 +154,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
+            android:textColor="@color/black"
             android:layout_marginBottom="5dp"
             android:text="Ra Thay: " />
 
@@ -152,6 +165,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
+            android:textColor="@color/black"
             android:layout_marginBottom="5dp"
             android:text="Bàn Thắng: " />
 
@@ -160,6 +174,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:textColor="@color/black"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
@@ -172,6 +187,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
+            android:textColor="@color/black"
             android:layout_marginBottom="5dp"
             android:text="Thẻ Vàng: " />
 
@@ -181,11 +197,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
+            android:textColor="@color/black"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
             android:text="Thẻ Đỏ: " />
 
     </LinearLayout>
-
-
 </androidx.core.widget.NestedScrollView>

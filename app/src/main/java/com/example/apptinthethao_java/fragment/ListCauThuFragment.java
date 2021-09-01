@@ -68,6 +68,7 @@ public class ListCauThuFragment extends Fragment {
                         //Toast.makeText(getContext(), cauThu_doiHinhArrayList.get(position).getIdCauThu(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getContext(), ChiTietCauThuActivity.class);
                         intent.putExtra("player_id", cauThu_doiHinhArrayList.get(position).getIdCauThu());
+                        intent.putExtra("player_name", cauThu_doiHinhArrayList.get(position).getTenCauThu());
                         startActivity(intent);
                     }
                 });

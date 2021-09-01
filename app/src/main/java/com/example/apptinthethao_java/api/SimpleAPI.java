@@ -90,7 +90,7 @@ public interface SimpleAPI {
     Call<Status> delUser(@Path("email") String email);
 
     @GET("nhan/analysis")
-    Call<Analysis> getAnalysis();
+    Call<ArrayList<Analysis>> getAnalysis();
 
     @Headers({"Content-Type:application/json"})
     @PUT("nhan/user/")

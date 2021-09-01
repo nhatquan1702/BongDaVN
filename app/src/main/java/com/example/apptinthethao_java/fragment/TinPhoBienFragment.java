@@ -40,6 +40,7 @@ public class TinPhoBienFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_tin_pho_bien, container, false);
         listViewTinPhoBien = view.findViewById(R.id.listViewTinPhoBien);
         shimmerFrameFB = view.findViewById(R.id.shimmerFrame);
+        postArrayList = new ArrayList<>();
         LoadDataTinPhoBien();
         return view;
     }

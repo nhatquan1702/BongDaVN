@@ -41,6 +41,7 @@ public class TinChuyenNhuongFragment extends Fragment {
         view =  inflater.inflate(R.layout.fragment_tin_chuyen_nhuong, container, false);
         listViewTinChuyenNhuong = view.findViewById(R.id.listViewTinChuyenNhuong);
         shimmerFrameFB = view.findViewById(R.id.shimmerFrame);
+        postArrayList = new ArrayList<>();
         LoadDataTinChuyenNhuong();
         return view;
     }

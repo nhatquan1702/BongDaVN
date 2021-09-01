@@ -94,23 +94,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:inputType="textEmailAddress" />
-                    <TextView
-                        android:id="@+id/tvNhapUserName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:text="Nhập tên người dùng"
-                        android:textColor="@color/colorPurple"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/edtNhapUsernameDK"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:inputType="textEmailAddress" />
                     <TextView
                         android:id="@+id/tvNhapPass1"
                         android:layout_width="wrap_content"

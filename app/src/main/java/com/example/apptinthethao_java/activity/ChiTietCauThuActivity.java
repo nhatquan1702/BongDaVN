@@ -22,7 +22,7 @@ public class ChiTietCauThuActivity extends AppCompatActivity {
         return player_id;
     }
 
-    private String player_id;
+    private String player_id, player_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +30,12 @@ public class ChiTietCauThuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chi_tiet_cau_thu);
         Intent intent = getIntent();
         player_id = intent.getStringExtra("player_id");
+        player_name = intent.getStringExtra("player_name");
+
         tabLayoutCTCauThu = findViewById(R.id.tabLayoutChiTietCauThu);
         viewPager2CauThu = findViewById(R.id.viewPagerChiTietCauThu);
+        TextView tvTenCauThu = findViewById(R.id.tvTenCauThu);
+        tvTenCauThu.setText(player_name);
         LoadTablayoutAndViewPager();
     }
 

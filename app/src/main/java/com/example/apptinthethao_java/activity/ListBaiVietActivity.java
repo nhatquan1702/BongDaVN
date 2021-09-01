@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.apptinthethao_java.R;
@@ -47,6 +48,9 @@ public class ListBaiVietActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     private BaiVietAdapter adapter;
     String mAuthor = null;
+    private FloatingActionButton fab1, fab2, fab3, fab4;
+    private Boolean fabCheck = true;
+    private ProgressBar progressBar;
     int requestCode = 2;
     RecyclerView mRecyclerView;
     @Override
@@ -54,9 +58,15 @@ public class ListBaiVietActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_bai_viet);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-         mRecyclerView = findViewById(R.id.rv_listbaiviet);
+        fab1 = (FloatingActionButton) findViewById(R.id.fab1);
+        fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+        fab3 = (FloatingActionButton) findViewById(R.id.fab3);
+        fab4 = (FloatingActionButton) findViewById(R.id.fab4);
+        LoadFab();
+
+        mRecyclerView = findViewById(R.id.rv_listbaiviet);
+        progressBar = findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
         mData = new ArrayList<>();
         sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
         mAuthor = sharedPreferences.getString("email", "admin");
@@ -65,18 +75,6 @@ public class ListBaiVietActivity extends AppCompatActivity {
         adapter = new BaiVietAdapter(getApplicationContext(),mData);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ListBaiVietActivity.this, BaiVietActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivityIfNeeded(intent, 0);
-            }
-        });
 
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -139,6 +137,72 @@ public class ListBaiVietActivity extends AppCompatActivity {
         });
     }
 
+    private void LoadFab() {
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(fabCheck){
+                    FabVisible();
+                    fab1.setImageResource(R.drawable.ic_close);
+                    fabCheck = false;
+                }
+                else {
+                    FabHine();
+                    fab1.setImageResource(R.drawable.ic_add);
+                    fabCheck = true;
+                }
+            }
+        });
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog datePicker = new DatePickerDialog(ListBaiVietActivity.this,(view, year, month, dayOfMonth) ->{
+                    String strDate = "'" +year +"-"+ (month+1) +"-"+ dayOfMonth +"'";
+                    mData = new ArrayList<>();
+                    simpleAPI = Constants.instance();
+                    simpleAPI.getBaiVietByAccountAndDate(mAuthor,strDate).enqueue(new Callback<ArrayList<Post>>() {
+                        @Override
+                        public void onResponse(Call<ArrayList<Post>> call, Response<ArrayList<Post>> response) {
+                            mData = response.body();
+                            Log.e("json", response.body().toString()+" " +strDate + " " + mAuthor + " " + String.valueOf(mData.size()));
+                            if(mData.size() == 0)
+                                Toast.makeText(ListBaiVietActivity.this,"không có bài viết nào vào ngày này",Toast.LENGTH_SHORT).show();
+                            adapter.updateChange(mData);
+                        }
+
+                        @Override
+                        public void onFailure(Call<ArrayList<Post>> call, Throwable t) {
+                            if(call.isCanceled()) {
+                                Log.d("fail", "request was aborted");
+                            }else {
+                                Log.d("fail", "Unable to submit post to API.");
+                            }
+                        }
+                    });
+                },now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+                datePicker.show();
+            }
+        });
+        fab3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListBaiVietActivity.this, BaiVietActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityIfNeeded(intent, 0);
+            }
+        });
+        fab4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoadBaiViet();
+                adapter = new BaiVietAdapter(getApplicationContext(),mData);
+                mRecyclerView.setAdapter(adapter);
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            }
+        });
+    }
+
     private void DeletePost(String post_id) {
         simpleAPI = Constants.instance();
         simpleAPI.deletePost(post_id).enqueue(new Callback<Status>() {
@@ -170,55 +234,6 @@ public class ListBaiVietActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId())
-        {
-            case android.R.id.home:{
-                onBackPressed();
-                return true;
-            }
-            case R.id.refresh:{
-                LoadBaiViet();
-                adapter = new BaiVietAdapter(getApplicationContext(),mData);
-                mRecyclerView.setAdapter(adapter);
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                return true;
-            }
-            case R.id.set_date:{
-                Calendar now = Calendar.getInstance();
-                DatePickerDialog datePicker = new DatePickerDialog(ListBaiVietActivity.this,(view, year, month, dayOfMonth) ->{
-                    String strDate = "'" +year +"-"+ (month+1) +"-"+ dayOfMonth +"'";
-                    mData = new ArrayList<>();
-                    simpleAPI = Constants.instance();
-                    simpleAPI.getBaiVietByAccountAndDate(mAuthor,strDate).enqueue(new Callback<ArrayList<Post>>() {
-                        @Override
-                        public void onResponse(Call<ArrayList<Post>> call, Response<ArrayList<Post>> response) {
-                            mData = response.body();
-                            Log.e("json", response.body().toString()+" " +strDate + " " + mAuthor + " " + String.valueOf(mData.size()));
-                            if(mData.size() == 0)
-                                Toast.makeText(ListBaiVietActivity.this,"không có bài viết nào vào ngày này",Toast.LENGTH_SHORT).show();
-                            adapter.updateChange(mData);
-                        }
-
-                        @Override
-                        public void onFailure(Call<ArrayList<Post>> call, Throwable t) {
-                            if(call.isCanceled()) {
-                                Log.d("fail", "request was aborted");
-                            }else {
-                                Log.d("fail", "Unable to submit post to API.");
-                            }
-                        }
-                    });
-                },now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
-                datePicker.show();
-                return true;
-            }
-            default: {
-                return super.onOptionsItemSelected(item);
-            }
-        }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -234,6 +249,7 @@ public class ListBaiVietActivity extends AppCompatActivity {
     }
 
     public void LoadBaiViet() {
+        progressBar.setVisibility(View.VISIBLE);
         simpleAPI = Constants.instance();
         simpleAPI.getBaiVietBy(mAuthor).enqueue(new Callback<ArrayList<Post>>() {
             @Override
@@ -241,6 +257,7 @@ public class ListBaiVietActivity extends AppCompatActivity {
                 Log.d("json", response.body().toString());
                 mData = response.body();
                 adapter.updateChange(mData);
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
@@ -250,7 +267,18 @@ public class ListBaiVietActivity extends AppCompatActivity {
                 }else {
                     Log.d("fail", "Unable to submit post to API.");
                 }
+                progressBar.setVisibility(View.GONE);
             }
         });
+    }
+    private void FabVisible(){
+        fab2.show();
+        fab3.show();
+        fab4.show();
+    }
+    private void FabHine(){
+        fab2.hide();
+        fab3.hide();
+        fab4.hide();
     }
 }

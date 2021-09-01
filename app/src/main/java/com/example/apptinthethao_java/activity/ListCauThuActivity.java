@@ -55,6 +55,7 @@ public class ListCauThuActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(ListCauThuActivity.this, ChiTietCauThuActivity.class);
                         intent.putExtra("player_id", String.valueOf(cauThuSimpleArrayList.get(position).getIdCauThu()));
+                        intent.putExtra("player_name", String.valueOf(cauThuSimpleArrayList.get(position).getTenCauThu()));
                         startActivity(intent);
                     }
                 });

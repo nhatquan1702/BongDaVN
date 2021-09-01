@@ -59,7 +59,7 @@ public class BaiVietActivity extends AppCompatActivity {
     private ImageButton mImageAdd;
     private CardView mBtnUpload, btnCapNhat;
     private TextView mText, tvCapNhat, tvRefreshPost;
-
+    private  boolean checkInit = true;// chưa
     private static final int PERMISSION_CODE =1;
     private static final int PICK_IMAGE=1;
 
@@ -94,7 +94,16 @@ public class BaiVietActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
         String mAuthor = sharedPreferences.getString("email", "admin");
         author.setText(mAuthor);
-        configCloudinary();
+        if(checkInit){
+            try {
+                configCloudinary();
+            }
+            catch (Exception e){
+
+            }
+
+            checkInit=false;
+        }
         //when click mImageAdd request the permission to access the gallery
 
         LoadButton();

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_margin="5dp"
     android:padding="5dp"
     android:background="@drawable/item_listview_bg"
     android:layout_height="wrap_content">
@@ -33,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:padding="2dp"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cvImg2"
@@ -46,7 +47,7 @@
         android:layout_marginStart="5dp"
         android:drawableStart="@drawable/ic_clock_15"
         android:padding="2dp"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/cvImg2"
         app:layout_constraintStart_toEndOf="@+id/cvImg2" />

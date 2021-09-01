@@ -41,6 +41,7 @@ public class TinNongFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_tin_nong, container, false);
         listViewTinNong = view.findViewById(R.id.listViewTinNong);
         shimmerFrameFB = view.findViewById(R.id.shimmerFrame);
+        postArrayList= new ArrayList<>();
         LoadDataTinNong();
         return view;
     }
