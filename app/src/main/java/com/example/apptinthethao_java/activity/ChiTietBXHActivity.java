@@ -47,7 +47,7 @@ public class ChiTietBXHActivity extends AppCompatActivity {
         lineChartH = (LineChart) findViewById(R.id.charHoa);
         lineChartB = (LineChart) findViewById(R.id.chartBai);
         titlectBXH=findViewById(R.id.titlectBXH);
-        titlectBXH.setText("BIỂU ĐỒ THỐNG KÊ  THẮNG HÒA THUA  "+clb_name);
+        titlectBXH.setText(clb_name);
         LoadThang(clb_name);
         LoadHoa(clb_name);
         LoadBai(clb_name);

@@ -67,7 +67,7 @@ public class PostAdapter extends BaseAdapter {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Long diff = date2.getTime() - date1.getTime();
+        Long diff = (date2.getTime()-(7*60*60*1000)) - date1.getTime();
 
         Long diffSeconds  = diff / 1000;
         Long diffMinutes = diff / (60 * 1000);
@@ -87,7 +87,7 @@ public class PostAdapter extends BaseAdapter {
             ((TextView)viewitem.findViewById(R.id.txtTime)).setText(ngay.toString() +" ngày trước");
         }
         if(ngay>30){
-            ((TextView)viewitem.findViewById(R.id.txtTime)).setText(post.getPost_create_time().substring(0,18));
+            ((TextView)viewitem.findViewById(R.id.txtTime)).setText(post.getPost_create_time().substring(0,10));
         }
 
         ImageView imageView = (ImageView)viewitem.findViewById(R.id.img);

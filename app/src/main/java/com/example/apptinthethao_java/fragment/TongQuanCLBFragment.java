@@ -102,7 +102,7 @@ public class TongQuanCLBFragment extends Fragment {
             @Override
             public void onResponse(Call<ArrayList<TranDau>> call, Response<ArrayList<TranDau>> response) {
                 ArrayList<TranDau> res = response.body();
-                //Log.d("tncnhan", "res: " + res.toString());
+                //Log.d("quan", "res: " + res.toString());
                 TranDauAdapter matchAdapter = new TranDauAdapter(res);
                 ListView listLastest = view.findViewById(R.id.listViewLastMatches);
                 listLastest.setAdapter(matchAdapter);
@@ -121,7 +121,7 @@ public class TongQuanCLBFragment extends Fragment {
             @Override
             public void onResponse(Call<ArrayList<TranDau>> call, Response<ArrayList<TranDau>> response) {
                 ArrayList<TranDau> res = response.body();
-                Log.d("tncnhan", "res: " + res.toString());
+                //Log.d("quan", "res: " + res.toString());
                 TranDauAdapter matchAdapter = new TranDauAdapter(res);
                 ListView listLastest = view.findViewById(R.id.listViewUpcomming);
                 listLastest.setAdapter(matchAdapter);
@@ -233,7 +233,7 @@ public class TongQuanCLBFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ArrayList<TranDau>> call, Throwable t) {
-                Log.d("tncnhan", t.getMessage());
+                Log.d("quan", t.getMessage());
             }
         });
 

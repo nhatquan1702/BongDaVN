@@ -45,7 +45,7 @@ public class ListUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_user);
         listViewUser = findViewById(R.id.listUser);
         fab1 = (FloatingActionButton) findViewById(R.id.fab1);
-        fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+    //    fab2 = (FloatingActionButton) findViewById(R.id.fab2);
         fab3 = (FloatingActionButton) findViewById(R.id.fab3);
         fab4 = (FloatingActionButton) findViewById(R.id.fab4);
         LoadFab();
@@ -54,12 +54,12 @@ public class ListUserActivity extends AppCompatActivity {
         loadUser();
     }
     private void FabVisible(){
-        fab2.show();
+     //   fab2.show();
         fab3.show();
         fab4.show();
     }
     private void FabHine(){
-        fab2.hide();
+      //  fab2.hide();
         fab3.hide();
         fab4.hide();
     }
@@ -79,12 +79,12 @@ public class ListUserActivity extends AppCompatActivity {
                 }
             }
         });
-        fab2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(ListUserActivity.this, "Tìm kiếm", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        fab2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(ListUserActivity.this, "Tìm kiếm", Toast.LENGTH_SHORT).show();
+//            }
+//        });
         fab3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

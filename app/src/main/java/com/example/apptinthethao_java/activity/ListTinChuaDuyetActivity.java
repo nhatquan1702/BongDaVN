@@ -2,7 +2,6 @@ package com.example.apptinthethao_java.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +15,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -27,7 +25,6 @@ import com.example.apptinthethao_java.adapter.ItemClickInterface;
 import com.example.apptinthethao_java.api.SimpleAPI;
 import com.example.apptinthethao_java.model.Post;
 import com.example.apptinthethao_java.model.Status;
-import com.example.apptinthethao_java.model.TranDau;
 import com.example.apptinthethao_java.util.Constants;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -35,33 +32,29 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListBaiVietActivity extends AppCompatActivity {
-
+public class ListTinChuaDuyetActivity extends AppCompatActivity {
     private ArrayList<Post> mData;
     private SimpleAPI simpleAPI;
     SharedPreferences sharedPreferences;
     private BaiVietAdapter adapter;
     String mAuthor = null;
-    private FloatingActionButton fab1, fab2, fab3, fab4;
+    private FloatingActionButton fab1;
     private Boolean fabCheck = true;
     private ProgressBar progressBar;
     int requestCode = 2;
     RecyclerView mRecyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_bai_viet);
+        setContentView(R.layout.activity_list_tin_chua_duyet);
 
         fab1 = (FloatingActionButton) findViewById(R.id.fab1);
-        fab2 = (FloatingActionButton) findViewById(R.id.fab2);
-        fab3 = (FloatingActionButton) findViewById(R.id.fab3);
-        fab4 = (FloatingActionButton) findViewById(R.id.fab4);
         LoadFab();
 
         mRecyclerView = findViewById(R.id.rv_listbaiviet);
@@ -87,7 +80,7 @@ public class ListBaiVietActivity extends AppCompatActivity {
             public void onSwiped(@NonNull @NotNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 Post mPost = adapter.getAtPosition(position);
-                AlertDialog.Builder builder = new AlertDialog.Builder(ListBaiVietActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ListTinChuaDuyetActivity.this);
                 builder.setTitle("Xác nhận");
                 builder.setMessage("Bạn có thực sự muốn xóa bài viết này?");
                 builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
@@ -124,7 +117,7 @@ public class ListBaiVietActivity extends AppCompatActivity {
             public void onClick(View view, int position) {
                 Post mPost = adapter.getAtPosition(position);
                 // call update
-                Intent intent = new Intent(ListBaiVietActivity.this, SuaBaiVietActivity.class);
+                Intent intent = new Intent(ListTinChuaDuyetActivity.this, DuyetBaiVietActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("post_title", mPost.getPost_title());
                 bundle.putString("post_content", mPost.getPost_content());
@@ -136,71 +129,11 @@ public class ListBaiVietActivity extends AppCompatActivity {
             }
         });
     }
-
     private void LoadFab() {
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(fabCheck){
-                    FabVisible();
-                    fab1.setImageResource(R.drawable.ic_close);
-                    fabCheck = false;
-                }
-                else {
-                    FabHine();
-                    fab1.setImageResource(R.drawable.ic_add);
-                    fabCheck = true;
-                }
-            }
-        });
-        fab2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar now = Calendar.getInstance();
-                DatePickerDialog datePicker = new DatePickerDialog(ListBaiVietActivity.this,(view, year, month, dayOfMonth) ->{
-                    String strDate = "'" +year +"-"+ (month+1) +"-"+ dayOfMonth +"'";
-                    Toast.makeText(ListBaiVietActivity.this,strDate,Toast.LENGTH_SHORT).show();
-
-                    mData = new ArrayList<>();
-                    simpleAPI = Constants.instance();
-                    simpleAPI.getBaiVietByAccountAndDate(mAuthor,strDate).enqueue(new Callback<ArrayList<Post>>() {
-                        @Override
-                        public void onResponse(Call<ArrayList<Post>> call, Response<ArrayList<Post>> response) {
-                            mData = response.body();
-                            Log.e("json", response.body().toString()+" " +strDate + " " + mAuthor + " " + String.valueOf(mData.size()));
-                            if(mData.size() == 0)
-                                Toast.makeText(ListBaiVietActivity.this,"không có bài viết nào vào ngày này",Toast.LENGTH_SHORT).show();
-                            adapter.updateChange(mData);
-                        }
-
-                        @Override
-                        public void onFailure(Call<ArrayList<Post>> call, Throwable t) {
-                            if(call.isCanceled()) {
-                                Log.d("fail", "request was aborted");
-                            }else {
-                                Log.d("fail", "Unable to submit post to API.");
-                            }
-                        }
-                    });
-                },now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
-                datePicker.show();
-            }
-        });
-        fab3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ListBaiVietActivity.this, BaiVietActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivityIfNeeded(intent, 0);
-            }
-        });
-        fab4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 LoadBaiViet();
-                adapter = new BaiVietAdapter(getApplicationContext(),mData);
-                mRecyclerView.setAdapter(adapter);
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             }
         });
     }
@@ -212,24 +145,23 @@ public class ListBaiVietActivity extends AppCompatActivity {
             public void onResponse(Call<Status> call, Response<Status> response) {
                 Status status = response.body();
                 if(status.getStatus()==2){
-                    Toast.makeText(ListBaiVietActivity.this, "Xóa bài viết thành công!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ListTinChuaDuyetActivity.this, "Xóa bài viết thành công!", Toast.LENGTH_SHORT).show();
                     LoadBaiViet();
                     adapter = new BaiVietAdapter(getApplicationContext(),mData);
                     mRecyclerView.setAdapter(adapter);
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 }
                 else {
-                    Toast.makeText(ListBaiVietActivity.this, "Xóa bài viết không thành công!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ListTinChuaDuyetActivity.this, "Xóa bài viết không thành công!", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Status> call, Throwable t) {
-                Toast.makeText(ListBaiVietActivity.this, "Lỗi: "+t.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ListTinChuaDuyetActivity.this, "Lỗi: "+t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_list_bai_viet,menu);
@@ -253,7 +185,7 @@ public class ListBaiVietActivity extends AppCompatActivity {
     public void LoadBaiViet() {
         progressBar.setVisibility(View.VISIBLE);
         simpleAPI = Constants.instance();
-        simpleAPI.getListTinDaDuyet().enqueue(new Callback<ArrayList<Post>>() {
+        simpleAPI.getListTinChuaDuyet().enqueue(new Callback<ArrayList<Post>>() {
             @Override
             public void onResponse(Call<ArrayList<Post>> call, Response<ArrayList<Post>> response) {
                 Log.d("json", response.body().toString());
@@ -272,15 +204,5 @@ public class ListBaiVietActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
             }
         });
-    }
-    private void FabVisible(){
-        fab2.show();
-        fab3.show();
-        fab4.show();
-    }
-    private void FabHine(){
-        fab2.hide();
-        fab3.hide();
-        fab4.hide();
     }
 }

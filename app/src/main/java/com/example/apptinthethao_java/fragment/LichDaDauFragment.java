@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -49,12 +50,12 @@ import retrofit2.Response;
 
 public class LichDaDauFragment extends Fragment implements LastView{
 
-    private SwipeRefreshLayout mSwipeRefresh;
+ //   private SwipeRefreshLayout mSwipeRefresh;
     private ProgressBar mProgressBar;
     private SimpleAPI simpleAPI;
     private ArrayList<Object> mData;
     private ArrayList<String> ngayDauStringArrayList;
-    private FloatingActionButton fab;
+//    private FloatingActionButton fab;
     private ArrayList<CauLacBo> CLB;
     public String strDate = null;
     LichDauAdapter adapter;
@@ -82,9 +83,9 @@ public class LichDaDauFragment extends Fragment implements LastView{
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_lich_da_dau, container, false);
         mRecyclerView = rootView.findViewById(R.id.rv_last_match);
-        mSwipeRefresh = rootView.findViewById(R.id.swipe_refresh);
+    //    mSwipeRefresh = rootView.findViewById(R.id.swipe_refresh);
         mProgressBar = rootView.findViewById(R.id.progress_bar);
-        fab = rootView.findViewById(R.id.fab_new_schedule);
+    //    fab = rootView.findViewById(R.id.fab_new_schedule);
 
         mData = new ArrayList<>();
         ngayDauStringArrayList = new ArrayList<>();
@@ -107,27 +108,28 @@ public class LichDaDauFragment extends Fragment implements LastView{
         Log.e("date",strDate);
         LoadDataLichDau(strDate);
         //refresh
-        mSwipeRefresh.setOnRefreshListener(() -> {
-            Calendar c = Calendar.getInstance();
-            c.setTime(date);
-            c.add(Calendar.DATE, -10);  // lùi về 10 ngày
-            strDate = "'" + formatter.format(c.getTime()) + "'";
-            mData = new ArrayList<>();
-            ngayDauStringArrayList = new ArrayList<>();
-            LoadDataLichDau(strDate);
-            mSwipeRefresh.setRefreshing(false);
-        });
-        fab.setOnClickListener(v -> {
-            Calendar now = Calendar.getInstance();
-            DatePickerDialog datePicker = new DatePickerDialog(getContext(),(view, year, month, dayOfMonth) ->{
-                    strDate = "'" +year +"-"+ (month+1) +"-"+ dayOfMonth +"'";
-                    Log.e("date",strDate);
-                    mData = new ArrayList<>();
-                    ngayDauStringArrayList = new ArrayList<>();
-                    LoadDataLichDau(strDate);}
-                    ,now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
-            datePicker.show();
-        });
+//        mSwipeRefresh.setOnRefreshListener(() -> {
+//            Calendar c = Calendar.getInstance();
+//            c.setTime(date);
+//            c.add(Calendar.DATE, -10);  // lùi về 10 ngày
+//            strDate = "'" + formatter.format(c.getTime()) + "'";
+//            mData = new ArrayList<>();
+//            ngayDauStringArrayList = new ArrayList<>();
+//            LoadDataLichDau(strDate);
+//            mSwipeRefresh.setRefreshing(false);
+//        });
+//        fab.setOnClickListener(v -> {
+//            Calendar now = Calendar.getInstance();
+//            DatePickerDialog datePicker = new DatePickerDialog(getContext(),(view, year, month, dayOfMonth) ->{
+//                    String StringDate = "'" +year +"-"+ (month+1) +"-"+ dayOfMonth +"'";
+//                    //Toast.makeText(getContext(), StringDate, Toast.LENGTH_SHORT).show();
+//                    Log.e("date",StringDate);
+//                    mData = new ArrayList<>();
+//                    ngayDauStringArrayList = new ArrayList<>();
+//                    LoadDataLichDau(StringDate);}
+//                    ,now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+//            datePicker.show();
+//        });
 
         return rootView;
     }
@@ -204,6 +206,7 @@ public class LichDaDauFragment extends Fragment implements LastView{
                                             t.printStackTrace();
                                         }
                                     });
+                                    // lấy logo đội khách
                                     simpleAPI.getChiTietCLB(jsonObject.get("clb_guess_name").toString()).enqueue(new Callback<ArrayList<CauLacBo>>() {
                                         @Override
                                         public void onResponse(Call<ArrayList<CauLacBo>> call, Response<ArrayList<CauLacBo>> response) {

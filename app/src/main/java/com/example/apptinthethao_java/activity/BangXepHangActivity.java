@@ -92,6 +92,7 @@ public class BangXepHangActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ArrayList<BXH_DoiBong>> call, Throwable t) {
+                Toast.makeText(getApplication(), "Lỗi: "+t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -45,10 +45,13 @@ public class UserAdapter extends BaseAdapter {
         ((TextView)view.findViewById(R.id.tvEmail)).setText(listUser.get(position).getAccount_email());
         String role = "";
         if(listUser.get(position).getRole() == 1){
-            role = "Quản Trị Viên";
+            role = "Quản trị viên";
         }
-        else{
-            role = "Người Dùng";
+        else if(listUser.get(position).getRole() == 2){
+            role = "Nhân viên";
+        }
+        else {
+            role = "Người dùng";
         }
         ((TextView)view.findViewById(R.id.tvRole)).setText(role);
 

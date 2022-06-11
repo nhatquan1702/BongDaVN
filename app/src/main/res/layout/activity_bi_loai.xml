@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E8E8E8"
+    tools:context=".activity.BiLoaiActivity">
+
+    <TextView
+        android:id="@+id/tvTieuDeLBV"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@drawable/ti_so_bg"
+        android:gravity="center"
+        android:text="Bài viết bị loại bỏ"
+        android:textColor="#651FFF"
+        android:textSize="22dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_listbaiviet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_below="@+id/tvTieuDeLBV"
+        tools:listitem="@layout/item_list_view_post"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:id="@+id/progress_bar"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content">
+    </ProgressBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_refresh"
+        android:visibility="visible"
+        app:backgroundTint="#814BF8"
+        app:fabCustomSize="40dp"
+        app:fabSize="auto" />
+
+</RelativeLayout>

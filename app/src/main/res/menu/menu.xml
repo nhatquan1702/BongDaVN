@@ -6,6 +6,10 @@
             android:icon="@drawable/right"
             android:title="Quản Trị" />
         <item
+            android:id="@+id/NV"
+            android:icon="@drawable/right"
+            android:title="Đăng tải" />
+        <item
             android:id="@+id/H"
             android:icon="@drawable/right"
             android:title="Home"

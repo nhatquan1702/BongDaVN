@@ -109,14 +109,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Quản Trị Viên" />
+                        android:text="Quản trị viên" />
 
+                    <RadioButton
+                        android:id="@+id/rNV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Nhân viên" />
                     <RadioButton
                         android:id="@+id/rUser"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Người Dùng" />
+                        android:text="Người dùng" />
                 </RadioGroup>
 
                 <LinearLayout

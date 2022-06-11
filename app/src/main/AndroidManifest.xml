@@ -15,6 +15,27 @@
         android:theme="@style/Theme.AppTinTheThao_Java"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.ThemBaiVietChoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.DangChoDuyetActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.BiLoaiActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.DaDuyetActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.NhanVienActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.DuyetBaiVietActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.ListTinChuaDuyetActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.SuaBaiVietActivity"
             android:exported="true" />
         <activity android:name=".activity.ChiTietBXHActivity" />

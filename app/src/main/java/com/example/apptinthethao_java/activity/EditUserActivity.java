@@ -38,6 +38,7 @@ import retrofit2.Response;
 public class EditUserActivity extends AppCompatActivity {
     RadioButton rAdmin;
     RadioButton rUser;
+    RadioButton rNV;
     TextView btnDelete, tvCN;
     CardView btnUpdate;
     CheckBox cbShowPass;
@@ -75,6 +76,7 @@ public class EditUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_user);
         rAdmin = findViewById(R.id.rAdmin);
         rUser = findViewById(R.id.rUser);
+        rNV = findViewById(R.id.rNV);
         btnDelete = findViewById(R.id.btnDelete);
         tvCN = findViewById(R.id.tvCN);
         btnUpdate = findViewById(R.id.btnUpdate);
@@ -103,7 +105,10 @@ public class EditUserActivity extends AppCompatActivity {
         if(role.equals("1")){
             rAdmin.setChecked(true);
         }
-        else{
+        else if(role.equals("2")){
+            rNV.setChecked(true);
+        }
+        else {
             rUser.setChecked(true);
         }
         //Toast.makeText(EditUserActivity.this, user_id, Toast.LENGTH_SHORT).show();
@@ -136,7 +141,7 @@ public class EditUserActivity extends AppCompatActivity {
                         role = "1";
                     }
                     else{
-                        role = "0";
+                        role = "2";
                     }
                     User newUser = new User(user_id, pass, Integer.parseInt(role));
                     simpleAPI.putUser(newUser).enqueue(new Callback<Status>() {

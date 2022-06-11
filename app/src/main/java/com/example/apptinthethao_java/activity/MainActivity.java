@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void Search() {
+        searchView.setQueryHint("Tìm kiếm bài viết");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity{
         arrayListMenuRecyclerview.add("Lịch thi đấu");
         arrayListMenuRecyclerview.add("Câu lạc bộ");
         arrayListMenuRecyclerview.add("Cầu thủ");
+
 
         MenuItemRecyclerViewAdapter menuItemRecyclerViewAdapter = new MenuItemRecyclerViewAdapter(arrayListMenuRecyclerview, getApplicationContext());
         recyclerViewMenu.setAdapter(menuItemRecyclerViewAdapter);
@@ -151,9 +153,11 @@ public class MainActivity extends AppCompatActivity{
         String role = sharedPreferences.getString("role", "-1");
         Menu menu = navigationView.getMenu();
         MenuItem adminItem = menu.findItem(R.id.ADMIN);
+        MenuItem nvItem = menu.findItem(R.id.NV);
         MenuItem editItem = menu.findItem(R.id.CD);
         //Log.d("tncnhan", check);
         adminItem.setVisible(role.equals("1"));
+        nvItem.setVisible(role.equals("2"));
         editItem.setVisible(!role.equals("-1"));
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -164,12 +168,17 @@ public class MainActivity extends AppCompatActivity{
                         startActivity(intent);
                         return true;
                     }
+                    case R.id.NV: {
+                        Intent intent = new Intent(MainActivity.this, NhanVienActivity.class);
+                        startActivity(intent);
+                        return true;
+                    }
                     case R.id.H: {
-                        Toast.makeText(getApplicationContext(), "Quản lí bài viết!", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "Quản lí bài viết!", Toast.LENGTH_SHORT).show();
                         return true;
                     }
                     case R.id.CS : {
-                        Toast.makeText(getApplicationContext(), "Chia sẻ!", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "Chia sẻ!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Intent.ACTION_SEND);
                         intent.setType("text/plain");
                         String shareBody="Facebook: https://www.facebook.com/nhatquan99\n\nYoutube: https://www.youtube.com/channel/UCIyQPdxwhuLv0GaEXI5kOjA";
@@ -180,7 +189,7 @@ public class MainActivity extends AppCompatActivity{
                         return true;
                     }
                     case R.id.GY : {
-                        Toast.makeText(getApplicationContext(), "Góp ý!", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "Góp ý!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, GopYActivity.class);
                         startActivity(intent);
                         return true;
@@ -196,7 +205,7 @@ public class MainActivity extends AppCompatActivity{
                         return true;
                     }
                     case R.id.HT : {
-                        Toast.makeText(getApplicationContext(), "Liên hệ!", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "Liên hệ!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, LienHeActivity.class);
                         startActivity(intent);
                         return true;
@@ -206,7 +215,7 @@ public class MainActivity extends AppCompatActivity{
                         return true;
                     }
                     case R.id.DKSD : {
-                        Toast.makeText(getApplicationContext(), "Điều khoản sử dụng!", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "Điều khoản sử dụng!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, DieuKhoanActivity.class);
                         startActivity(intent);
                         return true;

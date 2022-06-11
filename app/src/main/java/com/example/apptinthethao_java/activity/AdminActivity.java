@@ -28,8 +28,10 @@ import retrofit2.Response;
 
 public class AdminActivity extends AppCompatActivity implements View.OnClickListener {
     private SimpleAPI simpleAPI;
-    private TextView tvSLTK, tvSLBV;
+    private TextView tvSLTK, tvSLBV, tvSLDB;
     private ArrayList<Analysis> analysisArrayList;
+    private ArrayList<Post> postArrayList;
+    private ArrayList<Post> postArrayList2;
     private SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,8 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
 
         Button btnTaiKhoan = (Button) findViewById(R.id.btnTaiKhoan);
         Button btnBaiViet = (Button)  findViewById(R.id.btnBaiViet);
+        Button btnDuyetBai = (Button)  findViewById(R.id.btnDuyetBai);
+
 //        swipeRefreshLayout = findViewById(R.id.swipe_refreshAd);
 //        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //            @Override
@@ -48,9 +52,11 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
 //        });
         btnTaiKhoan.setOnClickListener(this);
         btnBaiViet.setOnClickListener(this);
+        btnDuyetBai.setOnClickListener(this);
 
         tvSLTK = findViewById(R.id.tvSLTK);
         tvSLBV = findViewById(R.id.tvSLBV);
+        tvSLDB = findViewById(R.id.tvSLDB);
 
         updateInfo();
     }
@@ -72,13 +78,22 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
             }
             case R.id.btnBaiViet:{
                 Intent intent = new Intent(AdminActivity.this, ListBaiVietActivity.class);
-                startActivity(intent);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityIfNeeded(intent, 0);
+                break;
+            }
+            case R.id.btnDuyetBai:{
+                Intent intent = new Intent(AdminActivity.this, ListTinChuaDuyetActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityIfNeeded(intent, 0);
                 break;
             }
         }
     }
 
     private void updateInfo(){
+        postArrayList = new ArrayList<>();
+        postArrayList2=new ArrayList<>();
         simpleAPI = Constants.instance();
         simpleAPI.getAnalysis().enqueue(new Callback<ArrayList<Analysis>>() {
             @Override
@@ -86,7 +101,41 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                 analysisArrayList = new ArrayList<>();
                 analysisArrayList = response.body();
                 tvSLTK.setText(String.valueOf(analysisArrayList.get(0).getCount_account()));
-                tvSLBV.setText(String.valueOf(analysisArrayList.get(0).getCount_post()));
+
+                simpleAPI.getListTinDaDuyet().enqueue(new Callback<ArrayList<Post>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<Post>> call, Response<ArrayList<Post>> response) {
+                        postArrayList2 = response.body();
+                        if(postArrayList2.size()<0 || postArrayList2.size()==0){
+                            tvSLBV.setText(String.valueOf(0));
+                        }
+                        else {
+                            tvSLBV.setText(String.valueOf(postArrayList2.size()));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<Post>> call, Throwable t) {
+                        Toast.makeText(AdminActivity.this, "Lỗi: "+t.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                simpleAPI.getListTinChuaDuyet().enqueue(new Callback<ArrayList<Post>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<Post>> call, Response<ArrayList<Post>> response) {
+                        postArrayList = response.body();
+                        if(postArrayList.size()<0 || postArrayList.size()==0){
+                            tvSLDB.setText(String.valueOf(0));
+                        }
+                        else {
+                            tvSLDB.setText(String.valueOf(postArrayList.size()));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<Post>> call, Throwable t) {
+                        Toast.makeText(AdminActivity.this, "Lỗi: "+t.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override

@@ -30,6 +30,7 @@ import retrofit2.Response;
 public class AddUserActivity extends AppCompatActivity {
     RadioButton rAdmin;
     RadioButton rUser;
+    RadioButton rNV;
     TextView btnDelete, tvCN;
     CardView btnUpdate;
     CheckBox cbShowPass;
@@ -67,6 +68,7 @@ public class AddUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_user);
         rAdmin = findViewById(R.id.rAdmin);
         rUser = findViewById(R.id.rUser);
+        rNV = findViewById(R.id.rNV);
         btnDelete = findViewById(R.id.btnDelete);
         tvCN = findViewById(R.id.tvCN);
         btnUpdate = findViewById(R.id.btnUpdate);
@@ -127,8 +129,11 @@ public class AddUserActivity extends AppCompatActivity {
                     if(rAdmin.isChecked()){
                         role = "1";
                     }
-                    else{
-                        role = "0";
+                    else if(rNV.isChecked()){
+                        role = "2";
+                    }
+                    else {
+                        role="0";
                     }
                     User newUser = new User(email, pass1, Integer.parseInt(role));
                     simpleAPI.postUser(newUser).enqueue(new Callback<Status>() {

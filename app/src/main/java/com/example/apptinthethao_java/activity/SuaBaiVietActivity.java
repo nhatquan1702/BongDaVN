@@ -163,18 +163,24 @@ public class SuaBaiVietActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String post_title = edtTitle.getText().toString().trim();
+                String post_content = edtContent.getText().toString().trim();
+                String post_img = mText.getText().toString().trim();
+                boolean check = true;
                 if(post_title.isEmpty()){
                     Toast.makeText(SuaBaiVietActivity.this, "Tiêu đề không được bỏ trống!", Toast.LENGTH_SHORT).show();
+                    check=false;
                 }
-                String post_content = edtContent.getText().toString().trim();
+
                 if(post_content.isEmpty()){
                     Toast.makeText(SuaBaiVietActivity.this, "Nội dung không được bỏ trống!", Toast.LENGTH_SHORT).show();
+                    check=false;
                 }
-                String post_img = mText.getText().toString().trim();
+
                 if(post_img.isEmpty()){
                     Toast.makeText(SuaBaiVietActivity.this, "Hình ảnh không được bỏ trống!", Toast.LENGTH_SHORT).show();
+                    check=false;
                 }
-                else{
+                if(check==true){
                     try {
                         EditPostNew(String.valueOf(postId), post_title, post_content, post_img);
                     }
@@ -269,6 +275,7 @@ public class SuaBaiVietActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String requestId, Map resultData) {
                 mText.setText(resultData.get("url").toString());
+                mBtnUpload.setVisibility(View.GONE);
             }
 
             @Override

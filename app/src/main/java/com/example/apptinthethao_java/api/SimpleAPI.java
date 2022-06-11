@@ -175,7 +175,7 @@ public interface SimpleAPI {
     @POST("quan/post/edit/{post_id}")
     Call<Status> editPost(@Header("post_title") String post_title, @Header("post_content") String post_content, @Header("post_img") String post_img);
 
-    @POST("quan/post/delete")
+    @POST("quan/post/delete/new")
     Call<Status> deletePost(@Header("post_id") String post_id);
 
     @POST("quan/add/post/{post_title}/{post_content}")
@@ -183,4 +183,23 @@ public interface SimpleAPI {
 
     @POST("quan/post/edit/{post_id}/{post_title}/{post_content}")
     Call<Status> editPostNew(@Path("post_id") String post_id, @Path("post_title") String post_title, @Path("post_content") String post_content, @Header("post_img") String post_img);
+
+    @GET("quan/list_tindaduyet")
+    Call<ArrayList<Post>> getListTinDaDuyet();
+
+    @GET("quan/list_tinchuaduyet")
+    Call<ArrayList<Post>> getListTinChuaDuyet();
+
+    @POST("quan/post/duyettin/{post_id}")
+    Call<Status> DuyetBaiViet(@Path("post_id") String post_id);
+
+    @GET("quan/getbaiviet/{trangthai}/{email}")
+    Call<ArrayList<Post>> getBaiVietTheoTrangThaiCaNhan(@Path("trangthai") int trangthai, @Path("email") String email);
+
+    @GET("quan/getbaiviet/daduyet")
+    Call<ArrayList<Post>> getBaiVietDaDuyetCaNhan(@Header("account_email") String account_email);
+
+    @POST("quan/add/notconfirm/post/{post_title}/{post_content}")
+    Call<Status> addNoConfirmPost(@Path("post_title") String post_title, @Path("post_content") String post_content, @Header("post_img") String post_img, @Header("email") String email);
+
 }

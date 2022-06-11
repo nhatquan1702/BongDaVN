@@ -27,4 +27,11 @@
     <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">#AE000000</item>
     </style>
+    <style name="Theme.AppTinTheThao_Java.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.AppTinTheThao_Java.AppBarOverlay"
+        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.AppTinTheThao_Java.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

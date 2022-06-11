@@ -148,7 +148,7 @@ public class DangKyActivity extends AppCompatActivity {
                     simpleAPI.postUser(newUser).enqueue(new Callback<Status>() {
                         @Override
                         public void onResponse(Call<Status> call, Response<Status> response) {
-                            Log.d("tncnhan", "res: " + response.body().getStatus());
+                            //Log.d("quan", "res: " + response.body().getStatus());
                             switch (response.body().getStatus()){
                                 case 0:{
                                     Toast.makeText(DangKyActivity.this, "Đã có lỗi xảy ra, vui lòng thử lại sau!", Toast.LENGTH_SHORT).show();
